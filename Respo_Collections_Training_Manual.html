@@ -2138,12 +2138,12 @@
             fb.textContent = "";
           }
         }
+        completed.delete(9);
         document.getElementById("quizScore").classList.remove("show");
         document.getElementById("certBox").style.display = "none";
         document.getElementById("submitBtn").style.display = "inline-block";
         document.getElementById("retakeBtn").style.display = "none";
-        const q1 = document.getElementById("q1");
-        if (q1) q1.scrollIntoView({ behavior: "smooth", block: "start" });
+        showModule(0);
       }
 
       // init
