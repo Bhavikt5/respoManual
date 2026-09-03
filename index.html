@@ -1257,7 +1257,10 @@
     if (q) {
       q.style.border = '';
       q.style.padding = '';
-      q.querySelectorAll('.quiz-opt').forEach(o => o.style.fontWeight = '');
+      q.querySelectorAll('.quiz-opt').forEach(o => {
+        o.style.fontWeight = '';
+        o.style.background = '';
+      });
     }
     event.currentTarget.style.fontWeight = '600';
     event.currentTarget.style.background = 'var(--sky)';
@@ -1341,9 +1344,15 @@
       scoreMsg.innerHTML = '<strong>Congratulations — you have passed!</strong><br>You scored ' + score + ' out of 10. Your training is now complete.';
       document.getElementById('certBox').style.display = 'block';
       document.querySelector('.quiz-submit').style.display = 'none';
+      setTimeout(() => {
+        document.getElementById('certBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
     } else {
       scoreMsg.innerHTML = '<strong>Score: ' + score + '/10 — Please retake the assessment.</strong><br>You need at least 8 out of 10 to pass. Review the modules and try again.';
       document.getElementById('retakeBtn').style.display = 'inline-block';
+      setTimeout(() => {
+        scoreDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
     }
   }
 
@@ -1374,6 +1383,8 @@
     document.getElementById('certBox').style.display = 'none';
     document.querySelector('.quiz-submit').style.display = 'inline-block';
     document.getElementById('retakeBtn').style.display = 'none';
+    const q1 = document.getElementById('q1');
+    if (q1) q1.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   // init
