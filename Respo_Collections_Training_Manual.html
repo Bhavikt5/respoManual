@@ -1951,7 +1951,9 @@
           .forEach((m) => m.classList.remove("active"));
         document.getElementById("module" + n).classList.add("active");
         document.getElementById("nav" + n).classList.add("active");
-        completed.add(n);
+        if (n !== 0 && n !== 9) {
+          completed.add(n);
+        }
         currentModule = n;
         updateProgress();
         window.scrollTo(0, 0);
@@ -1968,7 +1970,14 @@
               nav.classList.add("done");
           }
         }
-        const pct = Math.round((completed.size / 10) * 100);
+        let count = 0;
+        for (let i = 1; i <= 8; i++) {
+          if (completed.has(i)) count++;
+        }
+        let pct = count * 10;
+        if (completed.has(9)) {
+          pct = 100;
+        }
         document.getElementById("progressFill").style.width = pct + "%";
         document.getElementById("progressLabel").textContent =
           pct + "% complete";
@@ -2073,6 +2082,8 @@
         scoreNum.textContent = score + " / 10";
 
         if (score >= 7) {
+          completed.add(9);
+          updateProgress();
           scoreDiv.style.background = "#f0fdf4";
           scoreDiv.style.borderColor = "#bbf7d0";
           scoreNum.style.color = "#16a34a";
