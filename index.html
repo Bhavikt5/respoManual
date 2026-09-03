@@ -590,7 +590,7 @@
       }
       .module-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 14px;
         margin-bottom: 28px;
       }
@@ -2336,9 +2336,13 @@
           opts.forEach((o, idx) => {
             const letter = String.fromCharCode(97 + idx);
             o.onclick = null; // disable further clicks
-            if (letter === correct) o.classList.add("correct");
-            else if (letter === chosen && chosen !== correct)
-              o.classList.add("wrong");
+            if (letter === chosen) {
+              if (chosen === correct) {
+                o.classList.add("correct");
+              } else {
+                o.classList.add("wrong");
+              }
+            }
           });
 
           if (chosen === correct) {
