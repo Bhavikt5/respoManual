@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collections Training Manual — Respo Financial Capital</title>
+<style>
+  /* ── Design tokens ── */
+  :root {
+    --navy:   #0F2744;
+    --blue:   #1A4A8A;
+    --mid:    #2B6CB0;
+    --sky:    #EBF4FF;
+    --gold:   #B7791F;
+    --amber:  #FFFBEB;
+    --red:    #9B2335;
+    --red-bg: #FFF5F5;
+    --green:  #22543D;
+    --grn-bg: #F0FFF4;
+    --ink:    #1A202C;
+    --muted:  #4A5568;
+    --rule:   #CBD5E0;
+    --bg:     #F7F9FC;
+    --white:  #FFFFFF;
+    --radius: 6px;
+    --shadow: 0 1px 4px rgba(15,39,68,.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    background: var(--navy);
+    color: var(--white);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  }
+  .topbar-logo {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: .3px;
+  }
+  .topbar-logo span { color: #90CDF4; }
+  .topbar-title {
+    font-size: 13px;
+    color: #90CDF4;
+    border-left: 1px solid #4A5568;
+    padding-left: 16px;
+  }
+  .progress-bar {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: #A0AEC0;
+  }
+  .progress-track {
+    width: 120px;
+    height: 4px;
+    background: #4A5568;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #90CDF4;
+    width: 0%;
+    transition: width .4s ease;
+  }
+
+  /* ── Layout ── */
+  .wrapper {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 48px);
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    background: var(--white);
+    border-right: 1px solid var(--rule);
+    padding: 24px 0;
+    position: sticky;
+    top: 48px;
+    height: calc(100vh - 48px);
+    overflow-y: auto;
+  }
+  .sidebar-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--muted);
+    padding: 0 20px 8px;
+    text-transform: uppercase;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 20px;
+    cursor: pointer;
+    font-size: 13.5px;
+    color: var(--muted);
+    border-left: 3px solid transparent;
+    transition: all .15s;
+  }
+  .nav-item:hover { background: var(--sky); color: var(--blue); }
+  .nav-item.active {
+    background: var(--sky);
+    color: var(--blue);
+    border-left-color: var(--blue);
+    font-weight: 600;
+  }
+  .nav-item.done .nav-num { background: var(--green); color: white; }
+  .nav-item.locked {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .nav-num {
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--rule);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-item.active .nav-num { background: var(--blue); color: white; }
+
+  /* ── Main content ── */
+  .main {
+    padding: 40px 48px;
+    max-width: 860px;
+  }
+
+  /* ── Modules ── */
+  .module { display: none; }
+  .module.active { display: block; }
+
+  .module-header {
+    margin-bottom: 32px;
+  }
+  .module-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    margin-bottom: 8px;
+  }
+  .module-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .module-desc {
+    color: var(--muted);
+    font-size: 14.5px;
+    border-left: 3px solid var(--mid);
+    padding-left: 14px;
+  }
+
+  /* ── Section headings ── */
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--blue);
+    margin: 24px 0 10px;
+  }
+  p { margin-bottom: 12px; color: var(--ink); }
+
+  /* ── Info boxes ── */
+  .box {
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .box-rule { background: var(--sky); border-left: 4px solid var(--blue); }
+  .box-rule strong { color: var(--navy); }
+  .box-warn { background: var(--amber); border-left: 4px solid var(--gold); }
+  .box-warn strong { color: var(--gold); }
+  .box-stop { background: var(--red-bg); border-left: 4px solid var(--red); }
+  .box-stop strong { color: var(--red); }
+  .box-good { background: var(--grn-bg); border-left: 4px solid var(--green); }
+  .box-good strong { color: var(--green); }
+
+  /* ── Lists ── */
+  ul, ol { padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 7px; color: var(--ink); }
+
+  /* ── Do/Don't table ── */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .do-col, .dont-col {
+    border-radius: var(--radius);
+    padding: 16px;
+    font-size: 13.5px;
+  }
+  .do-col { background: var(--grn-bg); border: 1px solid #C6F6D5; }
+  .dont-col { background: var(--red-bg); border: 1px solid #FED7D7; }
+  .do-col h4 { color: var(--green); margin-bottom: 10px; font-size: 13px; font-weight: 700; }
+  .dont-col h4 { color: var(--red); margin-bottom: 10px; font-size: 13px; font-weight: 700; }
+  .do-col li, .dont-col li { margin-bottom: 8px; }
+  .do-col li::marker { color: var(--green); }
+  .dont-col li::marker { color: var(--red); }
+
+  /* ── Scenario cards ── */
+  .scenario {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    margin: 16px 0;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .scenario-head {
+    background: var(--navy);
+    color: var(--white);
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .scenario-body { padding: 16px; font-size: 14px; }
+  .scenario-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    margin-top: 12px;
+    margin-bottom: 4px;
+  }
+  .label-wrong { color: var(--red); }
+  .label-right { color: var(--green); }
+  .speech { padding: 8px 12px; border-radius: 4px; font-style: italic; font-size: 13.5px; }
+  .speech-wrong { background: var(--red-bg); }
+  .speech-right { background: var(--grn-bg); }
+
+  /* ── Step list ── */
+  .steps { counter-reset: step; list-style: none; padding: 0; margin: 16px 0; }
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .steps li::before {
+    content: counter(step);
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── Table ── */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+  th { background: var(--navy); color: white; padding: 10px 14px; text-align: left; font-size: 12px; font-weight: 600; }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--bg); }
+  .step-num {
+    min-width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Quiz ── */
+  .quiz-wrap { margin: 24px 0; }
+  .quiz-q {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .quiz-q p { font-weight: 600; margin-bottom: 14px; color: var(--navy); }
+  .quiz-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    border: 1px solid var(--rule);
+    font-size: 14px;
+    transition: background .15s;
+    user-select: none;
+  }
+  .quiz-opt:hover { background: var(--sky); }
+  .quiz-opt.correct { background: var(--grn-bg); border-color: #68D391; font-weight: 600; color: var(--green); }
+  .quiz-opt.wrong { background: var(--red-bg); border-color: #FC8181; color: var(--red); }
+  .quiz-feedback {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13.5px;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-score {
+    background: var(--navy);
+    color: white;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    text-align: center;
+    display: none;
+    margin-top: 16px;
+  }
+  .quiz-score.show { display: block; }
+  .quiz-score .score-num { font-size: 42px; font-weight: 700; color: #90CDF4; }
+  .quiz-submit {
+    background: var(--blue);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background .15s;
+  }
+  .quiz-submit:hover { background: var(--navy); }
+
+  /* ── Nav buttons ── */
+  .nav-btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .btn {
+    padding: 10px 22px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background .15s;
+  }
+  .btn-primary { background: var(--blue); color: white; }
+  .btn-primary:hover { background: var(--navy); }
+  .btn-secondary { background: var(--white); color: var(--blue); border: 1px solid var(--blue); }
+  .btn-secondary:hover { background: var(--sky); }
+  .btn:disabled { opacity: .4; cursor: default; }
+
+  /* ── Welcome screen ── */
+  .welcome-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    border-radius: 10px;
+    padding: 40px;
+    color: white;
+    margin-bottom: 32px;
+  }
+  .welcome-hero h1 { font-size: 28px; margin-bottom: 8px; }
+  .welcome-hero p { color: #BEE3F8; font-size: 15px; }
+  .module-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .module-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+  }
+  .module-card .num { font-size: 22px; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+  .module-card .name { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .module-card .mins { font-size: 12px; color: var(--muted); }
+
+  /* ── Completion badge ── */
+  .cert-box {
+    background: linear-gradient(135deg, #1A4A8A, #2B6CB0);
+    color: white;
+    border-radius: 10px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 24px;
+  }
+  .cert-box h2 { color: white; border: none; margin: 12px 0 6px; font-size: 22px; }
+  .cert-box p { color: #BEE3F8; }
+  .cert-icon { font-size: 48px; }
+
+  @media (max-width: 768px) {
+    .wrapper { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .main { padding: 24px 20px; }
+    .do-dont { grid-template-columns: 1fr; }
+    .module-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">Respo <span>Financial</span></div>
+  <div class="topbar-title">Collections Team Training Manual</div>
+  <div class="progress-bar">
+    <span id="progressLabel">0% complete</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Modules</div>
+    <div class="nav-item active" onclick="showModule(0)" id="nav0">
+      <span class="nav-num">●</span> Welcome
+    </div>
+    <div class="nav-item" onclick="showModule(1)" id="nav1">
+      <span class="nav-num">1</span> Who We Are
+    </div>
+    <div class="nav-item" onclick="showModule(2)" id="nav2">
+      <span class="nav-num">2</span> Your Role in Collections
+    </div>
+    <div class="nav-item" onclick="showModule(3)" id="nav3">
+      <span class="nav-num">3</span> Rules of Engagement
+    </div>
+    <div class="nav-item" onclick="showModule(4)" id="nav4">
+      <span class="nav-num">4</span> What You Must Never Do
+    </div>
+    <div class="nav-item" onclick="showModule(5)" id="nav5">
+      <span class="nav-num">5</span> Handling Borrower Calls
+    </div>
+    <div class="nav-item" onclick="showModule(6)" id="nav6">
+      <span class="nav-num">6</span> Special Situations
+    </div>
+    <div class="nav-item" onclick="showModule(7)" id="nav7">
+      <span class="nav-num">7</span> Grievances & Escalations
+    </div>
+    <div class="nav-item" onclick="showModule(8)" id="nav8">
+      <span class="nav-num">8</span> Data & Privacy Rules
+    </div>
+    <div class="nav-item" onclick="showModule(9)" id="nav9">
+      <span class="nav-num">✓</span> Final Assessment
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- MODULE 0: WELCOME -->
+    <div class="module active" id="module0">
+      <div class="welcome-hero">
+        <h1>Welcome to the Respo Collections Training Manual</h1>
+        <p>This training covers everything you need to know to do your job professionally, ethically, and in line with RBI regulations. Read each module carefully and complete the assessment at the end.</p>
+      </div>
+
+      <div class="module-grid">
+        <div class="module-card"><div class="num">01</div><div class="name">Who We Are</div><div class="mins">⏱ 5 mins</div></div>
+        <div class="module-card"><div class="num">02</div><div class="name">Your Role in Collections</div><div class="mins">⏱ 8 mins</div></div>
+        <div class="module-card"><div class="num">03</div><div class="name">Rules of Engagement</div><div class="mins">⏱ 10 mins</div></div>
+        <div class="module-card"><div class="num">04</div><div class="name">What You Must Never Do</div><div class="mins">⏱ 8 mins</div></div>
+        <div class="module-card"><div class="num">05</div><div class="name">Handling Borrower Calls</div><div class="mins">⏱ 12 mins</div></div>
+        <div class="module-card"><div class="num">06</div><div class="name">Special Situations</div><div class="mins">⏱ 8 mins</div></div>
+        <div class="module-card"><div class="num">07</div><div class="name">Grievances & Escalations</div><div class="mins">⏱ 7 mins</div></div>
+        <div class="module-card"><div class="num">08</div><div class="name">Data & Privacy Rules</div><div class="mins">⏱ 7 mins</div></div>
+      </div>
+
+      <div class="box box-rule">
+        <strong>Important:</strong> This training is aligned with Respo's Fair Practice Code, Code of Conduct for Collections Staff, and the RBI (NBFC – Responsible Business Conduct) Directions 2025. All collections team members must complete this training and pass the final assessment before starting work.
+      </div>
+
+      <div class="box box-warn">
+        <strong>All calls are recorded.</strong> Your conversations with borrowers are monitored for quality and compliance. Follow the guidelines in this manual at all times.
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-primary" onclick="showModule(1, true)">Start Training →</button>
+      </div>
+    </div>
+
+    <!-- MODULE 1: WHO WE ARE -->
+    <div class="module" id="module1">
+      <div class="module-header">
+        <div class="module-tag">Module 01</div>
+        <div class="module-title">Who We Are and What We Do</div>
+        <div class="module-desc">Understanding Respo's mission and how the collections team fits in.</div>
+      </div>
+
+      <h2>About Respo Financial Capital</h2>
+      <p>Respo Financial Capital Private Limited is a Reserve Bank of India (RBI) registered Non-Banking Financial Company (NBFC). We provide unsecured personal loans to individuals through the <strong>Zype app</strong>, operated by Easy Platform Services Private Limited.</p>
+      <p>Our loans range from 6 to 36 months in tenure and are disbursed entirely digitally — no physical branches, no cash. Everything happens through the Zype app.</p>
+
+      <div class="box box-rule">
+        <strong>Our Promise to Every Borrower:</strong> Respo is committed to providing credit in a fair, transparent, and responsible manner. This is not just a value — it is a legal obligation under the RBI Responsible Business Conduct Directions 2025.
+      </div>
+
+      <h2>Our Regulatory Framework</h2>
+      <p>As an RBI-regulated NBFC, Respo must follow a strict set of rules when dealing with borrowers — especially when it comes to recovering dues. The key regulations that govern your work are:</p>
+
+      <table>
+        <thead><tr><th>Regulation</th><th>What It Covers</th></tr></thead>
+        <tbody>
+          <tr><td>RBI RBC-MD 2025</td><td>Fair treatment of borrowers, prohibited recovery practices, grievance redressal</td></tr>
+          <tr><td>RBI RBC Third Amendment 2026</td><td>Specific rules for recovery agents, calling hours, IIBF certification, pre-visit notification</td></tr>
+          <tr><td>Respo Fair Practice Code</td><td>Our own commitment to borrowers — published on our website</td></tr>
+          <tr><td>Respo Code of Conduct (Collections)</td><td>Your specific do's and don'ts as a collections team member</td></tr>
+          <tr><td>DPDP Act 2023</td><td>Rules on protecting borrower personal data</td></tr>
+        </tbody>
+      </table>
+
+      <h2>The Collections Team's Place at Respo</h2>
+      <p>The collections team is one of the most important customer-facing functions at Respo. How you speak to and treat borrowers directly shapes:</p>
+      <ul>
+        <li>The borrower's experience with Respo</li>
+        <li>Respo's reputation and RBI compliance</li>
+        <li>Our ability to recover dues sustainably</li>
+      </ul>
+
+      <div class="box box-good">
+        <strong>Remember:</strong> A borrower who is treated fairly and with dignity is far more likely to repay than one who feels harassed or threatened. Fair collections is also effective collections.
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secondary" onclick="showModule(0)">← Back</button>
+        <button class="btn btn-primary" onclick="showModule(2, true)">Next Module →</button>
+      </div>
+    </div>
+
+    <!-- MODULE 2: YOUR ROLE -->
+    <div class="module" id="module2">
+      <div class="module-header">
+        <div class="module-tag">Module 02</div>
+        <div class="module-title">Your Role in Collections</div>
+        <div class="module-desc">What you are responsible for, and how the collections process works at Respo.</div>
+      </div>
+
+      <h2>In-House vs. Agency Collections</h2>
+      <p>At Respo, collections is split into two tracks:</p>
+      <table>
+        <thead><tr><th>Track</th><th>Who Handles It</th><th>Bucket</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Early Bucket (0–60 DPD)</strong></td><td>In-house team (you)</td><td>Soft reminders, payment arrangements</td></tr>
+          <tr><td><strong>Higher Bucket (60+ DPD / NPA)</strong></td><td>Empanelled Recovery Agencies</td><td>Escalated recovery</td></tr>
+        </tbody>
+      </table>
+      <p>As a member of the in-house collections team, you handle the early stages — where the relationship with the borrower is most important. Your goal is to help the borrower get back on track, not to threaten or pressure them.</p>
+
+      <h2>Key Definitions You Need to Know</h2>
+      <table>
+        <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>DPD</td><td>Days Past Due — number of days since the EMI was due but not paid</td></tr>
+          <tr><td>NPA</td><td>Non-Performing Asset — a loan classified as bad debt (90 DPD)</td></tr>
+          <tr><td>EMI</td><td>Equated Monthly Instalment — the fixed amount the borrower pays each month</td></tr>
+          <tr><td>Overdue Interest</td><td>Interest charged on unpaid EMI amounts — at the same contracted rate, not an additional charge</td></tr>
+          <tr><td>Late Payment Penalty</td><td>A capped daily penalty (max ₹2,500 per loan) for delayed payments</td></tr>
+          <tr><td>GRO</td><td>Grievance Redressal Officer — the person a borrower can complain to</td></tr>
+          <tr><td>Penal Charges</td><td>Late Payment Penalties — these are NOT interest and must NOT be capitalised</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Your Core Objectives</h2>
+      <ol class="steps">
+        <li><strong>Contact the borrower promptly</strong> — reach out as soon as an EMI is missed, using approved channels and timing.</li>
+        <li><strong>Understand the borrower's situation</strong> — find out why the EMI was missed. Genuine financial distress is different from avoidance.</li>
+        <li><strong>Offer a resolution path</strong> — payment within the current cycle, a part payment, or escalation to a supervisor for a formal arrangement.</li>
+        <li><strong>Document every interaction</strong> — log all calls, SMS, and outcomes in the collections system immediately after each interaction.</li>
+        <li><strong>Escalate when needed</strong> — if the borrower is unresponsive or the account crosses 60 DPD, escalate to your supervisor for handoff to the agency track.</li>
+      </ol>
+
+      <div class="box box-rule">
+        <strong>Your identity card:</strong> You must always identify yourself by name and as a representative of Respo Financial Capital at the start of every call. Never call from personal numbers — use only Respo-registered contact numbers.
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secondary" onclick="showModule(1)">← Back</button>
+        <button class="btn btn-primary" onclick="showModule(3, true)">Next Module →</button>
+      </div>
+    </div>
+
+    <!-- MODULE 3: RULES OF ENGAGEMENT -->
+    <div class="module" id="module3">
+      <div class="module-header">
+        <div class="module-tag">Module 03</div>
+        <div class="module-title">Rules of Engagement</div>
+        <div class="module-desc">The specific rules governing when, how, and who you can contact. These are RBI-mandated — not optional.</div>
+      </div>
+
+      <h2>Calling Hours</h2>
+      <div class="box box-rule">
+        <strong>You may only contact borrowers between 8:00 AM and 7:00 PM.</strong> Calls, SMS, WhatsApp messages, or any other form of contact outside these hours is strictly prohibited — regardless of how urgent the case is.
+      </div>
+      <p>This rule applies to:</p>
+      <ul>
+        <li>Phone calls</li>
+        <li>SMS messages</li>
+        <li>WhatsApp messages</li>
+        <li>Any other digital communication</li>
+      </ul>
+
+      <h2>Who You Can Contact</h2>
+      <div class="box box-stop">
+        <strong>You may ONLY contact the borrower and/or the guarantor.</strong> You must NEVER discuss the borrower's loan dues with anyone else — not family members, not employers, not friends, not references — unless they are named as a guarantor in the loan agreement.
+      </div>
+      <p>Contacting third parties to discuss a borrower's dues is a serious violation of RBI guidelines and the borrower's privacy rights under the DPDP Act 2023.</p>
+
+      <h2>Number of Contacts</h2>
+      <p>You must not make excessive calls. The following is prohibited:</p>
+      <ul>
+        <li>Calling the same borrower multiple times in a day without a genuine reason</li>
+        <li>Sending more than the number of SMS/messages approved by your supervisor</li>
+        <li>Calling a borrower who has told you to stop calling and the matter is being handled (follow escalation procedure in that case)</li>
+      </ul>
+
+      <h2>Identification on Every Call</h2>
+      <p>At the start of every call, you must:</p>
+      <ol class="steps">
+        <li>State your full name clearly</li>
+        <li>State that you are calling on behalf of Respo Financial Capital Private Limited</li>
+        <li>State the purpose of the call (EMI follow-up)</li>
+        <li>Confirm you are speaking with the borrower (never assume)</li>
+      </ol>
+
+      <div class="scenario">
+        <div class="scenario-head">📞 Sample Call Opening</div>
+        <div class="scenario-body">
+          <div class="speech speech-right">"Good morning. Am I speaking with [Borrower Name]? This is [Your Name] calling from Respo Financial Capital. I am calling regarding your Zype loan account. Is this a good time to speak?"</div>
+        </div>
+      </div>
+
+      <h2>Using Only Registered Numbers</h2>
+      <p>All borrower contacts must be made only from Respo-registered phone numbers. Using your personal mobile number to contact a borrower is:</p>
+      <ul>
+        <li>A violation of Respo's Code of Conduct</li>
+        <li>A potential violation of the borrower's privacy rights</li>
+        <li>Grounds for disciplinary action</li>
+      </ul>
+
+      <h2>Call Recording</h2>
+      <div class="box box-warn">
+        <strong>All calls are recorded.</strong> Under the RBI RBC Third Amendment 2026, Respo is required to maintain recordings of all borrower calls for a minimum of 6 months. You must inform the borrower that the call is being recorded at the start of every call.
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secondary" onclick="showModule(2)">← Back</button>
+        <button class="btn btn-primary" onclick="showModule(4, true)">Next Module →</button>
+      </div>
+    </div>
+
+    <!-- MODULE 4: PROHIBITED PRACTICES -->
+    <div class="module" id="module4">
+      <div class="module-header">
+        <div class="module-tag">Module 04</div>
+        <div class="module-title">What You Must Never Do</div>
+        <div class="module-desc">Prohibited practices under RBI guidelines and Respo's Code of Conduct. Violating these rules will result in immediate disciplinary action.</div>
+      </div>
+
+      <div class="box box-stop">
+        <strong>Zero tolerance policy:</strong> Respo has a zero tolerance approach to harsh or unethical recovery practices. Any violation of the rules in this module will be investigated and may result in termination and reporting to RBI.
+      </div>
+
+      <h2>Absolutely Prohibited — No Exceptions</h2>
+
+      <table>
+        <thead><tr><th>Prohibited Practice</th><th>Why It Is Prohibited</th></tr></thead>
+        <tbody>
+          <tr><td>Using abusive, threatening, or obscene language</td><td>Violation of RBI RBC-MD 2025 + Respo Code of Conduct</td></tr>
+          <tr><td>Threatening physical harm or any other harm</td><td>Criminal offence + RBI violation</td></tr>
+          <tr><td>Calling outside 8 AM – 7 PM</td><td>RBI RBC Third Amendment 2026 — explicit mandatory rule</td></tr>
+          <tr><td>Making anonymous or disguised calls</td><td>RBI violation + TRAI regulations</td></tr>
+          <tr><td>Contacting employer, family, or friends about the loan</td><td>Violation of DPDP Act 2023 + RBI FPC</td></tr>
+          <tr><td>Posting borrower details on social media or any public platform</td><td>Serious RBI violation + criminal liability</td></tr>
+          <tr><td>Making false statements about legal consequences</td><td>Misrepresentation — RBI FPC violation</td></tr>
+          <tr><td>Impersonating a court official, police officer, or government authority</td><td>Criminal offence under IPC</td></tr>
+          <tr><td>Collecting cash from the borrower personally</td><td>Respo does not accept cash — all payments via Zype app/bank transfer only</td></tr>
+          <tr><td>Excessive or repeated calling to harass</td><td>RBI RBC-MD 2025 + TRAI</td></tr>
+        </tbody>
+      </table>
+
+      <div class="do-dont">
+        <div class="do-col">
+          <h4>✓ WHAT YOU SHOULD SAY</h4>
+          <ul>
+            <li>"I understand your situation. Can we discuss a way to resolve this?"</li>
+            <li>"Your payment of ₹X is overdue. Would you like to make a partial payment today?"</li>
+            <li>"If you are facing financial difficulty, please speak to our team — we may be able to help."</li>
+            <li>"Your account will be reported to the credit bureau if the payment is not received by [date]."</li>
+          </ul>
+        </div>
+        <div class="dont-col">
+          <h4>✗ WHAT YOU MUST NEVER SAY</h4>
+          <ul>
+            <li>"I will send someone to your house" (unless a formal visit has been notified and approved)</li>
+            <li>"I will tell your employer about this"</li>
+            <li>"You will go to jail if you don't pay"</li>
+            <li>"Pay now or else..." (threats of any kind)</li>
+            <li>Any abusive or caste/religion-based language</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Social Media — Complete Prohibition</h2>
+      <p>You must never:</p>
+      <ul>
+        <li>Post a borrower's name, photo, contact details, or loan information on any social media platform</li>
+        <li>Share borrower information in WhatsApp groups, Telegram channels, or any public forum</li>
+        <li>Comment on a borrower's social media posts to pressure payment</li>
+      </ul>
+      <div class="box box-stop">
+        <strong>This is a criminal offence</strong> under the DPDP Act 2023 and may also attract liability under the IT Act, 2000. It is also a direct violation of RBI guidelines.
+      </div>
+
+      <h2>No Cash Collections</h2>
+      <p>Respo is a fully digital lender. We do not accept cash. If a borrower offers cash payment:</p>
+      <ol class="steps">
+        <li>Do not accept it under any circumstances.</li>
+        <li>Guide the borrower to pay through the Zype app or via bank transfer to the designated account.</li>
+        <li>If the borrower insists on cash, escalate to your supervisor immediately.</li>
+      </ol>
+
+      <div class="nav-btns">
+        <button class="btn btn-secondary" onclick="showModule(3)">← Back</button>
+        <button class="btn btn-primary" onclick="showModule(5, true)">Next Module →</button>
+      </div>
+    </div>
+
+    <!-- MODULE 5: HANDLING CALLS -->
+    <div class="module" id="module5">
+      <div class="module-header">
+        <div class="module-tag">Module 05</div>
+        <div class="module-title">Handling Borrower Calls</div>
+        <div class="module-desc">Practical guidance on how to structure effective, compliant borrower conversations.</div>
+      </div>
+
+      <h2>The 5-Step Call Framework</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:50px; text-align:center;">Step</th>
+            <th style="width:230px;">Action</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:center;"><span class="step-num">1</span></td>
+            <td><strong>Identify yourself and confirm borrower identity.</strong></td>
+            <td>State your name, Respo Financial Capital, and confirm you are speaking with the borrower. Mention the call is recorded.</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><span class="step-num">2</span></td>
+            <td><strong>State the purpose clearly and respectfully.</strong></td>
+            <td>Mention the overdue amount and the number of days past due. Keep it factual — no threats, no drama.</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><span class="step-num">3</span></td>
+            <td><strong>Listen actively.</strong></td>
+            <td>Ask the borrower to explain their situation. Be patient. Do not interrupt.</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><span class="step-num">4</span></td>
+            <td><strong>Offer a resolution.</strong></td>
+            <td>Based on what the borrower tells you, offer appropriate next steps. If you are not authorised to offer a specific arrangement, escalate — do not promise something you cannot deliver.</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><span class="step-num">5</span></td>
+            <td><strong>Confirm and close.</strong></td>
+            <td>Summarise what was agreed, give the borrower a clear next step, and thank them for speaking with you. Log the call immediately.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Real Call Scenarios</h2>
+
+      <div class="scenario">
+        <div class="scenario-head">Scenario A — Borrower says "I will pay next week"</div>
+        <div class="scenario-body">
+          <div class="scenario-label label-wrong">✗ Wrong approach</div>
+          <div class="speech speech-wrong">"You said that last time too. I am going to report this and take action against you."</div>
+          <div class="scenario-label label-right">✓ Right approach</div>
+          <div class="speech speech-right">"Thank you for letting me know. Could I confirm the exact date you plan to make the payment? I will note this on your account. Please also be aware that additional late charges will apply for each day the payment remains overdue. Is there anything I can do to help you make the payment sooner?"</div>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-head">Scenario B — Borrower says "I lost my job and cannot pay"</div>
+        <div class="scenario-body">
+          <div class="scenario-label label-wrong">✗ Wrong approach</div>
+          <div class="speech speech-wrong">"That is not our problem. You took the loan and you need to pay."</div>
+          <div class="scenario-label label-right">✓ Right approach</div>
+          <div class="speech speech-right">"I am sorry to hear that. I understand this must be a difficult time. Let me note your situation on the account and connect you with our team who handles hardship cases. In the meantime, if you can make even a partial payment today, it will reduce the penalties accumulating on your account. Would that be possible?"</div>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-head">Scenario C — Borrower becomes abusive on the call</div>
+        <div class="scenario-body">
+          <div class="scenario-label label-wrong">✗ Wrong approach</div>
+          <div class="speech speech-wrong">Responding with equal aggression or making threats.</div>
+          <div class="scenario-label label-right">✓ Right approach</div>
+          <div class="speech speech-right">"I understand you are upset. I want to help resolve this for you, but I need us to have a calm conversation. If now is not a good time, I can call you back later. Alternatively, you can reach our Grievance Redressal Officer at [GRO contact]. Shall I give you that number?"</div>
+          <p style="margin-top:10px;font-size:13px;color:var(--muted);">Then log the call, note the borrower's behaviour, and inform your supervisor.</p>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <div class="scenario-head">Scenario D — Someone other than the borrower answers</div>
+        <div class="scenario-body">
+          <div class="scenario-label label-wrong">✗ Wrong approach</div>
+          <div class="speech speech-wrong">"Please tell [Borrower Name] that they owe ₹X and we will take action."</div>
+          <div class="scenario-label label-right">✓ Right approach</div>
+          <div class="speech speech-right">"I am looking to speak with [Borrower Name]. Could you please let them know that someone from Respo Financial Capital called and ask them to call back at [Respo number]? Thank you."</div>
+          <p style="margin-top:10px;font-size:13px;color:var(--muted);">Never reveal loan details to anyone other than the borrower or guarantor.</p>
+        </div>
+      </div>
+
+      <h2>After Every Call — What to Log</h2>
+      <p>Immediately after every call, log the following in the collections system:</p>
+      <ul>
+        <li>Date and time of call</li>
+        <li>Who answered (borrower / third party / no answer)</li>
+        <li>Summary of the conversation</li>
+        <li>Any commitment made by the borrower (payment date/amount)</li>
+        <li>Next action and date</li>
+      </ul>
+
+      <div class="box box-warn">
+        <strong>Incomplete logs are a compliance risk.</strong> During an RBI inspection, all call records must be available. Missing or inaccurate logs can result in adverse inspection findings for Respo.
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn-secondary" onclick="showModule(4)">← Back</button>
+        <button class="btn btn-primary" onclick="showModule(6, true)">Next Module →</button>
+      </div>
+    </div>
+
+    <!-- MODULE 6: SPECIAL SITUATIONS -->
+    <div class="module" id="module6">
+      <div class="module-header">
+        <div class="module-tag">Module 06</div>
+        <div class="module-title">Special Situations</div>
+        <div class="module-desc">How to handle situations that require extra care and specific procedures.</div>
+      </div>
+
+      <h2>Borrower Claims Financial Hardship</h2>
+      <p>When a borrower genuinely cannot pay due to job loss, medical emergency, or other hardship:</p>
+      <ol class="steps">
+        <li>Listen with empathy. Do not dismiss or trivialise their situation.</li>
+        <li>Acknowledge the difficulty: <em>"I understand this is a difficult time."</em></li>
+        <li>Tell the borrower that Respo has a process for hardship cases and you will flag their account for review.</li>
+        <li>Do NOT promise any specific restructuring, waiver, or arrangement — you are not authorised to do so. Escalate to your supervisor.</li>
+        <li>Log the call with "Hardship — escalate for review" and notify your supervisor immediately.</li>
+      </ol>
+
+      <div class="box box-good">
+        <strong>Respo's policy:</strong> We assess financial hardship cases on their merits. A borrower in genuine distress who is communicating openly is treated differently from one who is avoiding contact. Your job is to identify and escalate hardship cases — not to resolve them unilaterally.
+      </div>
+
+      <h2>Borrower Disputes the Loan or Amount</h2>
+      <p>If a borrower says they did not take this loan, do not recognise it, or disputes the outstanding amount:</p>
+      <ol class="steps">
+        <li>Do not argue. Take note of the dispute.</li>
+        <li>Tell the borrower: <em>"I understand you are disputing this. I will flag this on your account and our team will review it. In the meantime, please do not make any payment until the dispute is resolved."</em></li>
+        <li>Log the dispute clearly and escalate to your supervisor immediately.</li>
+        <li>Do not continue collections activity on a disputed account until the dispute is reviewed by the appropriate team.</li>
+      </ol>
+
+      <h2>Borrower Mentions Legal Action or Police Complaint</h2>
+      <p>If a borrower says they will file a police complaint, approach a consumer forum, or contact RBI:</p>
+      <ul>
+        <li>Do not panic or become defensive.</li>
+        <li>Respond calmly: <em>"You are absolutely entitled to approach any authority. Our Grievance Redressal Officer can also help resolve your concern — let me give you that contact."</em></li>
+        <li>Log the call and inform your supervisor.</li>
+        <li>Do not make any threats in response.</li>
+      </ul>
+
+      <h2>Borrower Requests a No-Contact Period</h2>
+      <p>If a borrower explicitly requests that you stop contacting them:</p>
+      <ol class="steps">
+        <li>Note the request on the account.</li>
+        <li>Inform the borrower that the account remains active and dues continue to accrue.</li>
+        <li>Escalate to your supervisor — do not unilaterally stop all collections activity without authorisation.</li>
+        <li>Your supervisor will decide the appropriate next step (legal notice, agency handoff etc.).</li>
+      </ol>
+
+      <h2>Deceased Borrower</h2>
+      <p>This is a sensitive situation that requires care:</p>
+      <ul>
+        <li>Do not continue collections calls to the deceased borrower's number once informed of the death.</li>
+        <li>Speak to the supervisor immediately and escalate to the legal/recovery team.</li>
+        <li>Communications with the legal heir (if any) must follow a specific process — do not improvise.</li>
+        <li>Exercise empathy and professionalism at all times when interacting with the family.</li>
+      </ul>
+
+      <div class="nav-btns">
+        <button class="btn btn-secondary" onclick="showModule(5)">← Back</button>
+        <button class="btn btn-primary" onclick="showModule(7, true)">Next Module →</button>
+      </div>
+    </div>
+
+    <!-- MODULE 7: GRIEVANCES -->
+    <div class="module" id="module7">
+      <div class="module-header">
+        <div class="module-tag">Module 07</div>
+        <div class="module-title">Grievances and Escalations</div>
+        <div class="module-desc">Understanding how to handle borrower complaints and when to escalate.</div>
+      </div>
+
+      <h2>Every Borrower Has the Right to Complain</h2>
+      <p>Under Respo's Fair Practice Code and RBI guidelines, every borrower has the right to raise a grievance. You must never discourage, dismiss, or obstruct a borrower from raising a complaint.</p>
+
+      <div class="box box-rule">
+        <strong>Respo's Grievance Redressal Structure:</strong><br>
+        <strong>Level 1 — Customer Service Team:</strong> First point of contact. Must respond within 5 working days.<br>
+        <strong>Level 2 — Grievance Redressal Officer (GRO):</strong> Escalation if Level 1 is unsatisfactory. Must respond within 15 working days.<br>
+        <strong>Level 3 — RBI Ombudsman:</strong> If the grievance is unresolved within 30 days or the borrower is unsatisfied with Respo's resolution.
+      </div>
+
+      <h2>When a Borrower Raises a Complaint During a Collections Call</h2>
+      <ol class="steps">
+        <li>Listen fully to the complaint without interrupting.</li>
+        <li>Acknowledge: <em>"Thank you for bringing this to my attention. I take this seriously."</em></li>
+        <li>Provide the GRO contact details: email and phone number available on the Respo website and the Zype app.</li>
+        <li>Log the complaint on the collections system with full details.</li>
+        <li>Inform your supervisor immediately.</li>
+        <li>Pause collections activity on the account pending complaint resolution — check with your supervisor on this.</li>
+      </ol>
+
+      <h2>Complaints About You Specifically</h2>
+      <p>If a borrower complains about your behaviour — how you spoke to them, the time you called, something you said — take it seriously:</p>
+      <ul>
+        <li>Do not be defensive or dismissive.</li>
+        <li>Do not contact the borrower again on the same complaint without supervisor authorisation.</li>
+        <li>Report the complaint to your supervisor immediately.</li>
+        <li>All calls are recorded — the recording will be reviewed as part of the grievance process.</li>
+      </ul>
+
+      <div class="box box-warn">
+        <strong>Consequence of a validated complaint against you:</strong> If a borrower's complaint about your conduct is found to be valid, it will result in disciplinary action under Respo's HR policy — which may include a formal warning, suspension, or termination depending on the severity.
+      </div>
+
+      <h2>Escalation to RBI Ombudsman</h2>
+      <p>If a borrower tells you they are going to approach the RBI Ombudsman:</p>
+      <ul>
+        <li>Acknowledge their right to do so.</li>
+        <li>Provide the RBI CMS portal link: <strong>cms.rbi.org.in</strong></li>
+        <li>Inform your supervisor immediately so the complaint can be tracked and responded to within the 30-day RBI timeline.</li>
+      </ul>
+
+      <div class="nav-btns">
+        <button class="btn btn-secondary" onclick="showModule(6)">← Back</button>
+        <button class="btn btn-primary" onclick="showModule(8, true)">Next Module →</button>
+      </div>
+    </div>
+
+    <!-- MODULE 8: DATA PRIVACY -->
+    <div class="module" id="module8">
+      <div class="module-header">
+        <div class="module-tag">Module 08</div>
+        <div class="module-title">Data and Privacy Rules</div>
+        <div class="module-desc">Your obligations under the Digital Personal Data Protection Act 2023 and Respo's data policy.</div>
+      </div>
+
+      <h2>What Is Borrower Data?</h2>
+      <p>Every piece of information about a borrower that you have access to — their name, phone number, address, employer, loan amount, repayment history, bank account — is personal data protected by law.</p>
+
+      <div class="box box-stop">
+        <strong>You may only use borrower data for one purpose:</strong> to carry out your collections responsibilities on behalf of Respo. Using it for any other purpose is a violation of the DPDP Act 2023 and Respo's data policy.
+      </div>
+
+      <h2>What You Must Never Do With Borrower Data</h2>
+      <ul>
+        <li>Share a borrower's name, address, loan details, or any other information with anyone other than the borrower or guarantor</li>
+        <li>Save borrower data on your personal phone or personal email</li>
+        <li>Screenshot or photograph collections system data on your personal device</li>
+        <li>Discuss borrower information with colleagues unnecessarily — access only what you need for your work</li>
+        <li>Share borrower data on social media, WhatsApp groups, or any external platform</li>
+      </ul>
+
+      <h2>If You Suspect a Data Breach</h2>
+      <p>If you notice that borrower data may have been accessed, shared, or compromised — even accidentally:</p>
+      <ol class="steps">
+        <li>Do not try to fix it yourself or cover it up.</li>
+        <li>Report it to your supervisor and the Compliance team immediately.</li>
+        <li>Under the DPDP Act 2023, Respo must report data breaches to the Data Protection Board — so timing matters.</li>
+      </ol>
+
+      <h2>Borrower Rights Under DPDP Act 2023</h2>
+      <p>Every borrower has the right to:</p>
+      <table>
+        <thead><tr><th>Right</th><th>What It Means for You</th></tr></thead>
+        <tbody>
+          <tr><td>Access their data</td><td>If a borrower asks what data we hold, direct them to the Zype app or the GRO — do not answer data access queries yourself</td></tr>
+          <tr><td>Correct inaccurate data</td><td>If a borrower says their details are wrong, note it and escalate — do not attempt to correct data yourself</td></tr>
+          <tr><td>Raise a data complaint</td><td>Direct them to the GRO contact on the Zype app</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Using the Collections System Responsibly</h2>
+      <ul>
+        <li>Log out of the collections system when you are not actively using it</li>
+        <li>Never share your login credentials with anyone</li>
+        <li>Do not access accounts that are not assigned to you</li>
+        <li>Report any system errors or unusual access you notice to your supervisor</li>
+      </ul>
+
+      <div class="nav-btns">
+        <button class="btn btn-secondary" onclick="showModule(7)">← Back</button>
+        <button class="btn btn-primary" onclick="showModule(9, true)">Proceed to Assessment →</button>
+      </div>
+    </div>
+
+    <!-- MODULE 9: ASSESSMENT -->
+    <div class="module" id="module9">
+      <div class="module-header">
+        <div class="module-tag">Final Assessment</div>
+        <div class="module-title">Knowledge Check</div>
+        <div class="module-desc">Answer all 10 questions. You need a score of 8/10 or above to pass. You may retake the assessment if needed.</div>
+      </div>
+
+      <div class="quiz-wrap" id="quizForm">
+
+        <div class="quiz-q" id="q1">
+          <p>1. Between what hours are you permitted to contact borrowers?</p>
+          <div class="quiz-opt" onclick="selectOpt(1,'a')"><span>A.</span> 6:00 AM to 9:00 PM</div>
+          <div class="quiz-opt" onclick="selectOpt(1,'b')"><span>B.</span> 8:00 AM to 7:00 PM</div>
+          <div class="quiz-opt" onclick="selectOpt(1,'c')"><span>C.</span> 9:00 AM to 6:00 PM</div>
+          <div class="quiz-opt" onclick="selectOpt(1,'d')"><span>D.</span> Any time — as long as the borrower is responsive</div>
+          <div class="quiz-feedback" id="fb1"></div>
+        </div>
+
+        <div class="quiz-q" id="q2">
+          <p>2. A borrower's family member answers the phone. What should you do?</p>
+          <div class="quiz-opt" onclick="selectOpt(2,'a')"><span>A.</span> Tell the family member about the overdue amount so they can help</div>
+          <div class="quiz-opt" onclick="selectOpt(2,'b')"><span>B.</span> Ask them to pass on a message that Respo called and request the borrower call back</div>
+          <div class="quiz-opt" onclick="selectOpt(2,'c')"><span>C.</span> Ask for the borrower's employer contact details</div>
+          <div class="quiz-opt" onclick="selectOpt(2,'d')"><span>D.</span> End the call and call again later</div>
+          <div class="quiz-feedback" id="fb2"></div>
+        </div>
+
+        <div class="quiz-q" id="q3">
+          <p>3. A borrower offers to pay in cash. You should:</p>
+          <div class="quiz-opt" onclick="selectOpt(3,'a')"><span>A.</span> Accept the cash and deposit it in Respo's account</div>
+          <div class="quiz-opt" onclick="selectOpt(3,'b')"><span>B.</span> Accept the cash and issue a handwritten receipt</div>
+          <div class="quiz-opt" onclick="selectOpt(3,'c')"><span>C.</span> Decline politely and guide the borrower to pay through the Zype app or bank transfer</div>
+          <div class="quiz-opt" onclick="selectOpt(3,'d')"><span>D.</span> Tell the borrower to meet you at the office</div>
+          <div class="quiz-feedback" id="fb3"></div>
+        </div>
+
+        <div class="quiz-q" id="q4">
+          <p>4. A borrower says they lost their job and cannot pay this month. What is the correct response?</p>
+          <div class="quiz-opt" onclick="selectOpt(4,'a')"><span>A.</span> Tell them that is their problem and they need to find a way to pay</div>
+          <div class="quiz-opt" onclick="selectOpt(4,'b')"><span>B.</span> Promise them a 3-month moratorium on the spot</div>
+          <div class="quiz-opt" onclick="selectOpt(4,'c')"><span>C.</span> Listen with empathy, flag the account as a hardship case, and escalate to your supervisor</div>
+          <div class="quiz-opt" onclick="selectOpt(4,'d')"><span>D.</span> Ignore the hardship claim and continue with standard follow-up</div>
+          <div class="quiz-feedback" id="fb4"></div>
+        </div>
+
+        <div class="quiz-q" id="q5">
+          <p>5. Which of the following is strictly prohibited under Respo's Code of Conduct?</p>
+          <div class="quiz-opt" onclick="selectOpt(5,'a')"><span>A.</span> Calling a borrower during lunch hours</div>
+          <div class="quiz-opt" onclick="selectOpt(5,'b')"><span>B.</span> Posting a borrower's name and loan details on a WhatsApp group</div>
+          <div class="quiz-opt" onclick="selectOpt(5,'c')"><span>C.</span> Logging a call immediately after it ends</div>
+          <div class="quiz-opt" onclick="selectOpt(5,'d')"><span>D.</span> Offering a borrower the GRO contact number</div>
+          <div class="quiz-feedback" id="fb5"></div>
+        </div>
+
+        <div class="quiz-q" id="q6">
+          <p>6. A borrower disputes that they took this loan. What should you do?</p>
+          <div class="quiz-opt" onclick="selectOpt(6,'a')"><span>A.</span> Insist the loan is valid and continue collections</div>
+          <div class="quiz-opt" onclick="selectOpt(6,'b')"><span>B.</span> Note the dispute, stop collections on this account, and escalate to your supervisor immediately</div>
+          <div class="quiz-opt" onclick="selectOpt(6,'c')"><span>C.</span> Tell the borrower to visit the office</div>
+          <div class="quiz-opt" onclick="selectOpt(6,'d')"><span>D.</span> Threaten legal action to force payment</div>
+          <div class="quiz-feedback" id="fb6"></div>
+        </div>
+
+        <div class="quiz-q" id="q7">
+          <p>7. All borrower calls at Respo are recorded. For how long must these recordings be kept?</p>
+          <div class="quiz-opt" onclick="selectOpt(7,'a')"><span>A.</span> 30 days</div>
+          <div class="quiz-opt" onclick="selectOpt(7,'b')"><span>B.</span> 90 days</div>
+          <div class="quiz-opt" onclick="selectOpt(7,'c')"><span>C.</span> 6 months</div>
+          <div class="quiz-opt" onclick="selectOpt(7,'d')"><span>D.</span> 1 year</div>
+          <div class="quiz-feedback" id="fb7"></div>
+        </div>
+
+        <div class="quiz-q" id="q8">
+          <p>8. A borrower becomes abusive during a call. The right response is to:</p>
+          <div class="quiz-opt" onclick="selectOpt(8,'a')"><span>A.</span> Respond firmly and match their energy</div>
+          <div class="quiz-opt" onclick="selectOpt(8,'b')"><span>B.</span> Stay calm, offer to call back later or provide GRO contact, then log and report to supervisor</div>
+          <div class="quiz-opt" onclick="selectOpt(8,'c')"><span>C.</span> Hang up immediately and mark the account as uncooperative</div>
+          <div class="quiz-opt" onclick="selectOpt(8,'d')"><span>D.</span> Warn the borrower that you will take legal action</div>
+          <div class="quiz-feedback" id="fb8"></div>
+        </div>
+
+        <div class="quiz-q" id="q9">
+          <p>9. What information are you allowed to share with a borrower's employer?</p>
+          <div class="quiz-opt" onclick="selectOpt(9,'a')"><span>A.</span> The borrower's overdue amount and number of days past due</div>
+          <div class="quiz-opt" onclick="selectOpt(9,'b')"><span>B.</span> Nothing — you must never contact or share information with a borrower's employer</div>
+          <div class="quiz-opt" onclick="selectOpt(9,'c')"><span>C.</span> Only the borrower's name and contact number</div>
+          <div class="quiz-opt" onclick="selectOpt(9,'d')"><span>D.</span> The borrower's loan account number only</div>
+          <div class="quiz-feedback" id="fb9"></div>
+        </div>
+
+        <div class="quiz-q" id="q10">
+          <p>10. A borrower says they are going to file a complaint with the RBI Ombudsman. You should:</p>
+          <div class="quiz-opt" onclick="selectOpt(10,'a')"><span>A.</span> Tell the borrower that their complaint will not be entertained</div>
+          <div class="quiz-opt" onclick="selectOpt(10,'b')"><span>B.</span> Acknowledge their right to do so, provide the RBI CMS portal link, and immediately inform your supervisor</div>
+          <div class="quiz-opt" onclick="selectOpt(10,'c')"><span>C.</span> Ignore the statement and continue with standard collections</div>
+          <div class="quiz-opt" onclick="selectOpt(10,'d')"><span>D.</span> Offer a waiver to prevent the complaint</div>
+          <div class="quiz-feedback" id="fb10"></div>
+        </div>
+
+        <div class="box box-warn" id="quizWarn" style="display:none; margin-bottom:16px; font-weight:600;"></div>
+        <button class="quiz-submit" onclick="submitQuiz()">Submit Assessment</button>
+
+        <div class="quiz-score" id="quizScore">
+          <div class="score-num" id="scoreNum"></div>
+          <div id="scoreMsg"></div>
+          <br>
+          <button class="quiz-submit" onclick="retakeQuiz()" id="retakeBtn" style="display:none;">Retake Assessment</button>
+        </div>
+      </div>
+
+      <div class="cert-box" id="certBox" style="display:none;">
+        <div class="cert-icon">🏅</div>
+        <h2>Training Complete</h2>
+        <p>You have successfully completed the Respo Collections Team Training Manual and passed the assessment. Your completion has been recorded.</p>
+        <br>
+        <p style="font-size:13px;color:#BEE3F8;">Please inform your supervisor or HR to update your training record. You will be required to repeat this training annually.</p>
+      </div>
+
+    </div><!-- end module9 -->
+
+  </main>
+</div>
+
+<script>
+  // ── State ──────────────────────────────────────────────────────────────
+  const TOTAL = 10;
+  let currentModule = 0;
+  let completed = new Set([0]);
+  let unlocked = new Set([0]);
+  let answers = {};
+
+  const CORRECT = {
+    1:'b', 2:'b', 3:'c', 4:'c', 5:'b',
+    6:'b', 7:'c', 8:'b', 9:'b', 10:'b'
+  };
+
+  const FEEDBACK = {
+    1: { b:'Correct. 8:00 AM to 7:00 PM is the mandated window under RBI RBC Third Amendment 2026.', wrong:'Incorrect. The correct window is 8:00 AM to 7:00 PM only — as mandated by RBI RBC Third Amendment 2026.' },
+    2: { b:'Correct. You may only leave a callback message. Never reveal loan details to a third party.', wrong:'Incorrect. You must never share loan or overdue information with anyone other than the borrower or guarantor.' },
+    3: { c:'Correct. Respo does not accept cash. Always direct borrowers to the Zype app or bank transfer.', wrong:'Incorrect. Respo is a fully digital lender and does not accept cash under any circumstances.' },
+    4: { c:'Correct. Hardship cases must be escalated to supervisors — you are not authorised to make arrangements unilaterally.', wrong:'Incorrect. Borrowers in genuine hardship must be treated with empathy and their cases escalated for proper review.' },
+    5: { b:'Correct. Sharing borrower data on any external platform is prohibited under the DPDP Act 2023 and RBI guidelines.', wrong:'Incorrect. Posting borrower information on WhatsApp groups or any external platform is a serious violation.' },
+    6: { b:'Correct. Disputed accounts must be escalated immediately and collections activity paused pending review.', wrong:'Incorrect. You must never continue collections on a disputed account without proper review.' },
+    7: { c:'Correct. RBI RBC Third Amendment 2026 requires call recordings to be preserved for a minimum of 6 months.', wrong:'Incorrect. The RBI RBC Third Amendment 2026 mandates a minimum 6-month retention period for call recordings.' },
+    8: { b:'Correct. Stay calm, offer alternatives, log the interaction, and report to your supervisor.', wrong:'Incorrect. Responding with aggression or threats is a serious violation. Stay calm and follow escalation procedures.' },
+    9: { b:'Correct. You must never contact or share any information with a borrower\'s employer.', wrong:'Incorrect. Contacting a borrower\'s employer or sharing any loan information with them is strictly prohibited.' },
+    10:{ b:'Correct. Acknowledge the borrower\'s right, provide the RBI CMS portal (cms.rbi.org.in), and inform your supervisor.', wrong:'Incorrect. A borrower always has the right to approach the RBI Ombudsman. You must acknowledge this and escalate internally.' }
+  };
+
+  // ── Navigation ─────────────────────────────────────────────────────────
+  function showModule(n, isCta = false) {
+    if (isCta) {
+      unlocked.add(n);
+    }
+    if (!unlocked.has(n)) return;
+    document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(m => m.classList.remove('active'));
+    document.getElementById('module' + n).classList.add('active');
+    document.getElementById('nav' + n).classList.add('active');
+    completed.add(n);
+    currentModule = n;
+    updateProgress();
+    window.scrollTo(0,0);
+  }
+
+  function updateProgress() {
+    // Update sidebar locked and done states
+    for (let i = 0; i <= 9; i++) {
+      const nav = document.getElementById('nav' + i);
+      if (nav) {
+        if (!unlocked.has(i)) nav.classList.add('locked');
+        else nav.classList.remove('locked');
+        if (completed.has(i) && i !== currentModule) nav.classList.add('done');
+      }
+    }
+    const pct = Math.round((completed.size / 10) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = pct + '% complete';
+  }
+
+  // ── Quiz ───────────────────────────────────────────────────────────────
+  function selectOpt(qNum, opt) {
+    answers[qNum] = opt;
+    const q = document.getElementById('q' + qNum);
+    if (q) {
+      q.style.border = '';
+      q.style.padding = '';
+      q.querySelectorAll('.quiz-opt').forEach(o => o.style.fontWeight = '');
+    }
+    event.currentTarget.style.fontWeight = '600';
+    event.currentTarget.style.background = 'var(--sky)';
+    const quizWarn = document.getElementById('quizWarn');
+    if (quizWarn && Object.keys(answers).length === 10) {
+      quizWarn.style.display = 'none';
+    }
+  }
+
+  function submitQuiz() {
+    let unanswered = [];
+    for (let i = 1; i <= 10; i++) {
+      if (!answers[i]) {
+        unanswered.push(i);
+      }
+    }
+
+    const quizWarn = document.getElementById('quizWarn');
+    if (unanswered.length > 0) {
+      if (quizWarn) {
+        quizWarn.style.display = 'block';
+        quizWarn.textContent = '⚠️ Please answer all 10 questions before submitting. Unanswered question(s): #' + unanswered.join(', #');
+      }
+      for (let i = 1; i <= 10; i++) {
+        const q = document.getElementById('q' + i);
+        if (q) {
+          if (!answers[i]) {
+            q.style.border = '2px solid var(--red)';
+            q.style.borderRadius = 'var(--radius)';
+            q.style.padding = '10px';
+          } else {
+            q.style.border = '';
+            q.style.padding = '';
+          }
+        }
+      }
+      return;
+    }
+
+    if (quizWarn) quizWarn.style.display = 'none';
+    for (let i = 1; i <= 10; i++) {
+      const q = document.getElementById('q' + i);
+      if (q) {
+        q.style.border = '';
+        q.style.padding = '';
+      }
+    }
+
+    let score = 0;
+    for (let i = 1; i <= 10; i++) {
+      const q = document.getElementById('q' + i);
+      const opts = q.querySelectorAll('.quiz-opt');
+      const fb = document.getElementById('fb' + i);
+      const chosen = answers[i];
+      const correct = CORRECT[i];
+
+      opts.forEach((o, idx) => {
+        const letter = String.fromCharCode(97 + idx);
+        o.onclick = null; // disable further clicks
+        if (letter === correct) o.classList.add('correct');
+        else if (letter === chosen && chosen !== correct) o.classList.add('wrong');
+      });
+
+      if (chosen === correct) {
+        score++;
+        fb.className = 'quiz-feedback show box box-good';
+        fb.textContent = '✓ ' + FEEDBACK[i][correct];
+      } else {
+        fb.className = 'quiz-feedback show box box-stop';
+        fb.textContent = '✗ ' + (FEEDBACK[i][chosen] || FEEDBACK[i]['wrong']);
+      }
+    }
+
+    const scoreDiv = document.getElementById('quizScore');
+    const scoreNum = document.getElementById('scoreNum');
+    const scoreMsg = document.getElementById('scoreMsg');
+    scoreDiv.classList.add('show');
+    scoreNum.textContent = score + ' / 10';
+
+    if (score >= 8) {
+      scoreMsg.innerHTML = '<strong>Congratulations — you have passed!</strong><br>You scored ' + score + ' out of 10. Your training is now complete.';
+      document.getElementById('certBox').style.display = 'block';
+      document.querySelector('.quiz-submit').style.display = 'none';
+    } else {
+      scoreMsg.innerHTML = '<strong>Score: ' + score + '/10 — Please retake the assessment.</strong><br>You need at least 8 out of 10 to pass. Review the modules and try again.';
+      document.getElementById('retakeBtn').style.display = 'inline-block';
+    }
+  }
+
+  function retakeQuiz() {
+    answers = {};
+    const quizWarn = document.getElementById('quizWarn');
+    if (quizWarn) quizWarn.style.display = 'none';
+    for (let i = 1; i <= 10; i++) {
+      const q = document.getElementById('q' + i);
+      if (q) {
+        q.style.border = '';
+        q.style.padding = '';
+        q.querySelectorAll('.quiz-opt').forEach((o, idx) => {
+          const letter = String.fromCharCode(97 + idx);
+          o.classList.remove('correct','wrong');
+          o.style.fontWeight = '';
+          o.style.background = '';
+          o.onclick = () => selectOpt(i, letter);
+        });
+      }
+      const fb = document.getElementById('fb' + i);
+      if (fb) {
+        fb.className = 'quiz-feedback';
+        fb.textContent = '';
+      }
+    }
+    document.getElementById('quizScore').classList.remove('show');
+    document.getElementById('certBox').style.display = 'none';
+    document.querySelector('.quiz-submit').style.display = 'inline-block';
+    document.getElementById('retakeBtn').style.display = 'none';
+  }
+
+  // init
+  updateProgress();
+</script>
+</body>
+</html>
