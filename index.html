@@ -2152,18 +2152,25 @@
           opts.forEach((o, idx) => {
             const letter = String.fromCharCode(97 + idx);
             o.onclick = null; // disable further clicks
-            if (letter === correct) {
-              o.classList.add("correct");
-            } else if (letter === chosen) {
-              o.classList.add("wrong");
+            if (letter === chosen) {
+              if (chosen === correct) {
+                o.classList.add("correct");
+              } else {
+                o.classList.add("wrong");
+              }
             }
           });
 
           if (chosen === correct) {
             score++;
+            fb.className = "quiz-feedback show box box-good";
+            fb.style.display = "block";
+            fb.textContent = "✓ " + (FEEDBACK[i].c || FEEDBACK[i][correct]);
+          } else {
+            fb.className = "quiz-feedback";
+            fb.style.display = "none";
+            fb.textContent = "";
           }
-          fb.className = "quiz-feedback show box box-good";
-          fb.textContent = "💡 " + (FEEDBACK[i].c || FEEDBACK[i][correct]);
         }
 
         const scoreDiv = document.getElementById("quizScore");
