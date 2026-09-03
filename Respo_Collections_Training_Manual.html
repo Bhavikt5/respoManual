@@ -7,23 +7,27 @@
     <style>
       /* ── Design tokens ── */
       :root {
-        --navy: #0f2744;
-        --blue: #1a4a8a;
-        --mid: #2b6cb0;
-        --sky: #ebf4ff;
-        --gold: #b7791f;
-        --amber: #fffbeb;
-        --red: #9b2335;
-        --red-bg: #fff5f5;
-        --green: #22543d;
-        --grn-bg: #f0fff4;
-        --ink: #1a202c;
-        --muted: #4a5568;
-        --rule: #cbd5e0;
-        --bg: #f7f9fc;
+        --darkgreen: #171c26;
+        --lightblue: #f1f5f9;
+        --black: #111827;
         --white: #ffffff;
-        --radius: 6px;
-        --shadow: 0 1px 4px rgba(15, 39, 68, 0.1);
+
+        --navy: #171c26;
+        --blue: #171c26;
+        --mid: #475569;
+        --sky: #f1f5f9;
+        --gold: #c2410c;
+        --amber: #fff7ed;
+        --red: #dc2626;
+        --red-bg: #fef2f2;
+        --green: #16a34a;
+        --grn-bg: #dcfce7;
+        --ink: #111827;
+        --muted: #64748b;
+        --rule: #e2e8f0;
+        --bg: #f8fafc;
+        --radius: 10px;
+        --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
       }
 
       *,
@@ -123,23 +127,23 @@
         padding: 9px 20px;
         cursor: pointer;
         font-size: 13.5px;
-        color: var(--muted);
+        color: #475569;
         border-left: 3px solid transparent;
         transition: all 0.15s;
       }
       .nav-item:hover {
-        background: var(--sky);
-        color: var(--blue);
+        background: #f1f5f9;
+        color: var(--ink);
       }
       .nav-item.active {
-        background: var(--sky);
-        color: var(--blue);
-        border-left-color: var(--blue);
+        background: var(--navy);
+        color: white;
+        border-left-color: var(--navy);
         font-weight: 600;
       }
       .nav-item.done .nav-num {
-        background: var(--green);
-        color: white;
+        background: var(--grn-bg);
+        color: var(--green);
       }
       .nav-item.locked {
         opacity: 0.45;
@@ -150,8 +154,8 @@
         min-width: 22px;
         height: 22px;
         border-radius: 50%;
-        background: var(--rule);
-        color: var(--muted);
+        background: #f1f5f9;
+        color: #64748b;
         font-size: 11px;
         font-weight: 700;
         display: flex;
@@ -159,7 +163,7 @@
         justify-content: center;
       }
       .nav-item.active .nav-num {
-        background: var(--blue);
+        background: rgba(255, 255, 255, 0.2);
         color: white;
       }
 
@@ -481,21 +485,33 @@
         display: block;
       }
       .quiz-score {
-        background: var(--navy);
-        color: white;
+        background: var(--white);
+        border: 1px solid var(--rule);
         border-radius: var(--radius);
-        padding: 20px 24px;
+        padding: 32px 24px;
         text-align: center;
         display: none;
-        margin-top: 16px;
+        margin-top: 24px;
+        box-shadow: var(--shadow);
       }
       .quiz-score.show {
         display: block;
       }
       .quiz-score .score-num {
-        font-size: 42px;
+        font-size: 48px;
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+      .quiz-score #scoreMsg {
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .quiz-score #scoreMsg strong {
+        color: var(--ink);
         font-weight: 700;
-        color: #90cdf4;
       }
       .quiz-submit {
         background: var(--blue);
@@ -598,21 +614,26 @@
 
       /* ── Completion badge ── */
       .cert-box {
-        background: linear-gradient(135deg, #1a4a8a, #2b6cb0);
-        color: white;
-        border-radius: 10px;
-        padding: 32px;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        color: var(--ink);
+        border-radius: var(--radius);
+        padding: 36px 32px;
         text-align: center;
         margin-top: 24px;
+        box-shadow: var(--shadow);
       }
       .cert-box h2 {
-        color: white;
+        color: #166534;
         border: none;
-        margin: 12px 0 6px;
-        font-size: 22px;
+        margin: 12px 0 8px;
+        font-size: 24px;
+        font-weight: 700;
       }
       .cert-box p {
-        color: #bee3f8;
+        color: #15803d;
+        font-size: 14.5px;
+        line-height: 1.6;
       }
       .cert-icon {
         font-size: 48px;
@@ -757,7 +778,7 @@
 
           <div class="nav-btns">
             <button class="btn btn-primary" onclick="showModule(1, true)">
-              Start Training →
+              Start Training
             </button>
           </div>
         </div>
@@ -862,10 +883,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(0)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(2, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -972,32 +993,72 @@
           </table>
 
           <h2>Your Core Objectives</h2>
-          <ol class="steps">
-            <li>
-              <strong>Contact the borrower promptly</strong> — reach out as soon
-              as an EMI is missed, using approved channels and timing.
-            </li>
-            <li>
-              <strong>Understand the borrower's situation</strong> — find out
-              why the EMI was missed. Genuine financial distress is different
-              from avoidance.
-            </li>
-            <li>
-              <strong>Offer a resolution path</strong> — payment within the
-              current cycle, a part payment, or escalation to a supervisor for a
-              formal arrangement.
-            </li>
-            <li>
-              <strong>Document every interaction</strong> — log all calls, SMS,
-              and outcomes in the collections system immediately after each
-              interaction.
-            </li>
-            <li>
-              <strong>Escalate when needed</strong> — if the borrower is
-              unresponsive or the account crosses 60 DPD, escalate to your
-              supervisor for handoff to the agency track.
-            </li>
-          </ol>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 50px; text-align: center">Step</th>
+                <th style="width: 230px">Objective</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">1</span>
+                </td>
+                <td>
+                  <strong>Contact the borrower promptly</strong>
+                </td>
+                <td>
+                  Reach out as soon as an EMI is missed, using approved channels and timing.
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">2</span>
+                </td>
+                <td>
+                  <strong>Understand the borrower's situation</strong>
+                </td>
+                <td>
+                  Find out why the EMI was missed. Genuine financial distress is different from avoidance.
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">3</span>
+                </td>
+                <td>
+                  <strong>Offer a resolution path</strong>
+                </td>
+                <td>
+                  Payment within the current cycle, a part payment, or escalation to a supervisor for a formal arrangement.
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">4</span>
+                </td>
+                <td>
+                  <strong>Document every interaction</strong>
+                </td>
+                <td>
+                  Log all calls, SMS, and outcomes in the collections system immediately after each interaction.
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">5</span>
+                </td>
+                <td>
+                  <strong>Escalate when needed</strong>
+                </td>
+                <td>
+                  If the borrower is unresponsive or the account crosses 60 DPD, escalate to your supervisor for handoff to the agency track.
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
           <div class="box box-rule">
             <strong>Your identity card:</strong> You must always identify
@@ -1008,10 +1069,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(1)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(3, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1121,10 +1182,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(2)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(4, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1287,10 +1348,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(3)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(5, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1490,10 +1551,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(4)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(6, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1631,10 +1692,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(5)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(7, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1737,10 +1798,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(6)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(8, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1854,10 +1915,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(7)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(9, true)">
-              Proceed to Assessment →
+              Proceed to Assessment
             </button>
           </div>
         </div>
@@ -2121,7 +2182,7 @@
               been recorded.
             </p>
             <br />
-            <p style="font-size: 13px; color: #bee3f8">
+            <p style="font-size: 13px; color: #166534">
               Please inform your supervisor or HR to update your training
               record. You will be required to repeat this training annually.
             </p>
@@ -2341,6 +2402,9 @@
         scoreNum.textContent = score + " / 10";
 
         if (score >= 8) {
+          scoreDiv.style.background = "#f0fdf4";
+          scoreDiv.style.borderColor = "#bbf7d0";
+          scoreNum.style.color = "#16a34a";
           scoreMsg.innerHTML =
             "<strong>Congratulations — you have passed!</strong><br>You scored " +
             score +
@@ -2353,6 +2417,9 @@
               .scrollIntoView({ behavior: "smooth", block: "center" });
           }, 50);
         } else {
+          scoreDiv.style.background = "#fef2f2";
+          scoreDiv.style.borderColor = "#fecaca";
+          scoreNum.style.color = "#dc2626";
           scoreMsg.innerHTML =
             "<strong>Score: " +
             score +
@@ -2368,6 +2435,13 @@
         answers = {};
         const quizWarn = document.getElementById("quizWarn");
         if (quizWarn) quizWarn.style.display = "none";
+        const scoreDiv = document.getElementById("quizScore");
+        if (scoreDiv) {
+          scoreDiv.style.background = "";
+          scoreDiv.style.borderColor = "";
+        }
+        const scoreNum = document.getElementById("scoreNum");
+        if (scoreNum) scoreNum.style.color = "";
         for (let i = 1; i <= 10; i++) {
           const q = document.getElementById("q" + i);
           if (q) {

@@ -13,27 +13,27 @@
     <style>
       /* ── Design tokens ── */
       :root {
-        --darkgreen: #374b47;
-        --lightblue: #dcedff;
-        --black: #161616;
+        --darkgreen: #171c26;
+        --lightblue: #f1f5f9;
+        --black: #111827;
         --white: #ffffff;
 
-        --navy: #374b47;
-        --blue: #374b47;
-        --mid: #4c6862;
-        --sky: #dcedff;
-        --gold: #8c6d1f;
-        --amber: #fffbf0;
-        --red: #9b2335;
-        --red-bg: #fff5f5;
-        --green: #374b47;
-        --grn-bg: #eaf4f2;
-        --ink: #161616;
-        --muted: #444444;
-        --rule: #b8d7fc;
-        --bg: #f3f8fe;
-        --radius: 8px;
-        --shadow: 0 2px 8px rgba(55, 75, 71, 0.12);
+        --navy: #171c26;
+        --blue: #171c26;
+        --mid: #475569;
+        --sky: #f1f5f9;
+        --gold: #c2410c;
+        --amber: #fff7ed;
+        --red: #dc2626;
+        --red-bg: #fef2f2;
+        --green: #16a34a;
+        --grn-bg: #dcfce7;
+        --ink: #111827;
+        --muted: #64748b;
+        --rule: #e2e8f0;
+        --bg: #f8fafc;
+        --radius: 10px;
+        --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
       }
 
       *,
@@ -53,7 +53,7 @@
       }
 
       body {
-        /* background: var(--bg); */
+        background: var(--bg);
         color: var(--ink);
         font-size: 15px;
         line-height: 1.7;
@@ -61,8 +61,8 @@
 
       /* ── Top bar ── */
       .topbar {
-        background: var(--darkgreen);
-        color: var(--white);
+        background: var(--white);
+        color: var(--black);
         padding: 12px 24px;
         display: flex;
         align-items: center;
@@ -70,20 +70,22 @@
         position: sticky;
         top: 0;
         z-index: 100;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid var(--rule);
       }
       .topbar-logo {
         font-weight: 700;
         font-size: 16px;
         letter-spacing: 0.3px;
+        color: var(--black);
       }
       .topbar-logo span {
-        color: var(--lightblue);
+        color: var(--darkgreen);
       }
       .topbar-title {
         font-size: 13px;
-        color: var(--lightblue);
-        border-left: 1px solid #57706b;
+        color: var(--muted);
+        border-left: 1px solid var(--rule);
         padding-left: 16px;
       }
       .progress-bar {
@@ -92,18 +94,18 @@
         align-items: center;
         gap: 10px;
         font-size: 12px;
-        color: var(--lightblue);
+        color: var(--muted);
       }
       .progress-track {
         width: 120px;
         height: 6px;
-        background: #273835;
+        background: #e2e8f0;
         border-radius: 3px;
         overflow: hidden;
       }
       .progress-fill {
         height: 100%;
-        background: var(--lightblue);
+        background: var(--darkgreen);
         width: 0%;
         transition: width 0.4s ease;
       }
@@ -140,23 +142,23 @@
         padding: 10px 20px;
         cursor: pointer;
         font-size: 13.5px;
-        color: var(--black);
+        color: #475569;
         border-left: 3px solid transparent;
         transition: all 0.15s;
       }
       .nav-item:hover {
-        background: var(--lightblue);
-        color: var(--darkgreen);
+        background: #f1f5f9;
+        color: var(--ink);
       }
       .nav-item.active {
-        background: var(--lightblue);
-        color: var(--darkgreen);
+        background: var(--darkgreen);
+        color: var(--white);
         border-left-color: var(--darkgreen);
         font-weight: 600;
       }
       .nav-item.done .nav-num {
-        background: var(--darkgreen);
-        color: var(--white);
+        background: var(--grn-bg);
+        color: var(--green);
       }
       .nav-item.locked {
         opacity: 0.45;
@@ -167,8 +169,8 @@
         min-width: 22px;
         height: 22px;
         border-radius: 50%;
-        background: var(--rule);
-        color: var(--black);
+        background: #f1f5f9;
+        color: #64748b;
         font-size: 11px;
         font-weight: 700;
         display: flex;
@@ -176,7 +178,7 @@
         justify-content: center;
       }
       .nav-item.active .nav-num {
-        background: var(--darkgreen);
+        background: rgba(255, 255, 255, 0.2);
         color: var(--white);
       }
 
@@ -502,21 +504,33 @@
         display: block;
       }
       .quiz-score {
-        background: var(--darkgreen);
-        color: var(--white);
+        background: var(--white);
+        border: 1px solid var(--rule);
         border-radius: var(--radius);
-        padding: 20px 24px;
+        padding: 32px 24px;
         text-align: center;
         display: none;
-        margin-top: 16px;
+        margin-top: 24px;
+        box-shadow: var(--shadow);
       }
       .quiz-score.show {
         display: block;
       }
       .quiz-score .score-num {
-        font-size: 42px;
+        font-size: 48px;
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+      .quiz-score #scoreMsg {
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .quiz-score #scoreMsg strong {
+        color: var(--ink);
         font-weight: 700;
-        color: var(--lightblue);
       }
       .quiz-submit {
         background: var(--darkgreen);
@@ -573,20 +587,21 @@
 
       /* ── Welcome screen ── */
       .welcome-hero {
-        background: linear-gradient(135deg, #374b47 0%, #253532 100%);
+        background: #faf7ff;
         border-radius: 10px;
         padding: 40px;
-        color: var(--white);
+        color: var(--black);
         margin-bottom: 32px;
+        border: 1px solid #e9e3f5;
       }
       .welcome-hero h1 {
         font-size: 28px;
         margin-bottom: 8px;
-        color: var(--white);
+        color: var(--black);
       }
       .welcome-hero p {
-        color: var(--lightblue);
-        font-size: 15px;
+        color: var(--muted);
+        font-size: 14.5px;
       }
       .module-grid {
         display: grid;
@@ -620,21 +635,26 @@
 
       /* ── Completion badge ── */
       .cert-box {
-        background: linear-gradient(135deg, #374b47 0%, #4c6862 100%);
-        color: var(--white);
-        border-radius: 10px;
-        padding: 32px;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        color: var(--ink);
+        border-radius: var(--radius);
+        padding: 36px 32px;
         text-align: center;
         margin-top: 24px;
+        box-shadow: var(--shadow);
       }
       .cert-box h2 {
-        color: var(--white);
+        color: #166534;
         border: none;
-        margin: 12px 0 6px;
-        font-size: 22px;
+        margin: 12px 0 8px;
+        font-size: 24px;
+        font-weight: 700;
       }
       .cert-box p {
-        color: var(--lightblue);
+        color: #15803d;
+        font-size: 14.5px;
+        line-height: 1.6;
       }
       .cert-icon {
         font-size: 48px;
@@ -779,7 +799,7 @@
 
           <div class="nav-btns">
             <button class="btn btn-primary" onclick="showModule(1, true)">
-              Start Training →
+              Start Training
             </button>
           </div>
         </div>
@@ -884,10 +904,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(0)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(2, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -994,32 +1014,77 @@
           </table>
 
           <h2>Your Core Objectives</h2>
-          <ol class="steps">
-            <li>
-              <strong>Contact the borrower promptly</strong> — reach out as soon
-              as an EMI is missed, using approved channels and timing.
-            </li>
-            <li>
-              <strong>Understand the borrower's situation</strong> — find out
-              why the EMI was missed. Genuine financial distress is different
-              from avoidance.
-            </li>
-            <li>
-              <strong>Offer a resolution path</strong> — payment within the
-              current cycle, a part payment, or escalation to a supervisor for a
-              formal arrangement.
-            </li>
-            <li>
-              <strong>Document every interaction</strong> — log all calls, SMS,
-              and outcomes in the collections system immediately after each
-              interaction.
-            </li>
-            <li>
-              <strong>Escalate when needed</strong> — if the borrower is
-              unresponsive or the account crosses 60 DPD, escalate to your
-              supervisor for handoff to the agency track.
-            </li>
-          </ol>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 50px; text-align: center">Step</th>
+                <th style="width: 230px">Objective</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">1</span>
+                </td>
+                <td>
+                  <strong>Contact the borrower promptly</strong>
+                </td>
+                <td>
+                  Reach out as soon as an EMI is missed, using approved channels
+                  and timing.
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">2</span>
+                </td>
+                <td>
+                  <strong>Understand the borrower's situation</strong>
+                </td>
+                <td>
+                  Find out why the EMI was missed. Genuine financial distress is
+                  different from avoidance.
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">3</span>
+                </td>
+                <td>
+                  <strong>Offer a resolution path</strong>
+                </td>
+                <td>
+                  Payment within the current cycle, a part payment, or
+                  escalation to a supervisor for a formal arrangement.
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">4</span>
+                </td>
+                <td>
+                  <strong>Document every interaction</strong>
+                </td>
+                <td>
+                  Log all calls, SMS, and outcomes in the collections system
+                  immediately after each interaction.
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center">
+                  <span class="step-num">5</span>
+                </td>
+                <td>
+                  <strong>Escalate when needed</strong>
+                </td>
+                <td>
+                  If the borrower is unresponsive or the account crosses 60 DPD,
+                  escalate to your supervisor for handoff to the agency track.
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
           <div class="box box-rule">
             <strong>Your identity card:</strong> You must always identify
@@ -1030,10 +1095,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(1)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(3, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1143,10 +1208,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(2)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(4, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1309,10 +1374,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(3)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(5, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1512,10 +1577,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(4)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(6, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1653,10 +1718,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(5)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(7, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1759,10 +1824,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(6)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(8, true)">
-              Next Module →
+              Next Module
             </button>
           </div>
         </div>
@@ -1876,10 +1941,10 @@
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(7)">
-              ← Back
+              Back
             </button>
             <button class="btn btn-primary" onclick="showModule(9, true)">
-              Proceed to Assessment →
+              Proceed to Assessment
             </button>
           </div>
         </div>
@@ -2143,7 +2208,7 @@
               been recorded.
             </p>
             <br />
-            <p style="font-size: 13px; color: var(--lightblue)">
+            <p style="font-size: 13px; color: #166534">
               Please inform your supervisor or HR to update your training
               record. You will be required to repeat this training annually.
             </p>
@@ -2363,6 +2428,9 @@
         scoreNum.textContent = score + " / 10";
 
         if (score >= 8) {
+          scoreDiv.style.background = "#f0fdf4";
+          scoreDiv.style.borderColor = "#bbf7d0";
+          scoreNum.style.color = "#16a34a";
           scoreMsg.innerHTML =
             "<strong>Congratulations — you have passed!</strong><br>You scored " +
             score +
@@ -2375,6 +2443,9 @@
               .scrollIntoView({ behavior: "smooth", block: "center" });
           }, 50);
         } else {
+          scoreDiv.style.background = "#fef2f2";
+          scoreDiv.style.borderColor = "#fecaca";
+          scoreNum.style.color = "#dc2626";
           scoreMsg.innerHTML =
             "<strong>Score: " +
             score +
@@ -2390,6 +2461,13 @@
         answers = {};
         const quizWarn = document.getElementById("quizWarn");
         if (quizWarn) quizWarn.style.display = "none";
+        const scoreDiv = document.getElementById("quizScore");
+        if (scoreDiv) {
+          scoreDiv.style.background = "";
+          scoreDiv.style.borderColor = "";
+        }
+        const scoreNum = document.getElementById("scoreNum");
+        if (scoreNum) scoreNum.style.color = "";
         for (let i = 1; i <= 10; i++) {
           const q = document.getElementById("q" + i);
           if (q) {
