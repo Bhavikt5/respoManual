@@ -337,6 +337,50 @@
         border-bottom: none;
       }
 
+      /* ── Do/Don't table ── */
+      .do-dont {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .do-col,
+      .dont-col {
+        border-radius: var(--radius);
+        padding: 16px;
+        font-size: 13.5px;
+      }
+      .do-col {
+        background: var(--grn-bg);
+        border: 1px solid #b4d7d0;
+      }
+      .dont-col {
+        background: var(--red-bg);
+        border: 1px solid #fed7d7;
+      }
+      .do-col h4 {
+        color: var(--darkgreen);
+        margin-bottom: 10px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .dont-col h4 {
+        color: var(--red);
+        margin-bottom: 10px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .do-col li,
+      .dont-col li {
+        margin-bottom: 8px;
+      }
+      .do-col li::marker {
+        color: var(--darkgreen);
+      }
+      .dont-col li::marker {
+        color: var(--red);
+      }
+
       /* ── Scenario Script Boxes ── */
       .scenario-box {
         background: #f8fafc;
@@ -595,6 +639,12 @@
         padding: 10px 14px;
         border: 1px solid var(--rule);
         width: 50%;
+      }
+
+      @media (max-width: 900px) {
+        .do-dont {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
@@ -1810,54 +1860,38 @@
           </table>
 
           <h2>Do's and Don'ts — Customer Communication</h2>
-          <table class="custom-table">
-            <thead>
-              <tr>
-                <th style="color: #15803d; background: #f0fdf4">
-                  ✓ WHAT YOU SHOULD DO
-                </th>
-                <th style="color: #b91c1c; background: #fef2f2">
-                  ✗ WHAT YOU MUST NEVER DO
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  ✓ Explain all fees, charges and APR clearly and completely
-                </td>
-                <td>
-                  ✗ Quote only the monthly interest rate without mentioning APR
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  ✓ Provide KFS proactively and confirm borrower has received it
-                </td>
-                <td>✗ Assume the borrower has read or understood the KFS</td>
-              </tr>
-              <tr>
-                <td>
-                  ✓ Offer GRO contact at the borrower's first sign of
+          <div class="do-dont">
+            <div class="do-col">
+              <h4>✓ WHAT YOU SHOULD DO</h4>
+              <ul>
+                <li>Explain all fees, charges and APR clearly and completely</li>
+                <li>
+                  Provide KFS proactively and confirm borrower has received it
+                </li>
+                <li>
+                  Offer GRO contact at the borrower's first sign of
                   dissatisfaction
-                </td>
-                <td>✗ Wait for the borrower to demand GRO contact</td>
-              </tr>
-              <tr>
-                <td>
-                  ✓ Use plain language — avoid jargon and acronyms without
+                </li>
+                <li>
+                  Use plain language — avoid jargon and acronyms without
                   explanation
-                </td>
-                <td>✗ Use technical terms without explaining them</td>
-              </tr>
-              <tr>
-                <td>
-                  ✓ Confirm all commitments made to the borrower in writing
-                </td>
-                <td>✗ Make verbal promises you cannot fulfil</td>
-              </tr>
-            </tbody>
-          </table>
+                </li>
+                <li>Confirm all commitments made to the borrower in writing</li>
+              </ul>
+            </div>
+            <div class="dont-col">
+              <h4>✗ WHAT YOU MUST NEVER DO</h4>
+              <ul>
+                <li>
+                  Quote only the monthly interest rate without mentioning APR
+                </li>
+                <li>Assume the borrower has read or understood the KFS</li>
+                <li>Wait for the borrower to demand GRO contact</li>
+                <li>Use technical terms without explaining them</li>
+                <li>Make verbal promises you cannot fulfil</li>
+              </ul>
+            </div>
+          </div>
 
           <div class="nav-btns">
             <button class="btn btn-secondary" onclick="showModule(5)">
@@ -3039,6 +3073,9 @@
             const opts = q.querySelectorAll(".quiz-opt");
             opts.forEach((o, idx) => {
               o.className = "quiz-opt";
+              o.style.fontWeight = "";
+              o.style.background = "";
+              o.style.borderColor = "";
               const letter = String.fromCharCode(97 + idx);
               o.onclick = function () {
                 selectOpt(i, letter);

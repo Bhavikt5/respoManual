@@ -1,0 +1,2786 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Information Security Awareness Training Manual - Respo Financial Capital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ── Design tokens ── */
+      :root {
+        --darkgreen: #171c26;
+        --lightblue: #f1f5f9;
+        --black: #111827;
+        --white: #ffffff;
+
+        --navy: #171c26;
+        --blue: #171c26;
+        --mid: #475569;
+        --sky: #f1f5f9;
+        --gold: #c2410c;
+        --amber: #fff7ed;
+        --red: #dc2626;
+        --red-bg: #fef2f2;
+        --green: #16a34a;
+        --grn-bg: #dcfce7;
+        --ink: #111827;
+        --muted: #64748b;
+        --rule: #e2e8f0;
+        --bg: #f8fafc;
+        --radius: 10px;
+        --shadow:
+          0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body,
+      button,
+      input,
+      select,
+      textarea {
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      /* ── Top bar ── */
+      .topbar {
+        background: var(--white);
+        color: var(--black);
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid var(--rule);
+      }
+      .topbar-logo {
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.3px;
+        color: var(--black);
+      }
+      .topbar-logo span {
+        color: var(--darkgreen);
+      }
+      .topbar-title {
+        font-size: 13px;
+        color: var(--muted);
+        border-left: 1px solid var(--rule);
+        padding-left: 16px;
+      }
+      .progress-bar {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .progress-track {
+        width: 120px;
+        height: 6px;
+        background: #e2e8f0;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--darkgreen);
+        width: 0%;
+        transition: width 0.4s ease;
+      }
+
+      /* ── Layout ── */
+      .wrapper {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        min-height: calc(100vh - 48px);
+      }
+
+      /* ── Sidebar ── */
+      .sidebar {
+        background: var(--white);
+        border-right: 1px solid var(--rule);
+        padding: 24px 0;
+        position: sticky;
+        top: 48px;
+        height: calc(100vh - 48px);
+        overflow-y: auto;
+      }
+      .sidebar-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--muted);
+        padding: 0 20px 8px;
+        text-transform: uppercase;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 13.5px;
+        color: #cbd5e1;
+        border-left: 3px solid transparent;
+        transition: all 0.15s;
+      }
+      .nav-item:hover {
+        background: #f8fafc;
+        color: #64748b;
+      }
+      .nav-item.active,
+      .nav-item.active.done {
+        background: var(--darkgreen) !important;
+        color: #ffffff !important;
+        border-left-color: var(--darkgreen) !important;
+        font-weight: 600;
+      }
+      .nav-item.done {
+        color: #334155;
+      }
+      .nav-item.done .nav-num {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .nav-item.locked {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .nav-num {
+        min-width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        color: #cbd5e1;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-item.active .nav-num,
+      .nav-item.active.done .nav-num {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: #ffffff !important;
+      }
+
+      /* ── Main content ── */
+      .main {
+        padding: 40px 48px;
+      }
+
+      /* ── Modules ── */
+      .module {
+        display: none;
+      }
+      .module.active {
+        display: block;
+      }
+
+      .module-header {
+        margin-bottom: 32px;
+      }
+      .module-tag {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--darkgreen);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 8px;
+      }
+      .module-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--darkgreen);
+        line-height: 1.3;
+        margin-bottom: 10px;
+      }
+      .module-desc {
+        color: var(--muted);
+        font-size: 14.5px;
+        border-left: 3px solid var(--darkgreen);
+        padding-left: 14px;
+      }
+
+      /* ── Section headings ── */
+      h2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--darkgreen);
+        margin: 36px 0 14px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--rule);
+      }
+      h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--darkgreen);
+        margin: 24px 0 10px;
+      }
+      p {
+        margin-bottom: 12px;
+        color: var(--black);
+      }
+
+      /* ── Info boxes ── */
+      .box {
+        border-radius: var(--radius);
+        padding: 16px 18px;
+        margin: 16px 0;
+        font-size: 14px;
+      }
+      .box-rule {
+        background: var(--lightblue);
+        border-left: 4px solid var(--darkgreen);
+        color: var(--black);
+      }
+      .box-rule strong {
+        color: var(--darkgreen);
+      }
+      .box-warn {
+        background: var(--amber);
+        border-left: 4px solid var(--gold);
+      }
+      .box-warn strong {
+        color: var(--gold);
+      }
+      .box-stop {
+        background: var(--red-bg);
+        border-left: 4px solid var(--red);
+      }
+      .box-stop strong {
+        color: var(--red);
+      }
+      .box-good {
+        background: var(--grn-bg);
+        border-left: 4px solid var(--darkgreen);
+      }
+      .box-good strong {
+        color: var(--darkgreen);
+      }
+
+      /* ── Lists ── */
+      ul,
+      ol {
+        padding-left: 22px;
+        margin-bottom: 14px;
+      }
+      li {
+        margin-bottom: 7px;
+        color: var(--black);
+      }
+
+      /* ── Do/Don't table ── */
+      .do-dont {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .do-col,
+      .dont-col {
+        border-radius: var(--radius);
+        padding: 16px;
+        font-size: 13.5px;
+      }
+      .do-col {
+        background: var(--grn-bg);
+        border: 1px solid #b4d7d0;
+      }
+      .dont-col {
+        background: var(--red-bg);
+        border: 1px solid #fed7d7;
+      }
+      .do-col h4 {
+        color: var(--darkgreen);
+        margin-bottom: 10px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .dont-col h4 {
+        color: var(--red);
+        margin-bottom: 10px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .do-col li,
+      .dont-col li {
+        margin-bottom: 8px;
+      }
+      .do-col li::marker {
+        color: var(--darkgreen);
+      }
+      .dont-col li::marker {
+        color: var(--red);
+      }
+
+      /* ── Scenario cards ── */
+      .scenario {
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        margin: 16px 0;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .scenario-head {
+        background: var(--darkgreen);
+        color: var(--white);
+        padding: 10px 16px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .scenario-body {
+        padding: 16px;
+        font-size: 14px;
+      }
+      .scenario-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        margin-top: 12px;
+        margin-bottom: 4px;
+      }
+      .label-wrong {
+        color: var(--red);
+      }
+      .label-right {
+        color: var(--darkgreen);
+      }
+      .speech {
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-style: italic;
+        font-size: 13.5px;
+      }
+      .speech-wrong {
+        background: var(--red-bg);
+      }
+      .speech-right {
+        background: var(--lightblue);
+        color: var(--black);
+      }
+
+      /* ── Step list ── */
+      .steps {
+        counter-reset: step;
+        list-style: none;
+        padding: 0;
+        margin: 16px 0;
+      }
+      .steps li {
+        counter-increment: step;
+        display: flex;
+        gap: 14px;
+        margin-bottom: 16px;
+        align-items: flex-start;
+      }
+      .steps li::before {
+        content: counter(step);
+        min-width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--darkgreen);
+        color: var(--white);
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      /* ── Table ── */
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 20px 0;
+        font-size: 13.5px;
+        background: var(--white);
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        box-shadow: var(--shadow);
+      }
+      th {
+        background: var(--darkgreen);
+        color: var(--white);
+        padding: 12px 18px;
+        text-align: left;
+        font-size: 13px;
+        font-weight: 600;
+        border-bottom: 1px solid var(--darkgreen);
+      }
+      td {
+        padding: 12px 18px;
+        border-bottom: 1px solid var(--rule);
+        vertical-align: top;
+        color: var(--black);
+      }
+      tr:nth-child(even) td {
+        background: #f8fafc;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      .step-num {
+        min-width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--darkgreen);
+        color: var(--white);
+        font-size: 12px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ── Quiz ── */
+      .quiz-wrap {
+        margin: 24px 0;
+      }
+      .quiz-q {
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: var(--shadow);
+      }
+      .quiz-q p {
+        font-weight: 600;
+        margin-bottom: 14px;
+        color: var(--darkgreen);
+      }
+      .quiz-opt {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 8px;
+        border: 1px solid var(--rule);
+        font-size: 14px;
+        color: var(--black);
+        transition: background 0.15s;
+        user-select: none;
+      }
+      .quiz-opt:hover {
+        background: var(--lightblue);
+      }
+      .quiz-opt.correct {
+        background: var(--grn-bg);
+        border-color: var(--darkgreen);
+        font-weight: 600;
+        color: var(--darkgreen);
+      }
+      .quiz-opt.wrong {
+        background: var(--red-bg);
+        border-color: #fc8181;
+        color: var(--red);
+      }
+      .quiz-feedback {
+        margin-top: 10px;
+        padding: 10px 14px;
+        border-radius: 4px;
+        font-size: 13.5px;
+        display: none;
+      }
+      .quiz-feedback.show {
+        display: block;
+      }
+      .quiz-score {
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 32px 24px;
+        text-align: center;
+        display: none;
+        margin-top: 24px;
+        box-shadow: var(--shadow);
+      }
+      .quiz-score.show {
+        display: block;
+      }
+      .quiz-score .score-num {
+        font-size: 48px;
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+      .quiz-score #scoreMsg {
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .quiz-score #scoreMsg strong {
+        color: var(--ink);
+        font-weight: 700;
+      }
+      .quiz-submit {
+        background: var(--darkgreen);
+        color: var(--white);
+        border: none;
+        border-radius: var(--radius);
+        padding: 10px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 8px;
+        transition: background 0.15s;
+      }
+      .quiz-submit:hover {
+        background: #253532;
+      }
+
+      /* ── Nav buttons ── */
+      .nav-btns {
+        display: flex;
+        gap: 12px;
+        margin-top: 48px;
+        padding-top: 24px;
+        border-top: 1px solid var(--rule);
+      }
+      .btn {
+        padding: 10px 22px;
+        border-radius: var(--radius);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: background 0.15s;
+      }
+      .btn-primary {
+        background: var(--darkgreen);
+        color: var(--white);
+      }
+      .btn-primary:hover {
+        background: #253532;
+      }
+      .btn-secondary {
+        background: var(--white);
+        color: var(--darkgreen);
+        border: 1px solid var(--darkgreen);
+      }
+      .btn-secondary:hover {
+        background: var(--lightblue);
+      }
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+
+      /* ── Welcome screen ── */
+      .welcome-hero {
+        background: var(--white);
+        border-radius: var(--radius);
+        padding: 40px;
+        color: var(--black);
+        margin-bottom: 32px;
+        border: 1px solid var(--rule);
+        box-shadow: var(--shadow);
+      }
+      .welcome-hero h1 {
+        font-size: 28px;
+        margin-bottom: 8px;
+        color: var(--black);
+      }
+      .welcome-hero p {
+        color: var(--muted);
+        font-size: 14.5px;
+      }
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .module-card {
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 18px 16px;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .module-card .num {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--darkgreen);
+        margin-bottom: 6px;
+      }
+      .module-card .name {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 6px;
+        line-height: 1.35;
+      }
+      .module-card .topics {
+        font-size: 12.5px;
+        color: var(--muted);
+        margin-bottom: 12px;
+        line-height: 1.4;
+      }
+      .module-card .mins {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      /* ── Completion badge ── */
+      .cert-box {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        color: var(--ink);
+        border-radius: var(--radius);
+        padding: 36px 32px;
+        text-align: center;
+        margin-top: 24px;
+        box-shadow: var(--shadow);
+      }
+      .cert-box h2 {
+        color: #166534;
+        border: none;
+        margin: 12px 0 8px;
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .cert-box p {
+        color: #15803d;
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .cert-icon {
+        font-size: 48px;
+      }
+
+      @media (max-width: 768px) {
+        .wrapper {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          display: none;
+        }
+        .main {
+          padding: 24px 20px;
+        }
+        .do-dont {
+          grid-template-columns: 1fr;
+        }
+        .module-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-logo">Respo <span>Financial</span></div>
+      <div class="topbar-title">Information Security Awareness Training Manual</div>
+      <div class="progress-bar">
+        <span id="progressLabel">0% complete</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <!-- SIDEBAR -->
+      <nav class="sidebar">
+        <div class="sidebar-label">Modules</div>
+        <div class="nav-item active" onclick="showModule(0)" id="nav0">
+          <span class="nav-num">●</span> Welcome
+        </div>
+        <div class="nav-item" onclick="showModule(1)" id="nav1">
+          <span class="nav-num">1</span> Why It Matters
+        </div>
+        <div class="nav-item" onclick="showModule(2)" id="nav2">
+          <span class="nav-num">2</span> Passwords &amp; Accounts
+        </div>
+        <div class="nav-item" onclick="showModule(3)" id="nav3">
+          <span class="nav-num">3</span> Phishing &amp; Social Engineering
+        </div>
+        <div class="nav-item" onclick="showModule(4)" id="nav4">
+          <span class="nav-num">4</span> Safe Use of Devices
+        </div>
+        <div class="nav-item" onclick="showModule(5)" id="nav5">
+          <span class="nav-num">5</span> Data Classification
+        </div>
+        <div class="nav-item" onclick="showModule(6)" id="nav6">
+          <span class="nav-num">6</span> Malware &amp; Ransomware
+        </div>
+        <div class="nav-item" onclick="showModule(7)" id="nav7">
+          <span class="nav-num">7</span> Data Privacy &amp; DPDP Act
+        </div>
+        <div class="nav-item" onclick="showModule(8)" id="nav8">
+          <span class="nav-num">8</span> Incident Reporting
+        </div>
+        <div class="nav-item" onclick="showModule(9)" id="nav9">
+          <span class="nav-num">✓</span> Final Assessment
+        </div>
+      </nav>
+
+      <!-- MAIN -->
+      <main class="main">
+        <!-- MODULE 0: WELCOME -->
+        <div class="module active" id="module0">
+          <div class="welcome-hero">
+            <h1>How to Use This Manual</h1>
+            <p>
+              This training manual is mandatory for every employee at Respo
+              Financial Capital regardless of department or seniority.
+              Information security is everyone's responsibility. Read each
+              module carefully and complete the 10-question assessment at the
+              end. You must score 8/10 or above to pass.
+            </p>
+          </div>
+
+          <div class="module-grid">
+            <div class="module-card">
+              <div>
+                <div class="num">01</div>
+                <div class="name">Why Information Security Matters</div>
+                <div class="topics">
+                  Threats, regulatory obligations, your responsibility
+                </div>
+              </div>
+              <div class="mins">⏱ 5 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">02</div>
+                <div class="name">Protecting Your Passwords and Accounts</div>
+                <div class="topics">Password rules, MFA, account hygiene</div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">03</div>
+                <div class="name">Phishing and Social Engineering</div>
+                <div class="topics">
+                  Recognising attacks, real examples, what to do
+                </div>
+              </div>
+              <div class="mins">⏱ 10 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">04</div>
+                <div class="name">Safe Use of Devices and Systems</div>
+                <div class="topics">
+                  Laptops, mobiles, remote work, removable media
+                </div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">05</div>
+                <div class="name">Data Classification and Handling</div>
+                <div class="topics">
+                  What data we hold, how to classify, safe sharing
+                </div>
+              </div>
+              <div class="mins">⏱ 10 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">06</div>
+                <div class="name">Malware and Ransomware Protection</div>
+                <div class="topics">
+                  What malware is, how to avoid it, what to do if infected
+                </div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">07</div>
+                <div class="name">Data Privacy and DPDP Act 2023</div>
+                <div class="topics">
+                  Borrower data rights, your obligations, consent rules
+                </div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">08</div>
+                <div class="name">Incident Reporting and Response</div>
+                <div class="topics">
+                  What to report, how, timelines, CERT-In 6-hour rule
+                </div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div
+              class="module-card"
+              style="background: #f0fdf4; border-color: #bbf7d0"
+            >
+              <div>
+                <div class="num" style="color: #166534">ASSESSMENT</div>
+                <div class="name" style="color: #166534">
+                  Final Knowledge Check
+                </div>
+                <div class="topics" style="color: #15803d">
+                  10 questions — score 8/10 to pass
+                </div>
+              </div>
+              <div class="mins" style="color: #166534">⏱ 15 mins</div>
+            </div>
+          </div>
+
+          <div class="box box-stop">
+            <strong>Why This Matters:</strong> This is not optional reading. A
+            single careless click, a shared password, or an unreported
+            incident can result in a data breach affecting thousands of
+            borrowers — and expose Respo to RBI enforcement action, DPDP
+            penalties up to Rs 250 crore, and reputational damage.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-primary" onclick="showModule(1, true)">
+              Start Training
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 1 -->
+        <div class="module" id="module1">
+          <div class="module-header">
+            <div class="module-tag">Module 01</div>
+            <div class="module-title">Why Information Security Matters</div>
+            <div class="module-desc">
+              Understanding the threat landscape, regulatory obligations, and
+              your personal responsibility
+            </div>
+          </div>
+
+          <h2>The Threat Landscape</h2>
+          <p>
+            Respo is a fully digital lender. Every borrower interaction,
+            every loan, every KYC document exists in digital systems. This
+            makes us a target.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Threat</th>
+                <th>What It Is</th>
+                <th>Risk to Respo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Phishing</td>
+                <td>
+                  Fake emails/messages tricking you into revealing passwords
+                  or clicking malicious links
+                </td>
+                <td>Credential theft, account takeover, data breach</td>
+              </tr>
+              <tr>
+                <td>Ransomware</td>
+                <td>Malware that encrypts all systems and demands payment</td>
+                <td>
+                  Complete shutdown, data loss, RBI notification required
+                </td>
+              </tr>
+              <tr>
+                <td>Social Engineering</td>
+                <td>
+                  Manipulating employees into giving away information or
+                  access
+                </td>
+                <td>Unauthorised access, fraud, regulatory penalty</td>
+              </tr>
+              <tr>
+                <td>Insider Threat</td>
+                <td>
+                  Employees misusing access to data or systems —
+                  intentionally or accidentally
+                </td>
+                <td>Data leak, DPDP penalty, borrower harm</td>
+              </tr>
+              <tr>
+                <td>Third-Party Risk</td>
+                <td>
+                  Vendors with access to our systems being compromised
+                </td>
+                <td>Supply-chain breach affecting Respo data</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Our Regulatory Framework</h2>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 220px">Regulation</th>
+                <th>Key Obligation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>RBI IT MD 2023</strong></td>
+                <td>
+                  Board-approved IS Policy; annual IS Audit by CERT-In
+                  empanelled auditor; incident reporting; access controls;
+                  data classification
+                </td>
+              </tr>
+              <tr>
+                <td><strong>CERT-In Directions April 2022</strong></td>
+                <td>
+                  Report qualifying cyber incidents within 6 hours of
+                  identification; maintain logs for 180 days minimum
+                </td>
+              </tr>
+              <tr>
+                <td><strong>DPDP Act 2023</strong></td>
+                <td>
+                  Protect borrower personal data; implement security
+                  safeguards; notify Data Protection Board of breaches within
+                  prescribed timeline
+                </td>
+              </tr>
+              <tr>
+                <td><strong>RBI Digital Lending Directions 2025</strong></td>
+                <td>
+                  All borrower data stored in India; no access to mobile
+                  contacts/call logs without consent; purpose-limited data
+                  collection
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="box box-warn">
+            <strong>Important:</strong> Information security is not just the
+            IT team's job. Every employee — from CEO to new joiner — has a
+            personal obligation to protect our systems, data, and borrowers.
+            You are Respo's first line of defence.
+          </div>
+
+          <h2>Your Specific Obligations</h2>
+          <ul>
+            <li>
+              Follow Respo's IS Policy and all security guidelines at all
+              times
+            </li>
+            <li>
+              Complete this annual security awareness training and pass the
+              assessment
+            </li>
+            <li>
+              Report any suspected security incident immediately — no matter
+              how minor
+            </li>
+            <li>
+              Never share your login credentials with anyone including your
+              manager or IT support
+            </li>
+            <li>
+              Lock your screen whenever you leave your workstation — even for
+              a minute
+            </li>
+            <li>Keep software and systems updated when prompted by IT</li>
+            <li>Treat all borrower data as confidential</li>
+          </ul>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(0)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(2, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 2 -->
+        <div class="module" id="module2">
+          <div class="module-header">
+            <div class="module-tag">Module 02</div>
+            <div class="module-title">
+              Protecting Your Passwords and Accounts
+            </div>
+            <div class="module-desc">
+              Password rules, multi-factor authentication, and keeping your
+              accounts secure
+            </div>
+          </div>
+
+          <h2>Password Requirements</h2>
+          <div class="box box-warn">
+            <strong>Mandatory:</strong> Respo's IS Policy, aligned with RBI IT
+            MD 2023, requires all employees to follow these mandatory
+            password rules.
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 180px">Rule</th>
+                <th>Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Minimum length</strong></td>
+                <td>
+                  12 characters for standard accounts; longer is always
+                  better
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Complexity</strong></td>
+                <td>
+                  Must include uppercase, lowercase, numbers, AND at least
+                  one special character (@, #, !, $)
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Change frequency</strong></td>
+                <td>
+                  Every 90 days for standard accounts; every 30 days for
+                  privileged/admin accounts
+                </td>
+              </tr>
+              <tr>
+                <td><strong>No reuse</strong></td>
+                <td>Cannot reuse your last 5 passwords</td>
+              </tr>
+              <tr>
+                <td><strong>No sharing</strong></td>
+                <td>
+                  Never share with anyone — including IT support, your
+                  manager, or a covering colleague
+                </td>
+              </tr>
+              <tr>
+                <td><strong>No personal info</strong></td>
+                <td>
+                  Do not use your name, date of birth, or "Respo" in your
+                  password
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Multi-Factor Authentication (MFA)</h2>
+          <div class="box box-warn">
+            <strong>Mandatory:</strong> Under RBI IT MD 2023, MFA is
+            mandatory for all privileged accounts and remote access sessions.
+            MFA adds a second verification step — even if someone steals your
+            password, they cannot log in without the second factor.
+          </div>
+
+          <ul>
+            <li>OTP sent to your registered mobile number/email Id</li>
+            <li>
+              Authenticator app (Google Authenticator, Microsoft
+              Authenticator)
+            </li>
+            <li>Web Authentication (origin binding)</li>
+            <li>Hardware token (for privileged/admin accounts)</li>
+          </ul>
+
+          <div class="box box-stop">
+            <strong>Warning:</strong> If you receive an MFA prompt that you
+            did NOT initiate — someone is attempting to access your account.
+            Deny immediately and report to IT security.
+          </div>
+
+          <h2>Strong vs. Weak Passwords</h2>
+          <div class="do-dont">
+            <div class="do-col">
+              <h4>✓ STRONG PASSWORDS</h4>
+              <ul>
+                <li>
+                  G3st0@Secur3!2026 — long, complex, memorable phrase
+                </li>
+                <li>Tr08z#Digital$Lend!ng — passphrase-style</li>
+                <li>
+                  Use a password manager to generate and store complex
+                  passwords
+                </li>
+                <li>
+                  Change your password immediately if you suspect compromise
+                </li>
+              </ul>
+            </div>
+            <div class="dont-col">
+              <h4>✗ WEAK PASSWORDS</h4>
+              <ul>
+                <li>Password123 — too simple and common</li>
+                <li>Your name + birth year — easily guessable</li>
+                <li>Using the same password across multiple systems</li>
+                <li>Writing passwords on sticky notes at your desk</li>
+              </ul>
+            </div>
+          </div>
+
+          <h2>Real Scenarios</h2>
+          <div class="scenario">
+            <div class="scenario-head">
+              ⚠ Scenario A — Unexpected MFA Prompt
+            </div>
+            <div class="scenario-body">
+              <div class="scenario-label label-wrong">✗ Wrong:</div>
+              <div class="speech speech-wrong">
+                You receive an MFA approval notification on your phone even
+                though you are not trying to log in. You assume it is an IT
+                activity and approve the request.
+              </div>
+              <div class="scenario-label label-right">✓ Right:</div>
+              <div class="speech speech-right">
+                Deny the request immediately. Do not approve any MFA request
+                you did not initiate. Change your password using the
+                approved process and report the incident to IT Security
+                immediately. An unexpected MFA prompt may mean that someone
+                already has your password and is attempting to access your
+                account.
+              </div>
+            </div>
+          </div>
+
+          <div class="scenario">
+            <div class="scenario-head">
+              ⚠ Scenario B — You Think Your Password Has Been Compromised
+            </div>
+            <div class="scenario-body">
+              <div class="scenario-label label-wrong">✗ Wrong:</div>
+              <div class="speech speech-wrong">
+                You accidentally enter your Respo username and password on a
+                suspicious website. Since nothing happens immediately, you
+                close the website and continue working without reporting it.
+              </div>
+              <div class="scenario-label label-right">✓ Right:</div>
+              <div class="speech speech-right">
+                Report the incident to IT Security immediately and change
+                your password using the approved process. Do not wait to see
+                whether your account is misused. If the same or similar
+                password has been used on any other approved system, follow
+                IT Security's instructions to secure those accounts as well.
+              </div>
+            </div>
+          </div>
+
+          <div class="scenario">
+            <div class="scenario-head">
+              ⚠ Scenario C — Colleague Asks to Use Your Login
+            </div>
+            <div class="scenario-body">
+              <div class="scenario-label label-wrong">✗ Wrong:</div>
+              <div class="speech speech-wrong">
+                You give your username and password because it is faster
+                than waiting for IT to grant access.
+              </div>
+              <div class="scenario-label label-right">✓ Right:</div>
+              <div class="speech speech-right">
+                Politely decline: "Sorry, I cannot share my login — it is
+                against our security policy and I am personally accountable
+                for everything done under my credentials. Let me help you
+                raise an IT access request instead."
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(1)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(3, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 3 -->
+        <div class="module" id="module3">
+          <div class="module-header">
+            <div class="module-tag">Module 03</div>
+            <div class="module-title">Phishing and Social Engineering</div>
+            <div class="module-desc">
+              How attackers try to manipulate you — and how to recognise and
+              respond
+            </div>
+          </div>
+
+          <h2>What Is Phishing?</h2>
+          <p>
+            Phishing is the most common cyberattack targeting organisations
+            like Respo. Attackers send fake emails, SMS, or make phone calls
+            pretending to be someone trustworthy — to trick you into clicking
+            malicious links, downloading malware, or revealing sensitive
+            information.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Attack Type</th>
+                <th>How It Works</th>
+                <th>Common Disguise</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Email Phishing</td>
+                <td>Fake email with malicious link or attachment</td>
+                <td>RBI circular, bank alert, IT helpdesk, HR</td>
+              </tr>
+              <tr>
+                <td>Spear Phishing</td>
+                <td>
+                  Targeted email crafted specifically for you or Respo
+                </td>
+                <td>
+                  CEO asking for urgent payment, "your manager"
+                </td>
+              </tr>
+              <tr>
+                <td>Smishing (SMS)</td>
+                <td>Fake SMS with malicious link</td>
+                <td>OTP alert, bank notification, delivery update</td>
+              </tr>
+              <tr>
+                <td>Vishing (Voice)</td>
+                <td>
+                  Phone call pretending to be IT support, RBI, or a vendor
+                </td>
+                <td>"Your account is compromised — give us your OTP"</td>
+              </tr>
+              <tr>
+                <td>CEO Fraud / BEC</td>
+                <td>
+                  Urgent financial request pretending to be senior management
+                </td>
+                <td>WhatsApp from "CEO", email from spoofed domain</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Red Flags — How to Spot a Phishing Attempt</h2>
+          <ul>
+            <li>
+              Sender email address does not match the claimed organisation —
+              e.g. rbi-alert@gmail.com
+            </li>
+            <li>
+              Urgent language — "Act immediately or your account will be
+              suspended"
+            </li>
+            <li>Generic greeting — "Dear User" instead of your name</li>
+            <li>Spelling and grammar mistakes</li>
+            <li>
+              Suspicious link — hover over it (without clicking) to see the
+              actual URL destination
+            </li>
+            <li>
+              Unexpected attachment — especially .exe, .zip, .doc with macros
+            </li>
+            <li>Request for your password, OTP, or banking credentials</li>
+            <li>
+              Unusual payment request from someone claiming to be senior
+              management
+            </li>
+          </ul>
+
+          <div class="box box-stop">
+            <strong>Critical Rule:</strong> Respo's IT team and senior
+            management will NEVER ask for your password, OTP, or banking
+            credentials via email or phone. If anyone asks — it is an
+            attack. Report immediately.
+          </div>
+
+          <h2>Real Scenarios</h2>
+          <div class="scenario">
+            <div class="scenario-head">⚠ Scenario D — Fake RBI Email</div>
+            <div class="scenario-body">
+              <div class="scenario-label label-wrong">✗ Wrong:</div>
+              <div class="speech speech-wrong">
+                You receive an email from rbi.compliance@gmail.com with an
+                attachment titled "RBI Circular — Urgent Action Required."
+                You open it.
+              </div>
+              <div class="scenario-label label-right">✓ Right:</div>
+              <div class="speech speech-right">
+                Stop. RBI never sends circulars from Gmail addresses. Do not
+                open attachments. Forward the email to IT security and
+                delete it from your inbox.
+              </div>
+            </div>
+          </div>
+
+          <div class="scenario">
+            <div class="scenario-head">
+              ⚠ Scenario E — Fake IT Helpdesk Call
+            </div>
+            <div class="scenario-body">
+              <div class="scenario-label label-wrong">✗ Wrong:</div>
+              <div class="speech speech-wrong">
+                A caller says: "This is Respo IT support. We detected a
+                breach on your account. Please share your OTP to secure it."
+                You share the OTP.
+              </div>
+              <div class="scenario-label label-right">✓ Right:</div>
+              <div class="speech speech-right">
+                Hang up. IT support will never ask for your OTP. Call the IT
+                team on the official internal number to verify. Report the
+                call to IT security immediately.
+              </div>
+            </div>
+          </div>
+
+          <div class="scenario">
+            <div class="scenario-head">⚠ Scenario F — CEO Payment Fraud</div>
+            <div class="scenario-body">
+              <div class="scenario-label label-wrong">✗ Wrong:</div>
+              <div class="speech speech-wrong">
+                You receive a WhatsApp from a number claiming to be the CEO:
+                "Urgent — process a payment of Rs 50,000 to this account.
+                Confidential." You process it.
+              </div>
+              <div class="scenario-label label-right">✓ Right:</div>
+              <div class="speech speech-right">
+                Stop. This is CEO fraud / BEC. Always verify urgent financial
+                requests by calling the person directly on their known
+                official number — not the same channel the request came
+                from. Then report to IT security.
+              </div>
+            </div>
+          </div>
+
+          <h2>What to Do If You Suspect Phishing</h2>
+          <ol class="steps">
+            <li>Do not click any links or open attachments.</li>
+            <li>Do not reply to the message.</li>
+            <li>
+              Forward to IT security at infosec@Respo.co.in and report via
+              the incident process.
+            </li>
+            <li>Delete the email from your inbox and sent folder.</li>
+            <li>
+              If you accidentally clicked — report immediately, do not wait.
+            </li>
+          </ol>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(2)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(4, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 4 -->
+        <div class="module" id="module4">
+          <div class="module-header">
+            <div class="module-tag">Module 04</div>
+            <div class="module-title">Safe Use of Devices and Systems</div>
+            <div class="module-desc">
+              Protecting Respo equipment, working remotely, and handling
+              removable media
+            </div>
+          </div>
+
+          <h2>Respo-Issued Devices</h2>
+          <p>
+            Any device issued by Respo — laptop, mobile phone, tablet — is
+            company property for Respo business only:
+          </p>
+          <ul>
+            <li>Do not install unauthorised software on Respo devices</li>
+            <li>Do not connect to unknown or public Wi-Fi without a VPN</li>
+            <li>
+              Do not use Respo devices for personal file storage, social
+              media, or personal shopping
+            </li>
+            <li>Do not leave Respo devices unattended in public places</li>
+            <li>Enable device encryption on all Respo devices — confirm with IT</li>
+          </ul>
+
+          <div class="box box-stop">
+            <strong>Lost/Stolen Device:</strong> If a Respo device is lost or
+            stolen — report to IT security IMMEDIATELY.
+          </div>
+
+          <h2>Personal Devices — BYOD Rules</h2>
+          <ul>
+            <li>
+              Only access Respo systems through approved secure channels —
+              VPN, Respo-approved apps
+            </li>
+            <li>
+              Do not store Respo data — including borrower data — on your
+              personal device
+            </li>
+            <li>Do not forward Respo emails to your personal email account</li>
+            <li>Keep your personal device OS and apps updated</li>
+            <li>
+              Please update the apps/OS as and when recommended by the IT
+              team on priority.
+            </li>
+            <li>
+              Enable screen lock with PIN or biometric on your personal
+              device
+            </li>
+          </ul>
+
+          <h2>Remote Working Security</h2>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 280px">Rule</th>
+                <th>Why It Matters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Always use approved VPN when accessing Respo systems
+                  remotely
+                </td>
+                <td>
+                  Public networks can be intercepted — VPN encrypts your
+                  connection
+                </td>
+              </tr>
+              <tr>
+                <td>Make sure that MFA is configured on your VPN</td>
+                <td>
+                  MFA makes sure that no anonymous person is able to connect
+                  to VPN.
+                </td>
+              </tr>
+              <tr>
+                <td>Never work from a public or shared computer</td>
+                <td>Your credentials and session data can be captured</td>
+              </tr>
+              <tr>
+                <td>
+                  Position your screen so others cannot see it in public
+                </td>
+                <td>
+                  Visual shoulder-surfing is a real threat in cafes and
+                  airports
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Lock your screen before stepping away even at home
+                </td>
+                <td>
+                  Family members should not have access to Respo systems
+                </td>
+              </tr>
+              <tr>
+                <td>Ensure home Wi-Fi uses WPA2/WPA3 encryption</td>
+                <td>Unsecured home networks can be exploited</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Removable Media — USB Drives</h2>
+          <div class="box box-stop">
+            <strong>Critical:</strong> Never plug an unknown USB drive into a
+            Respo system. Attackers deliberately leave infected drives in
+            public places and offices. This is a "USB drop attack."
+          </div>
+          <ul>
+            <li>
+              Only use Respo-approved encrypted removable media when
+              absolutely necessary
+            </li>
+            <li>Do not use personal USB drives on Respo systems</li>
+            <li>
+              Do not take borrower data off Respo systems on removable media
+              without written authorisation
+            </li>
+            <li>
+              If you find an unknown USB drive — hand it to IT security. Do
+              not plug it in "to see what is on it."
+            </li>
+          </ul>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(3)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(5, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 5 -->
+        <div class="module" id="module5">
+          <div class="module-header">
+            <div class="module-tag">Module 05</div>
+            <div class="module-title">Data Classification and Handling</div>
+            <div class="module-desc">
+              Understanding what data we hold, how it is classified, and how
+              to handle it safely
+            </div>
+          </div>
+
+          <h2>Respo Data Classification Framework</h2>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 130px">Level</th>
+                <th>What It Includes</th>
+                <th>Who Can Access</th>
+                <th>Key Rules</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>RESTRICTED</strong></td>
+                <td>
+                  Borrower personal data, KYC, loan details, system
+                  passwords, security keys
+                </td>
+                <td>Need-to-know only</td>
+                <td>
+                  Encrypt in transit and at rest; never email unencrypted;
+                  never share without authorisation
+                </td>
+              </tr>
+              <tr>
+                <td><strong>CONFIDENTIAL</strong></td>
+                <td>
+                  Internal business data, employee records, financial
+                  reports, vendor contracts, IT security reports
+                </td>
+                <td>Respo employees with business need</td>
+                <td>
+                  Do not share externally without approval; store in
+                  authorised systems only
+                </td>
+              </tr>
+              <tr>
+                <td><strong>INTERNAL</strong></td>
+                <td>
+                  General internal communications, policies, training
+                  materials
+                </td>
+                <td>All Respo employees</td>
+                <td>
+                  Do not share publicly; standard access controls apply
+                </td>
+              </tr>
+              <tr>
+                <td><strong>PUBLIC</strong></td>
+                <td>
+                  Respo website content, Zype app, regulatory disclosures
+                </td>
+                <td>Everyone</td>
+                <td>No restrictions on sharing</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="box box-stop">
+            <strong>Highest Protection:</strong> Borrower data is RESTRICTED
+            — the highest protection level. It is also personal data under
+            the DPDP Act 2023. A breach can result in regulatory penalties,
+            legal action, reputation loss, and serious harm to borrowers.
+          </div>
+
+          <h2>Rules for Handling Borrower (Restricted) Data</h2>
+          <ul>
+            <li>Access only the borrower data you need for your specific work</li>
+            <li>
+              Never copy borrower data to personal devices, personal email,
+              or WhatsApp
+            </li>
+            <li>Never share borrower data in unencrypted email</li>
+            <li>
+              Never discuss borrower account details where others can
+              overhear
+            </li>
+            <li>
+              Ensure your screen is not visible to others when accessing
+              borrower accounts
+            </li>
+            <li>Log out of all Respo systems before leaving your workstation</li>
+          </ul>
+
+          <h2>Data Disposal — When Data Is No Longer Needed</h2>
+          <ul>
+            <li>
+              Digital files — delete from all systems and empty recycle bin;
+              ask IT if secure deletion tools are required
+            </li>
+            <li>
+              Printed documents — shred all documents containing confidential
+              data; never place in regular waste bins
+            </li>
+            <li>Old devices — hand to IT for secure data wiping before disposal</li>
+          </ul>
+
+          <h2>Safe vs. Unsafe Data Sharing</h2>
+          <div class="do-dont">
+            <div class="do-col">
+              <h4>✓ SAFE DATA SHARING</h4>
+              <ul>
+                <li>Use Respo-approved secure file sharing systems</li>
+                <li>
+                  Password-protect files containing sensitive data before
+                  sharing
+                </li>
+                <li>
+                  Verify recipient identity before sharing confidential data
+                </li>
+                <li>
+                  Seek manager approval before sharing data with third
+                  parties
+                </li>
+              </ul>
+            </div>
+            <div class="dont-col">
+              <h4>✗ UNSAFE DATA SHARING</h4>
+              <ul>
+                <li>Emailing borrower data as an unencrypted attachment</li>
+                <li>Sharing borrower screenshots on WhatsApp</li>
+                <li>Sending confidential data to a wrong email address</li>
+                <li>Uploading borrower data to personal cloud storage</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(4)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(6, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 6 -->
+        <div class="module" id="module6">
+          <div class="module-header">
+            <div class="module-tag">Module 06</div>
+            <div class="module-title">Malware and Ransomware Protection</div>
+            <div class="module-desc">
+              Understanding malicious software, how to avoid it, and what to
+              do if infected
+            </div>
+          </div>
+
+          <h2>Types of Malware</h2>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 130px">Type</th>
+                <th>What It Does</th>
+                <th>How It Spreads</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Ransomware</strong></td>
+                <td>
+                  Encrypts all your files and demands payment — can shut down
+                  the entire organisation
+                </td>
+                <td>
+                  Phishing emails, malicious downloads, unpatched systems
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Virus</strong></td>
+                <td>Attaches to files and replicates, corrupting data</td>
+                <td>Infected files via email, USB, or downloads</td>
+              </tr>
+              <tr>
+                <td><strong>Trojan</strong></td>
+                <td>
+                  Disguises itself as legitimate software — opens backdoors
+                  for attackers
+                </td>
+                <td>
+                  Downloaded from unofficial sources, fake software updates
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Spyware</strong></td>
+                <td>
+                  Silently monitors your activity, capturing passwords and
+                  keystrokes
+                </td>
+                <td>Bundled with free software, malicious websites</td>
+              </tr>
+              <tr>
+                <td><strong>Keylogger</strong></td>
+                <td>
+                  Records every keystroke — capturing passwords and
+                  confidential data
+                </td>
+                <td>Installed via phishing or physical device tampering</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>How to Protect Yourself</h2>
+          <ul>
+            <li>
+              Never download software from unofficial or unknown websites —
+              IT-approved software only
+            </li>
+            <li>
+              Never open email attachments from unknown senders — especially
+              .exe, .zip, .doc, .sh files
+            </li>
+            <li>
+              Never click on pop-up alerts saying "Your computer has a virus
+              — click here"
+            </li>
+            <li>
+              Keep OS and software updated on priority — apply patches
+              promptly when IT notifies you
+            </li>
+            <li>Never disable antivirus or security software even temporarily</li>
+            <li>Never plug in unknown USB drives</li>
+          </ul>
+
+          <div class="box box-stop">
+            <strong>Highest Risk:</strong> Ransomware can encrypt every file
+            on Respo's systems within minutes of a single employee clicking
+            a malicious link. RBI and CERT-In must be notified. Recovery can
+            take weeks and cost crores.
+          </div>
+
+          <h2>Signs of Malware Infection — Report Immediately if You See</h2>
+          <ul>
+            <li>
+              Files with strange new extensions (.locked, .encrypted,
+              .crypto)
+            </li>
+            <li>Files that previously worked cannot be opened</li>
+            <li>A ransom demand message appears on your screen</li>
+            <li>
+              Computer significantly slower than usual without explanation
+            </li>
+            <li>Files or folders disappearing or being renamed automatically</li>
+          </ul>
+
+          <h2>If You Suspect Malware</h2>
+          <ol class="steps">
+            <li>
+              Disconnect from the network IMMEDIATELY — unplug ethernet or
+              disable Wi-Fi. Do NOT shut down the computer.
+            </li>
+            <li>Do not attempt to fix it yourself.</li>
+            <li>
+              Call IT security immediately on +919902361234 or
+              +919940509494.
+            </li>
+            <li>Do not use any other Respo system until IT clears you.</li>
+            <li>
+              Preserve all evidence — do not delete any files or logs
+              (required for Malware Analysis in Forensic audits)
+            </li>
+          </ol>
+
+          <div class="box box-rule">
+            <strong>Good to Know:</strong> Why disconnect but NOT shut down?
+            Shutting down an infected device destroys forensic evidence
+            needed to identify the attacker and recover data. Disconnecting
+            from the network stops the malware spreading to other systems.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(5)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(7, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 7 -->
+        <div class="module" id="module7">
+          <div class="module-header">
+            <div class="module-tag">Module 07</div>
+            <div class="module-title">Data Privacy and DPDP Act 2023</div>
+            <div class="module-desc">
+              Your legal obligations under India's data protection law and
+              how to protect borrower rights
+            </div>
+          </div>
+
+          <h2>What Is the DPDP Act 2023?</h2>
+          <p>
+            The Digital Personal Data Protection Act 2023 is India's primary
+            data protection law. It regulates how organisations like Respo
+            collect, use, store, and share personal data of individuals —
+            including our borrowers and employees.
+          </p>
+
+          <div class="box box-stop">
+            <strong>Your Legal Obligation:</strong> As a Respo employee, you
+            are a "person who processes data" under the DPDP Act. This means
+            you have legal obligations — not just policy obligations — to
+            protect personal data. Violations can result in penalties of up
+            to Rs 250 crore for Respo.
+          </div>
+
+          <h2>Your 5 Core Obligations Under DPDP Act 2023</h2>
+          <ol class="steps">
+            <li>
+              <strong>Purpose limitation:</strong> Use personal data only for
+              the specific purpose it was collected for. Do not repurpose
+              borrower data for anything other than your assigned work.
+            </li>
+            <li>
+              <strong>Data minimisation:</strong> Access only the data you
+              need for your specific task. Do not collect more than
+              necessary.
+            </li>
+            <li>
+              <strong>Security safeguards:</strong> Protect personal data
+              using the technical and organisational measures in this
+              manual.
+            </li>
+            <li>
+              <strong>Breach reporting:</strong> If you suspect or discover a
+              data breach — report it immediately. Any breach MUST be
+              reported to the Data Protection Board within 6 hours so time
+              is extremely critical.
+            </li>
+            <li>
+              <strong>Borrower rights:</strong> If a borrower raises a data
+              rights request — escalate to the Compliance team immediately.
+            </li>
+          </ol>
+
+          <h2>Borrower Data Rights</h2>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 250px">Right</th>
+                <th>Your Responsibility</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Right to know what data we hold</td>
+                <td>
+                  Direct borrower to Zype app privacy section or GRO contact
+                  — do not handle yourself
+                </td>
+              </tr>
+              <tr>
+                <td>Right to correct inaccurate data</td>
+                <td>
+                  Log correction request and escalate to Compliance team — do
+                  not correct data yourself
+                </td>
+              </tr>
+              <tr>
+                <td>Right to raise a data complaint</td>
+                <td>
+                  Provide GRO contact details and log the complaint
+                  immediately
+                </td>
+              </tr>
+              <tr>
+                <td>Right to withdraw consent for marketing</td>
+                <td>
+                  Process immediately — update communication preferences in
+                  the system
+                </td>
+              </tr>
+              <tr>
+                <td>Right to data erasure (where applicable)</td>
+                <td>
+                  Escalate to Compliance team — regulatory retention
+                  requirements may apply
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="box box-warn">
+            <strong>RBI Data Localisation:</strong> All borrower data and
+            payment data collected by Respo must be stored in India. This is
+            a mandatory requirement under RBI Digital Lending Directions
+            2025. If any vendor or tool stores data outside India — raise it
+            with IT and Compliance immediately.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(6)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(8, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 8 -->
+        <div class="module" id="module8">
+          <div class="module-header">
+            <div class="module-tag">Module 08</div>
+            <div class="module-title">Incident Reporting and Response</div>
+            <div class="module-desc">
+              What counts as a security incident, how to report it, and the
+              CERT-In 6-hour rule
+            </div>
+          </div>
+
+          <h2>What Is a Security Incident?</h2>
+          <p>
+            A security incident is any event that could compromise the
+            confidentiality, integrity, or availability of Respo's systems
+            or data. If in doubt — report it. It is always better to report
+            and be wrong than to not report and be right.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 200px">Incident Type</th>
+                <th>Examples</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Phishing / Social Engineering</td>
+                <td>
+                  Suspicious email received; phishing link clicked; OTP
+                  shared with unauthorised person
+                </td>
+              </tr>
+              <tr>
+                <td>Malware / Ransomware</td>
+                <td>
+                  Unusual system behaviour; files encrypting; ransom demand
+                  on screen
+                </td>
+              </tr>
+              <tr>
+                <td>Unauthorised Access</td>
+                <td>Someone logging into your account without your knowledge</td>
+              </tr>
+              <tr>
+                <td>Data Breach</td>
+                <td>
+                  Borrower data sent to wrong recipient; data found on public
+                  platform; data accessed without authorisation
+                </td>
+              </tr>
+              <tr>
+                <td>Lost or Stolen Device</td>
+                <td>Respo laptop, phone, or token lost or stolen</td>
+              </tr>
+              <tr>
+                <td>System Anomaly</td>
+                <td>
+                  Unexpected slowdown; files missing or renamed; unusual
+                  network activity
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="box box-good">
+            <strong>Golden Rule:</strong> Report FIRST. Investigate LATER.
+            Never delay reporting because you are not sure it is real,
+            because you are embarrassed, or because you think you can fix it
+            yourself.
+          </div>
+
+          <h2>How to Report a Security Incident</h2>
+          <ol class="steps">
+            <li>
+              <strong>Step 1:</strong> Immediately contact IT Security: Call
+              +919940509494 or email infosec@Respo.co.in — available 24/7.
+            </li>
+            <li>
+              <strong>Step 2:</strong> Preserve evidence: Do not delete
+              emails, files, or logs. Do not shut down an infected device.
+              Disconnect from network if malware is suspected.
+            </li>
+            <li>
+              <strong>Step 3:</strong> Document what you observed: Time,
+              what you saw, what you did, which systems were involved.
+            </li>
+            <li>
+              <strong>Step 4:</strong> Inform your supervisor: Your manager
+              MUST be notified for any security incident.
+            </li>
+            <li>
+              <strong>Step 5:</strong> Cooperate fully with the IT security
+              investigation. Do not discuss the incident beyond those who
+              need to know.
+            </li>
+          </ol>
+
+          <h2>Regulatory Reporting Timelines — Why Speed Matters</h2>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 180px">Regulator</th>
+                <th>Timeline</th>
+                <th>What Must Be Reported</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>CERT-In</strong></td>
+                <td>6 hours from identification</td>
+                <td>
+                  Qualifying cyber incidents per CERT-In Directions April
+                  2022 — ransomware, data breaches, phishing attacks on
+                  critical systems
+                </td>
+              </tr>
+              <tr>
+                <td><strong>RBI</strong></td>
+                <td>Per RBI IT MD 2023 timelines</td>
+                <td>
+                  Material cyber incidents affecting Respo's systems or
+                  customer data
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Data Protection Board</strong></td>
+                <td>Within prescribed timeline under DPDP Act 2023</td>
+                <td>
+                  Any personal data breach affecting borrower or employee
+                  data
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="box box-stop">
+            <strong>Why 6 Hours Matters:</strong> The 6-hour CERT-In
+            deadline is extremely tight. Every employee must report
+            incidents immediately — the IT team needs time to assess,
+            contain, and report. A delayed employee report can cause Respo
+            to miss the CERT-In deadline.
+          </div>
+
+          <div class="box box-good">
+            <strong>Respo's Policy:</strong> No employee will be penalised
+            for reporting a genuine security incident in good faith — even
+            if it turns out to be a false alarm. What is not acceptable is
+            knowing about an incident and not reporting it.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(7)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(9, true)">
+              Proceed to Assessment
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 9: ASSESSMENT -->
+        <div class="module" id="module9">
+          <div class="module-header">
+            <div class="module-tag">FINAL ASSESSMENT</div>
+            <div class="module-title">Final Assessment</div>
+            <div class="module-desc">
+              Knowledge Check — Score 8/10 or above to pass
+            </div>
+          </div>
+
+          <div class="box box-rule" style="margin-bottom: 20px;">
+            <strong>Instructions:</strong> Answer all 10 questions. Correct
+            answers are marked in green with regulatory explanation below
+            each question.
+          </div>
+
+          <div class="quiz-wrap" id="quizForm">
+            <div class="quiz-q" id="q1">
+              <p>
+                1. Within what timeframe must a qualifying cyber incident be
+                reported to CERT-In?
+              </p>
+              <div class="quiz-opt" id="q1_a" onclick="selectOpt(1, 'a')">
+                <span>A.</span> 24 hours of identification
+              </div>
+              <div class="quiz-opt" id="q1_b" onclick="selectOpt(1, 'b')">
+                <span>B.</span> 6 hours of identification
+              </div>
+              <div class="quiz-opt" id="q1_c" onclick="selectOpt(1, 'c')">
+                <span>C.</span> 48 hours of identification
+              </div>
+              <div class="quiz-opt" id="q1_d" onclick="selectOpt(1, 'd')">
+                <span>D.</span> 72 hours of identification
+              </div>
+              <div class="quiz-feedback" id="fb1"></div>
+            </div>
+
+            <div class="quiz-q" id="q2">
+              <p>
+                2. A colleague asks to use your login credentials while
+                their account is being set up. You should:
+              </p>
+              <div class="quiz-opt" id="q2_a" onclick="selectOpt(2, 'a')">
+                <span>A.</span> Share your credentials since it is temporary
+                and you trust them
+              </div>
+              <div class="quiz-opt" id="q2_b" onclick="selectOpt(2, 'b')">
+                <span>B.</span> Decline and help them raise an IT access
+                request instead
+              </div>
+              <div class="quiz-opt" id="q2_c" onclick="selectOpt(2, 'c')">
+                <span>C.</span> Log in yourself and let them use your active
+                session
+              </div>
+              <div class="quiz-opt" id="q2_d" onclick="selectOpt(2, 'd')">
+                <span>D.</span> Share only your username, not your password
+              </div>
+              <div class="quiz-feedback" id="fb2"></div>
+            </div>
+
+            <div class="quiz-q" id="q3">
+              <p>
+                3. You receive a WhatsApp from a number claiming to be the
+                CEO asking you to urgently process a payment to a new
+                vendor. What should you do?
+              </p>
+              <div class="quiz-opt" id="q3_a" onclick="selectOpt(3, 'a')">
+                <span>A.</span> Process the payment immediately since it
+                appears to be from the CEO
+              </div>
+              <div class="quiz-opt" id="q3_b" onclick="selectOpt(3, 'b')">
+                <span>B.</span> Ask for payment details and process once
+                received
+              </div>
+              <div class="quiz-opt" id="q3_c" onclick="selectOpt(3, 'c')">
+                <span>C.</span> Verify by calling the CEO directly on their
+                known official number, then report to IT security
+              </div>
+              <div class="quiz-opt" id="q3_d" onclick="selectOpt(3, 'd')">
+                <span>D.</span> Forward the message to your manager and
+                await instructions
+              </div>
+              <div class="quiz-feedback" id="fb3"></div>
+            </div>
+
+            <div class="quiz-q" id="q4">
+              <p>4. You find a USB drive in the office car park. What should you do?</p>
+              <div class="quiz-opt" id="q4_a" onclick="selectOpt(4, 'a')">
+                <span>A.</span> Plug it into your computer to see who it
+                belongs to so you can return it
+              </div>
+              <div class="quiz-opt" id="q4_b" onclick="selectOpt(4, 'b')">
+                <span>B.</span> Hand it to the IT security team without
+                plugging it in anywhere
+              </div>
+              <div class="quiz-opt" id="q4_c" onclick="selectOpt(4, 'c')">
+                <span>C.</span> Leave it where you found it
+              </div>
+              <div class="quiz-opt" id="q4_d" onclick="selectOpt(4, 'd')">
+                <span>D.</span> Plug it into a personal device instead of a
+                Respo device
+              </div>
+              <div class="quiz-feedback" id="fb4"></div>
+            </div>
+
+            <div class="quiz-q" id="q5">
+              <p>
+                5. Which of the following is classified as Restricted under
+                Respo's data classification framework?
+              </p>
+              <div class="quiz-opt" id="q5_a" onclick="selectOpt(5, 'a')">
+                <span>A.</span> Respo website content
+              </div>
+              <div class="quiz-opt" id="q5_b" onclick="selectOpt(5, 'b')">
+                <span>B.</span> General internal meeting notes
+              </div>
+              <div class="quiz-opt" id="q5_c" onclick="selectOpt(5, 'c')">
+                <span>C.</span> Borrower KYC documents and loan account
+                details
+              </div>
+              <div class="quiz-opt" id="q5_d" onclick="selectOpt(5, 'd')">
+                <span>D.</span> Publicly available RBI circulars
+              </div>
+              <div class="quiz-feedback" id="fb5"></div>
+            </div>
+
+            <div class="quiz-q" id="q6">
+              <p>
+                6. Your Respo-issued laptop is stolen from your car. What is
+                the first thing you should do?
+              </p>
+              <div class="quiz-opt" id="q6_a" onclick="selectOpt(6, 'a')">
+                <span>A.</span> File a police complaint
+              </div>
+              <div class="quiz-opt" id="q6_b" onclick="selectOpt(6, 'b')">
+                <span>B.</span> Wait to see if the laptop is recovered before
+                reporting
+              </div>
+              <div class="quiz-opt" id="q6_c" onclick="selectOpt(6, 'c')">
+                <span>C.</span> Report to IT security immediately so the
+                device can be remotely wiped
+              </div>
+              <div class="quiz-opt" id="q6_d" onclick="selectOpt(6, 'd')">
+                <span>D.</span> Change your passwords and report the next
+                day
+              </div>
+              <div class="quiz-feedback" id="fb6"></div>
+            </div>
+
+            <div class="quiz-q" id="q7">
+              <p>
+                7. Your computer files are being renamed with a ".locked"
+                extension and your system is very slow. What should you do?
+              </p>
+              <div class="quiz-opt" id="q7_a" onclick="selectOpt(7, 'a')">
+                <span>A.</span> Restart your computer to clear the issue
+              </div>
+              <div class="quiz-opt" id="q7_b" onclick="selectOpt(7, 'b')">
+                <span>B.</span> Run a full virus scan using antivirus
+                software
+              </div>
+              <div class="quiz-opt" id="q7_c" onclick="selectOpt(7, 'c')">
+                <span>C.</span> Disconnect from the network immediately (do
+                NOT shut down) and call IT security
+              </div>
+              <div class="quiz-opt" id="q7_d" onclick="selectOpt(7, 'd')">
+                <span>D.</span> Delete the affected files to stop the spread
+              </div>
+              <div class="quiz-feedback" id="fb7"></div>
+            </div>
+
+            <div class="quiz-q" id="q8">
+              <p>
+                8. Under the DPDP Act 2023, what is the maximum penalty that
+                can be imposed on Respo for a significant data breach?
+              </p>
+              <div class="quiz-opt" id="q8_a" onclick="selectOpt(8, 'a')">
+                <span>A.</span> Rs 10 crore
+              </div>
+              <div class="quiz-opt" id="q8_b" onclick="selectOpt(8, 'b')">
+                <span>B.</span> Rs 50 crore
+              </div>
+              <div class="quiz-opt" id="q8_c" onclick="selectOpt(8, 'c')">
+                <span>C.</span> Rs 250 crore
+              </div>
+              <div class="quiz-opt" id="q8_d" onclick="selectOpt(8, 'd')">
+                <span>D.</span> Rs 1 crore
+              </div>
+              <div class="quiz-feedback" id="fb8"></div>
+            </div>
+
+            <div class="quiz-q" id="q9">
+              <p>
+                9. What is the minimum required password length for standard
+                Respo system accounts under the IS Policy?
+              </p>
+              <div class="quiz-opt" id="q9_a" onclick="selectOpt(9, 'a')">
+                <span>A.</span> 8 characters
+              </div>
+              <div class="quiz-opt" id="q9_b" onclick="selectOpt(9, 'b')">
+                <span>B.</span> 10 characters
+              </div>
+              <div class="quiz-opt" id="q9_c" onclick="selectOpt(9, 'c')">
+                <span>C.</span> 12 characters
+              </div>
+              <div class="quiz-opt" id="q9_d" onclick="selectOpt(9, 'd')">
+                <span>D.</span> 6 characters
+              </div>
+              <div class="quiz-feedback" id="fb9"></div>
+            </div>
+
+            <div class="quiz-q" id="q10">
+              <p>
+                10. A borrower contacts you asking what personal data Respo
+                holds about them. You should:
+              </p>
+              <div class="quiz-opt" id="q10_a" onclick="selectOpt(10, 'a')">
+                <span>A.</span> List out all their data from the system over
+                the phone
+              </div>
+              <div class="quiz-opt" id="q10_b" onclick="selectOpt(10, 'b')">
+                <span>B.</span> Tell them Respo does not share this
+                information
+              </div>
+              <div class="quiz-opt" id="q10_c" onclick="selectOpt(10, 'c')">
+                <span>C.</span> Direct them to the Zype app's privacy
+                section or GRO contact and log the request
+              </div>
+              <div class="quiz-opt" id="q10_d" onclick="selectOpt(10, 'd')">
+                <span>D.</span> Send them an email with all their account
+                data
+              </div>
+              <div class="quiz-feedback" id="fb10"></div>
+            </div>
+
+            <div
+              class="box box-warn"
+              id="quizWarn"
+              style="display: none; margin-bottom: 16px; font-weight: 600"
+            ></div>
+            <button id="submitBtn" class="quiz-submit" onclick="submitQuiz()">
+              Submit Assessment
+            </button>
+
+            <div class="quiz-score" id="quizScore">
+              <div class="score-num" id="scoreNum"></div>
+              <div id="scoreMsg"></div>
+              <div
+                class="cert-box"
+                id="certBox"
+                style="
+                  display: none;
+                  border: none;
+                  background: transparent;
+                  padding: 0;
+                  margin-top: 20px;
+                  box-shadow: none;
+                "
+              >
+                <hr
+                  style="
+                    border: none;
+                    border-top: 1px solid #bbf7d0;
+                    margin: 20px 0;
+                  "
+                />
+                <div class="cert-icon">🏅</div>
+                <h2>Training Complete</h2>
+                <p style="color: #15803d; font-size: 14.5px; line-height: 1.6">
+                  You have successfully completed the Respo Information
+                  Security Awareness Training Manual and passed the
+                  assessment. Your completion has been recorded.
+                </p>
+                <br />
+                <p style="font-size: 13px; color: #166534">
+                  Please inform your supervisor or HR to update your
+                  training record. You will be required to repeat this
+                  training annually.
+                </p>
+              </div>
+
+              <div style="text-align: center; margin-top: 20px">
+                <button
+                  class="quiz-submit"
+                  onclick="retakeQuiz()"
+                  id="retakeBtn"
+                  style="display: none"
+                >
+                  🔄 Retake Assessment
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <h2 style="border-bottom: 1px solid var(--rule); padding-bottom: 8px; margin-top: 40px;">
+            Training Completion Acknowledgement
+          </h2>
+          <p>
+            By completing this training, I confirm that I have read,
+            understood, and agree to comply with Respo's information
+            security policies and the regulatory obligations in this
+            manual, including:
+          </p>
+          <ul>
+            <li>
+              RBI Master Directions on IT Governance, Risk, Controls and
+              Assurance Practices 2023
+            </li>
+            <li>CERT-In Directions on Cyber Incident Reporting (April 2022)</li>
+            <li>Digital Personal Data Protection Act 2023</li>
+            <li>RBI Digital Lending Directions 2025</li>
+            <li>
+              Respo's Information Security Policy and Data Classification
+              Policy
+            </li>
+          </ul>
+
+          <div class="box box-good">
+            <strong>Annual Refresh:</strong> This training must be completed
+            annually by all employees. Any material change to the IS
+            Policy, a significant cyber incident, or a regulatory change may
+            require earlier refresher training.
+          </div>
+
+          <div class="box box-rule">
+            <strong>Final Reminder:</strong> You are Respo's first line of
+            defence. When in doubt — report it. A false alarm costs
+            nothing. A missed incident can cost everything.
+          </div>
+
+          <p style="color: #b91c1c; font-style: italic; font-size: 13.5px; margin-top: 24px;">
+            Respo Financial Capital Private Limited — For Internal Use Only
+            — Mandatory for All Staff — Not for External Distribution
+          </p>
+        </div>
+        <!-- end module9 -->
+      </main>
+    </div>
+
+    <script>
+      // ── State ──────────────────────────────────────────────────────────────
+      const TOTAL = 10;
+      let currentModule = 0;
+      let completed = new Set([0]);
+      let unlocked = new Set([0]);
+      let answers = {};
+
+      const CORRECT = {
+        1: "b",
+        2: "b",
+        3: "c",
+        4: "b",
+        5: "c",
+        6: "c",
+        7: "c",
+        8: "c",
+        9: "c",
+        10: "c",
+      };
+
+      const FEEDBACK = {
+        1: {
+          b: "Correct. CERT-In Directions April 2022 require reporting of qualifying cyber incidents within 6 hours of identification. This tight window means every employee must report suspected incidents immediately without waiting to confirm.",
+          wrong:
+            "Incorrect. CERT-In Directions April 2022 require reporting of qualifying cyber incidents within 6 hours of identification.",
+        },
+        2: {
+          b: "Correct. You are personally accountable for all actions under your credentials. Sharing login details — even with trusted colleagues — is prohibited under Respo's IS Policy and RBI IT MD 2023. Every user must have their own account.",
+          wrong:
+            "Incorrect. Sharing login credentials is strictly prohibited. Decline and help raise an IT access request instead.",
+        },
+        3: {
+          c: "Correct. This is a CEO fraud / Business Email Compromise (BEC) attack. Always verify urgent financial or sensitive requests through a separate, known communication channel. Report to IT security regardless of outcome.",
+          wrong:
+            "Incorrect. Always verify urgent financial requests by calling the person directly on their known official number, then report to IT security.",
+        },
+        4: {
+          b: "Correct. Unknown USB drives are a common attack vector — attackers deliberately leave infected drives hoping someone will plug them in. Never plug an unknown USB drive into any device. Hand to IT security immediately.",
+          wrong:
+            "Incorrect. Never plug an unknown USB drive into any device. Hand it to IT security immediately.",
+        },
+        5: {
+          c: "Correct. Borrower personal data, KYC documents, and loan details are RESTRICTED — the highest protection level. This data is also protected under the DPDP Act 2023 and must be handled with the strictest security controls.",
+          wrong:
+            "Incorrect. Borrower KYC documents and loan account details are classified RESTRICTED — the highest protection level.",
+        },
+        6: {
+          c: "Correct. Report to IT security immediately. A stolen Respo device may contain confidential borrower data and system credentials. IT security must be notified as fast as possible to initiate remote wipe. Police complaint can follow but IT notification comes first.",
+          wrong:
+            "Incorrect. Report to IT security immediately so the device can be remotely wiped — this comes before filing a police complaint.",
+        },
+        7: {
+          c: "Correct. These are classic ransomware signs. Disconnect from the network to stop spread — but do NOT shut down, as this destroys forensic evidence. Call IT security immediately. Never attempt to fix ransomware yourself.",
+          wrong:
+            "Incorrect. Disconnect from the network immediately (do NOT shut down) and call IT security. Never attempt to fix ransomware yourself.",
+        },
+        8: {
+          c: "Correct. The DPDP Act 2023 provides for penalties of up to Rs 250 crore for significant violations. Beyond financial penalties, a data breach can result in reputational damage, loss of borrower trust, and regulatory action by RBI.",
+          wrong:
+            "Incorrect. The DPDP Act 2023 provides for penalties of up to Rs 250 crore for significant violations.",
+        },
+        9: {
+          c: "Correct. Respo's IS Policy, aligned with RBI IT MD 2023, requires passwords of minimum 12 characters for standard accounts with a combination of uppercase, lowercase, numbers, and special characters. Privileged/admin accounts have stricter requirements.",
+          wrong:
+            "Incorrect. The minimum required password length for standard accounts is 12 characters.",
+        },
+        10: {
+          c: "Correct. Data access requests are formal rights under the DPDP Act 2023. These must be handled by the appropriate team — not by individual employees. Direct the borrower to the correct channel and log the request for the Compliance team.",
+          wrong:
+            "Incorrect. Direct the borrower to the Zype app's privacy section or GRO contact and log the request — do not handle data access requests yourself.",
+        },
+      };
+
+      // ── Navigation ─────────────────────────────────────────────────────────
+      function showModule(n, isCta = false) {
+        if (isCta) {
+          unlocked.add(n);
+        }
+        if (!unlocked.has(n)) return;
+        document
+          .querySelectorAll(".module")
+          .forEach((m) => m.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-item")
+          .forEach((m) => m.classList.remove("active"));
+        document.getElementById("module" + n).classList.add("active");
+        document.getElementById("nav" + n).classList.add("active");
+        if (n !== 0 && n !== 9) {
+          completed.add(n);
+        }
+        currentModule = n;
+        updateProgress();
+        window.scrollTo(0, 0);
+      }
+
+      function updateProgress() {
+        for (let i = 0; i <= 9; i++) {
+          const nav = document.getElementById("nav" + i);
+          if (nav) {
+            if (!unlocked.has(i)) nav.classList.add("locked");
+            else nav.classList.remove("locked");
+            if (completed.has(i) && i !== currentModule)
+              nav.classList.add("done");
+            else nav.classList.remove("done");
+          }
+        }
+        let count = 0;
+        for (let i = 1; i <= 8; i++) {
+          if (completed.has(i)) count++;
+        }
+        let pct = count * 10;
+        if (completed.has(9)) {
+          pct = 100;
+        }
+        document.getElementById("progressFill").style.width = pct + "%";
+        document.getElementById("progressLabel").textContent =
+          pct + "% complete";
+      }
+
+      // ── Quiz ───────────────────────────────────────────────────────────────
+      function selectOpt(qNum, opt) {
+        answers[qNum] = opt;
+        const q = document.getElementById("q" + qNum);
+        if (q) {
+          q.style.border = "";
+          q.style.padding = "";
+          q.querySelectorAll(".quiz-opt").forEach((o) => {
+            o.classList.remove("selected");
+            o.style.fontWeight = "";
+            o.style.background = "";
+            o.style.borderColor = "";
+          });
+        }
+        let selectedOpt = document.getElementById("q" + qNum + "_" + opt);
+        if (!selectedOpt && window.event && window.event.currentTarget) {
+          selectedOpt = window.event.currentTarget;
+        }
+        if (selectedOpt) {
+          selectedOpt.classList.add("selected");
+          selectedOpt.style.borderColor = "var(--navy)";
+          selectedOpt.style.background = "#f1f5f9";
+          selectedOpt.style.fontWeight = "600";
+        }
+        const quizWarn = document.getElementById("quizWarn");
+        if (quizWarn && Object.keys(answers).length === 10) {
+          quizWarn.style.display = "none";
+        }
+      }
+
+      function submitQuiz() {
+        let unanswered = [];
+        for (let i = 1; i <= 10; i++) {
+          if (!answers[i]) {
+            unanswered.push(i);
+          }
+        }
+
+        const quizWarn = document.getElementById("quizWarn");
+        if (unanswered.length > 0) {
+          if (quizWarn) {
+            quizWarn.style.display = "block";
+            quizWarn.textContent =
+              "Please answer all 10 questions before submitting. Unanswered question(s): #" +
+              unanswered.join(", #");
+          }
+          for (let i = 1; i <= 10; i++) {
+            const q = document.getElementById("q" + i);
+            if (q) {
+              if (!answers[i]) {
+                q.style.border = "2px solid var(--red)";
+                q.style.borderRadius = "var(--radius)";
+                q.style.padding = "10px";
+              } else {
+                q.style.border = "";
+                q.style.padding = "";
+              }
+            }
+          }
+          const firstUnanswered = document.getElementById("q" + unanswered[0]);
+          if (firstUnanswered) {
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else if (quizWarn) {
+            quizWarn.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          return;
+        }
+
+        if (quizWarn) quizWarn.style.display = "none";
+        for (let i = 1; i <= 10; i++) {
+          const q = document.getElementById("q" + i);
+          if (q) {
+            q.style.border = "";
+            q.style.padding = "";
+          }
+        }
+
+        let score = 0;
+        for (let i = 1; i <= 10; i++) {
+          const q = document.getElementById("q" + i);
+          const opts = q.querySelectorAll(".quiz-opt");
+          const fb = document.getElementById("fb" + i);
+          const chosen = answers[i];
+          const correct = CORRECT[i];
+
+          opts.forEach((o, idx) => {
+            const letter = String.fromCharCode(97 + idx);
+            o.onclick = null; // disable further clicks
+            if (letter === chosen) {
+              if (chosen === correct) {
+                o.classList.add("correct");
+              } else {
+                o.classList.add("wrong");
+              }
+            }
+          });
+
+          if (chosen === correct) {
+            score++;
+            fb.className = "quiz-feedback show box box-good";
+            fb.style.display = "block";
+            fb.textContent = "✓ " + FEEDBACK[i][correct];
+          } else {
+            fb.className = "quiz-feedback";
+            fb.style.display = "none";
+            fb.textContent = "";
+          }
+        }
+
+        const scoreDiv = document.getElementById("quizScore");
+        const scoreNum = document.getElementById("scoreNum");
+        const scoreMsg = document.getElementById("scoreMsg");
+        scoreDiv.classList.add("show");
+        scoreNum.textContent = score + " / 10";
+        document.getElementById("submitBtn").style.display = "none";
+        document.getElementById("retakeBtn").style.display = "inline-block";
+
+        if (score >= 8) {
+          completed.add(9);
+          updateProgress();
+          scoreDiv.style.background = "#f0fdf4";
+          scoreDiv.style.borderColor = "#bbf7d0";
+          scoreNum.style.color = "#16a34a";
+          scoreMsg.innerHTML =
+            "<strong>Congratulations — you have passed!</strong><br>You scored " +
+            score +
+            " out of 10. Your training is now complete.";
+          document.getElementById("certBox").style.display = "block";
+          setTimeout(() => {
+            scoreDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 50);
+        } else {
+          scoreDiv.style.background = "#fef2f2";
+          scoreDiv.style.borderColor = "#fecaca";
+          scoreNum.style.color = "#dc2626";
+          scoreMsg.innerHTML =
+            "<strong>Score: " +
+            score +
+            "/10 — Please retake the assessment.</strong><br>You need at least 8 out of 10 to pass. Review the modules and try again.";
+          setTimeout(() => {
+            scoreDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 50);
+        }
+      }
+
+      function retakeQuiz() {
+        answers = {};
+        completed = new Set([0]);
+        unlocked = new Set([0]);
+        for (let i = 1; i <= 9; i++) {
+          const el = document.getElementById("nav" + i);
+          if (el) {
+            el.classList.remove("done", "active");
+            if (i > 0) el.classList.add("locked");
+          }
+        }
+        document.getElementById("quizScore").classList.remove("show");
+        document.getElementById("quizScore").style.display = "none";
+        document.getElementById("certBox").style.display = "none";
+        document.getElementById("submitBtn").style.display = "inline-block";
+        document.getElementById("retakeBtn").style.display = "none";
+        const quizWarn = document.getElementById("quizWarn");
+        if (quizWarn) quizWarn.style.display = "none";
+
+        for (let i = 1; i <= 10; i++) {
+          const q = document.getElementById("q" + i);
+          if (q) {
+            q.style.border = "";
+            q.style.padding = "";
+            const opts = q.querySelectorAll(".quiz-opt");
+            opts.forEach((o, idx) => {
+              o.className = "quiz-opt";
+              o.style.fontWeight = "";
+              o.style.background = "";
+              o.style.borderColor = "";
+              const letter = String.fromCharCode(97 + idx);
+              o.onclick = function () {
+                selectOpt(i, letter);
+              };
+            });
+            const fb = document.getElementById("fb" + i);
+            if (fb) {
+              fb.className = "quiz-feedback";
+              fb.style.display = "none";
+              fb.textContent = "";
+            }
+          }
+        }
+
+        updateProgress();
+        showModule(0);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // init
+      updateProgress();
+    </script>
+  </body>
+</html>

@@ -2261,9 +2261,10 @@
             q.style.padding = "";
             q.querySelectorAll(".quiz-opt").forEach((o, idx) => {
               const letter = String.fromCharCode(97 + idx);
-              o.classList.remove("correct", "wrong");
+              o.classList.remove("correct", "wrong", "selected");
               o.style.fontWeight = "";
               o.style.background = "";
+              o.style.borderColor = "";
               o.onclick = () => selectOpt(i, letter);
             });
           }

@@ -164,6 +164,13 @@
         background: #dcfce7;
         color: #166534;
       }
+      .nav-item.active.done {
+        color: var(--white);
+      }
+      .nav-item.active.done .nav-num {
+        background: rgba(255, 255, 255, 0.2);
+        color: var(--white);
+      }
       .nav-item.locked {
         opacity: 0.5;
         cursor: not-allowed;
@@ -305,24 +312,36 @@
       /* ── Tables ── */
       table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         margin: 20px 0;
         font-size: 13.5px;
+        background: var(--white);
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        box-shadow: var(--shadow);
       }
       th {
         background: var(--navy);
         color: var(--white);
         text-align: left;
-        padding: 10px 14px;
+        padding: 12px 18px;
+        font-size: 13px;
         font-weight: 600;
+        border-bottom: 1px solid var(--navy);
       }
       td {
-        padding: 10px 14px;
+        padding: 12px 18px;
         border-bottom: 1px solid var(--rule);
+        vertical-align: top;
         color: #334155;
       }
       tr:nth-child(even) td {
         background: #f8fafc;
+      }
+      tr:last-child td {
+        border-bottom: none;
       }
 
       /* ── Script Scenarios ── */
@@ -724,7 +743,7 @@
           <div class="nav-btns">
             <div></div>
             <button class="btn btn-primary" onclick="showModule(1, true)">
-              Start Training →
+              Start Training
             </button>
           </div>
         </div>
@@ -1936,7 +1955,10 @@
           }
           const firstUnanswered = document.getElementById("q" + unanswered[0]);
           if (firstUnanswered) {
-            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+            firstUnanswered.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
           } else if (quizWarn) {
             quizWarn.scrollIntoView({ behavior: "smooth", block: "center" });
           }
@@ -2047,6 +2069,9 @@
             const opts = q.querySelectorAll(".quiz-opt");
             opts.forEach((o, idx) => {
               o.className = "quiz-opt";
+              o.style.fontWeight = "";
+              o.style.background = "";
+              o.style.borderColor = "";
               const letter = String.fromCharCode(97 + idx);
               o.onclick = function () {
                 selectOpt(i, letter);

@@ -159,7 +159,7 @@
 
       /* ── Main Container ── */
       .main-container {
-        max-width: 1340px;
+        max-width: 1600px;
         margin: 0 auto;
         padding: 40px 32px 56px;
         width: 100%;
@@ -172,7 +172,7 @@
       /* ── Cards Grid ── */
       .cards-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 28px;
       }
 
@@ -226,6 +226,12 @@
         background: #eff6ff;
         color: #1d4ed8;
         border: 1px solid #dbeafe;
+      }
+
+      .tag-is {
+        background: #fdf4ff;
+        color: #a21caf;
+        border: 1px solid #fae8ff;
       }
 
       .card-title {
@@ -346,6 +352,12 @@
       }
 
       /* ── Responsive ── */
+      @media (max-width: 1320px) {
+        .cards-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
       @media (max-width: 1080px) {
         .cards-grid {
           grid-template-columns: repeat(2, 1fr);
@@ -508,6 +520,49 @@
 
           <div class="card-footer-row">
             <div class="card-meta-text">📚 11 Modules • Quiz</div>
+            <div class="card-btn">
+              Launch Manual
+              <svg
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 4: Information Security -->
+        <a href="is_index.html" class="manual-card" target="_blank">
+          <div>
+            <span class="card-tag tag-is">IT Security & Data Protection</span>
+            <h2 class="card-title">
+              Information Security Awareness Training Manual
+            </h2>
+            <div class="card-audience">👥 Target: All Employees</div>
+            <p class="card-desc">
+              Mandatory security awareness covering phishing, passwords and
+              MFA, safe device use, data classification, malware, DPDP Act
+              obligations, and incident reporting.
+            </p>
+
+            <div class="key-pills">
+              <span class="key-pill">• RBI IT MD 2023</span>
+              <span class="key-pill">• CERT-In 6-Hour Rule</span>
+              <span class="key-pill">• DPDP Act 2023</span>
+            </div>
+          </div>
+
+          <div class="card-footer-row">
+            <div class="card-meta-text">📚 8 Modules • Quiz</div>
             <div class="card-btn">
               Launch Manual
               <svg
