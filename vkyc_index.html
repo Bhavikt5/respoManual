@@ -143,18 +143,19 @@
         padding: 10px 20px;
         cursor: pointer;
         font-size: 13.5px;
-        color: #94a3b8;
+        color: #cbd5e1;
         border-left: 3px solid transparent;
         transition: all 0.15s;
       }
       .nav-item:hover {
         background: #f8fafc;
-        color: #334155;
+        color: #64748b;
       }
-      .nav-item.active {
-        background: var(--darkgreen);
-        color: var(--white);
-        border-left-color: var(--darkgreen);
+      .nav-item.active,
+      .nav-item.active.done {
+        background: var(--darkgreen) !important;
+        color: #ffffff !important;
+        border-left-color: var(--darkgreen) !important;
         font-weight: 600;
       }
       .nav-item.done {
@@ -164,32 +165,27 @@
         background: #dcfce7;
         color: #166534;
       }
-      .nav-item.active.done {
-        color: var(--white);
-      }
-      .nav-item.active.done .nav-num {
-        background: rgba(255, 255, 255, 0.2);
-        color: var(--white);
-      }
       .nav-item.locked {
-        opacity: 0.5;
+        opacity: 0.45;
         cursor: not-allowed;
+        pointer-events: none;
       }
       .nav-num {
         min-width: 22px;
         height: 22px;
         border-radius: 50%;
         background: #f1f5f9;
-        color: #94a3b8;
+        color: #cbd5e1;
         font-size: 11px;
         font-weight: 700;
         display: flex;
         align-items: center;
         justify-content: center;
       }
-      .nav-item.active .nav-num {
-        background: rgba(255, 255, 255, 0.2);
-        color: var(--white);
+      .nav-item.active .nav-num,
+      .nav-item.active.done .nav-num {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: #ffffff !important;
       }
 
       /* ── Main Content ── */
@@ -257,7 +253,9 @@
       .box-warn {
         background: var(--amber);
         border-left: 4px solid var(--gold);
-        color: #9a3412;
+      }
+      .box-warn strong {
+        color: var(--gold);
       }
       .box-stop {
         background: var(--red-bg);
@@ -265,9 +263,12 @@
         color: #991b1b;
       }
       .box-rule {
-        background: #f8fafc;
-        border-left: 4px solid #64748b;
-        color: #334155;
+        background: var(--lightblue);
+        border-left: 4px solid var(--darkgreen);
+        color: var(--black);
+      }
+      .box-rule strong {
+        color: var(--darkgreen);
       }
 
       /* ── Lists ── */
@@ -382,29 +383,41 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 16px;
-        margin-top: 24px;
+        margin-bottom: 28px;
       }
-      .card {
+      .module-card {
         background: var(--white);
         border: 1px solid var(--rule);
         border-radius: var(--radius);
-        padding: 18px;
+        padding: 18px 16px;
         box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
-      .card-num {
-        font-size: 12px;
+      .module-card .num {
+        font-size: 20px;
         font-weight: 700;
         color: var(--darkgreen);
+        margin-bottom: 6px;
       }
-      .card-title {
+      .module-card .name {
         font-size: 14px;
-        font-weight: 600;
-        margin: 4px 0 8px;
-        color: var(--navy);
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 6px;
+        line-height: 1.35;
       }
-      .card-desc {
+      .module-card .topics {
+        font-size: 12.5px;
+        color: var(--muted);
+        margin-bottom: 12px;
+        line-height: 1.4;
+      }
+      .module-card .mins {
         font-size: 12px;
         color: var(--muted);
+        font-weight: 500;
       }
 
       /* ── Welcome Hero ── */
@@ -564,6 +577,21 @@
         color: #166534;
         margin-bottom: 8px;
       }
+
+      @media (max-width: 768px) {
+        .wrapper {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          display: none;
+        }
+        .main {
+          padding: 24px 20px;
+        }
+        .module-grid {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
@@ -630,118 +658,112 @@
             </p>
           </div>
 
-          <h2>Module Overview</h2>
           <div class="module-grid">
-            <div class="card">
-              <div class="card-num">MODULE 01</div>
-              <div class="card-title">What is Video KYC?</div>
-              <div class="card-desc">
-                Purpose, regulatory basis, risk classification
+            <div class="module-card">
+              <div>
+                <div class="num">01</div>
+                <div class="name">What is Video KYC?</div>
+                <div class="topics">
+                  Purpose, regulatory basis, risk classification
+                </div>
               </div>
-              <div
-                style="font-size: 11px; color: var(--muted); margin-top: 8px"
-              >
-                ⏱ 10 mins
-              </div>
+              <div class="mins">⏱ 10 mins</div>
             </div>
-            <div class="card">
-              <div class="card-num">MODULE 02</div>
-              <div class="card-title">Your Role as a V-CIP Official</div>
-              <div class="card-desc">
-                Responsibilities, who you can onboard, system access
+            <div class="module-card">
+              <div>
+                <div class="num">02</div>
+                <div class="name">Your Role as a V-CIP Official</div>
+                <div class="topics">
+                  Responsibilities, who you can onboard, system access
+                </div>
               </div>
-              <div
-                style="font-size: 11px; color: var(--muted); margin-top: 8px"
-              >
-                ⏱ 12 mins
-              </div>
+              <div class="mins">⏱ 12 mins</div>
             </div>
-            <div class="card">
-              <div class="card-num">MODULE 03</div>
-              <div class="card-title">Before the Session</div>
-              <div class="card-desc">
-                Preparation, consent, document checklist
+            <div class="module-card">
+              <div>
+                <div class="num">03</div>
+                <div class="name">Before the Session</div>
+                <div class="topics">
+                  Preparation, consent, document checklist
+                </div>
               </div>
-              <div
-                style="font-size: 11px; color: var(--muted); margin-top: 8px"
-              >
-                ⏱ 15 mins
-              </div>
+              <div class="mins">⏱ 15 mins</div>
             </div>
-            <div class="card">
-              <div class="card-num">MODULE 04</div>
-              <div class="card-title">Conducting the V-CIP Session</div>
-              <div class="card-desc">
-                Step-by-step process, liveness checks, document verification
+            <div class="module-card">
+              <div>
+                <div class="num">04</div>
+                <div class="name">Conducting the V-CIP Session</div>
+                <div class="topics">
+                  Step-by-step process, liveness checks, document verification
+                </div>
               </div>
-              <div
-                style="font-size: 11px; color: var(--muted); margin-top: 8px"
-              >
-                ⏱ 20 mins
-              </div>
+              <div class="mins">⏱ 20 mins</div>
             </div>
-            <div class="card">
-              <div class="card-num">MODULE 05</div>
-              <div class="card-title">Document Verification in Detail</div>
-              <div class="card-desc">
-                Aadhaar, PAN, OVDs, CKYCR, Aadhaar XML rules
+            <div class="module-card">
+              <div>
+                <div class="num">05</div>
+                <div class="name">Document Verification in Detail</div>
+                <div class="topics">
+                  Aadhaar, PAN, OVDs, CKYCR, Aadhaar XML rules
+                </div>
               </div>
-              <div
-                style="font-size: 11px; color: var(--muted); margin-top: 8px"
-              >
-                ⏱ 15 mins
-              </div>
+              <div class="mins">⏱ 15 mins</div>
             </div>
-            <div class="card">
-              <div class="card-num">MODULE 06</div>
-              <div class="card-title">What to Reject and Why</div>
-              <div class="card-desc">
-                Red flags, rejection criteria, fraud indicators
+            <div class="module-card">
+              <div>
+                <div class="num">06</div>
+                <div class="name">What to Reject and Why</div>
+                <div class="topics">
+                  Red flags, rejection criteria, fraud indicators
+                </div>
               </div>
-              <div
-                style="font-size: 11px; color: var(--muted); margin-top: 8px"
-              >
-                ⏱ 20 mins
-              </div>
+              <div class="mins">⏱ 20 mins</div>
             </div>
-            <div class="card">
-              <div class="card-num">MODULE 07</div>
-              <div class="card-title">After the Session</div>
-              <div class="card-desc">
-                Concurrent audit, data storage, record keeping
+            <div class="module-card">
+              <div>
+                <div class="num">07</div>
+                <div class="name">After the Session</div>
+                <div class="topics">
+                  Concurrent audit, data storage, record keeping
+                </div>
               </div>
-              <div
-                style="font-size: 11px; color: var(--muted); margin-top: 8px"
-              >
-                ⏱ 12 mins
-              </div>
+              <div class="mins">⏱ 12 mins</div>
             </div>
-            <div class="card">
-              <div class="card-num">MODULE 08</div>
-              <div class="card-title">Data Privacy and Confidentiality</div>
-              <div class="card-desc">
-                DPDP Act 2023, Aadhaar redaction, data rules
+            <div class="module-card">
+              <div>
+                <div class="num">08</div>
+                <div class="name">Data Privacy and Confidentiality</div>
+                <div class="topics">
+                  DPDP Act 2023, Aadhaar redaction, data rules
+                </div>
               </div>
-              <div
-                style="font-size: 11px; color: var(--muted); margin-top: 8px"
-              >
-                ⏱ 15 mins
-              </div>
+              <div class="mins">⏱ 15 mins</div>
             </div>
-            <div class="card">
-              <div class="card-num">ASSESSMENT</div>
-              <div class="card-title">Final Knowledge Check</div>
-              <div class="card-desc">10 questions — score 7/10 to pass</div>
-              <div
-                style="font-size: 11px; color: var(--muted); margin-top: 8px"
-              >
-                ⏱ 15 mins
+            <div
+              class="module-card"
+              style="background: #f0fdf4; border-color: #bbf7d0"
+            >
+              <div>
+                <div class="num" style="color: #166534">ASSESSMENT</div>
+                <div class="name" style="color: #166534">
+                  Final Knowledge Check
+                </div>
+                <div class="topics" style="color: #15803d">
+                  10 questions — score 7/10 to pass
+                </div>
               </div>
+              <div class="mins" style="color: #166534">⏱ 15 mins</div>
             </div>
           </div>
 
+          <div class="box box-rule">
+            <strong>Important:</strong> All Video KYC officers must complete
+            this training and pass the assessment before conducting any V-CIP
+            session independently. This manual describes the standards you
+            are expected to follow on every session, every time.
+          </div>
+
           <div class="nav-btns">
-            <div></div>
             <button class="btn btn-primary" onclick="showModule(1, true)">
               Start Training
             </button>

@@ -112,18 +112,18 @@
       /* ── Layout Grid ── */
       .app-layout {
         display: grid;
-        grid-template-columns: 280px 1fr;
-        min-height: calc(100vh - 56px);
+        grid-template-columns: 260px 1fr;
+        min-height: calc(100vh - 48px);
       }
 
       /* ── Sidebar Navigation ── */
       .sidebar {
         background: var(--white);
         border-right: 1px solid var(--rule);
-        padding: 20px 0;
+        padding: 24px 0;
         position: sticky;
-        top: 56px;
-        height: calc(100vh - 56px);
+        top: 48px;
+        height: calc(100vh - 48px);
         overflow-y: auto;
       }
       .sidebar-label {
@@ -282,14 +282,19 @@
         color: #15803d;
       }
       .box-rule {
-        background: #f8fafc;
-        border-left: 4px solid #64748b;
-        color: #334155;
+        background: var(--lightblue);
+        border-left: 4px solid var(--darkgreen);
+        color: var(--black);
+      }
+      .box-rule strong {
+        color: var(--darkgreen);
       }
       .box-warn {
         background: var(--amber);
-        border-left: 4px solid #f97316;
-        color: #c2410c;
+        border-left: 4px solid var(--gold);
+      }
+      .box-warn strong {
+        color: var(--gold);
       }
       .box-stop {
         background: var(--red-bg);
@@ -646,6 +651,21 @@
           grid-template-columns: 1fr;
         }
       }
+
+      @media (max-width: 768px) {
+        .app-layout {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          display: none;
+        }
+        .main-content {
+          padding: 24px 20px;
+        }
+        .module-grid {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
@@ -852,7 +872,7 @@
             </div>
           </div>
 
-          <div class="box box-warn">
+          <div class="box box-rule">
             <strong>Important:</strong> This training is aligned with the
             Reserve Bank of India (Digital Lending) Directions, 2025, the
             Reserve Bank of India (Non-Banking Financial Companies – Responsible
