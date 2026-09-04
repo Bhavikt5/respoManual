@@ -2211,7 +2211,7 @@
         scoreDiv.classList.add("show");
         scoreNum.textContent = score + " / 10";
         document.getElementById("submitBtn").style.display = "none";
-        document.getElementById("retakeBtn").style.display = "inline-block";
+        document.getElementById("retakeBtn").style.display = "none";
 
         if (score >= 7) {
           completed.add(9);
@@ -2228,6 +2228,7 @@
             scoreDiv.scrollIntoView({ behavior: "smooth", block: "center" });
           }, 50);
         } else {
+          document.getElementById("retakeBtn").style.display = "inline-block";
           scoreDiv.style.background = "#fef2f2";
           scoreDiv.style.borderColor = "#fecaca";
           scoreNum.style.color = "#dc2626";
