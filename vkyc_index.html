@@ -1541,22 +1541,28 @@
 
             <div class="quiz-q" id="q4">
               <p>
-                4. Who activates a customer's account after a successful V-CIP
-                session?
+                4. During a V-CIP session, the customer presents their PAN
+                card but the card is torn and the photograph is partially
+                visible and unclear. The customer's name and PAN number are
+                still readable. What should you do?
               </p>
               <div class="quiz-opt" id="q4_a" onclick="selectOpt(4, 'a')">
-                <span>A.</span> You — as soon as the session is complete
+                <span>A.</span> Accept the PAN since the name and number are
+                readable and proceed with the V-CIP
               </div>
               <div class="quiz-opt" id="q4_b" onclick="selectOpt(4, 'b')">
-                <span>B.</span> The customer — through the Zype app
+                <span>B.</span> Ask the customer to hold the PAN closer to the
+                camera — if the number is confirmed, complete the session
               </div>
               <div class="quiz-opt" id="q4_c" onclick="selectOpt(4, 'c')">
-                <span>C.</span> The account is activated only after concurrent
-                audit confirms the V-CIP was conducted correctly
+                <span>C.</span> Abort the V-CIP session, document the reason
+                for rejection, and ask the customer to reschedule with a
+                clear, undamaged PAN card
               </div>
               <div class="quiz-opt" id="q4_d" onclick="selectOpt(4, 'd')">
-                <span>D.</span> Your supervisor — after reviewing your activity
-                log
+                <span>D.</span> Complete the session and note that PAN
+                verification was partial — escalate to supervisor after the
+                call
               </div>
               <div class="quiz-feedback" id="fb4"></div>
             </div>
@@ -1610,23 +1616,27 @@
 
             <div class="quiz-q" id="q7">
               <p>
-                7. Can a bank outsource its V-CIP process to a third-party call
-                center or BPO agency to save costs?
+                7. During a V-CIP session, you notice a second person in the
+                background coaching the customer on what to say and what to
+                show on camera. What should you do?
               </p>
               <div class="quiz-opt" id="q7_a" onclick="selectOpt(7, 'a')">
-                <span>A.</span> Yes, as long as the agency is contractually
-                bound to follow the same script
+                <span>A.</span> Continue the V-CIP session as long as the
+                customer's face is clearly visible and they are answering your
+                questions
               </div>
               <div class="quiz-opt" id="q7_b" onclick="selectOpt(7, 'b')">
-                <span>B.</span> Yes, but only for high-volume periods
+                <span>B.</span> Ask the second person to introduce themselves
+                and note their name on the record before continuing
               </div>
               <div class="quiz-opt" id="q7_c" onclick="selectOpt(7, 'c')">
-                <span>C.</span> No — V-CIP must be performed only by an official
-                of the Regulated Entity who is specifically trained for this
-                purpose
+                <span>C.</span> Abort the V-CIP session immediately, record
+                the reason for rejection in the system, and ask the customer
+                to reschedule a fresh session alone
               </div>
               <div class="quiz-opt" id="q7_d" onclick="selectOpt(7, 'd')">
-                <span>D.</span> Yes, if the agency is ISO-certified
+                <span>D.</span> Pause the session, warn the customer, and
+                continue if the second person moves out of frame
               </div>
               <div class="quiz-feedback" id="fb7"></div>
             </div>
@@ -1834,9 +1844,9 @@
             "A call drop/disconnection requires a completely fresh session. You must initiate a new session and re-obtain the customer's consent before recommencing.",
         },
         4: {
-          c: "All accounts opened through V-CIP must be made operational ONLY after concurrent audit. You complete the session and submit it for audit — you do not activate the account yourself.",
+          c: "A torn PAN card with a partially visible or unclear photograph does not meet document verification standards, even if the name and number are readable. Abort the session, document the reason for rejection, and ask the customer to reschedule with a clear, undamaged PAN card.",
           wrong:
-            "All accounts opened through V-CIP must be made operational ONLY after concurrent audit. You complete the session and submit it for audit — you do not activate the account yourself.",
+            "A torn PAN card with a partially visible or unclear photograph must be rejected regardless of whether the name and number are readable. Abort the session and ask the customer to reschedule with a clear, undamaged PAN card.",
         },
         5: {
           c: "V-CIP must be a live, real-time, sequential interaction; a pre-recorded or forwarded video is not valid.",
@@ -1849,9 +1859,9 @@
             "The geolocation (latitude/longitude) of the customer at the time of the session must be captured.",
         },
         7: {
-          c: "V-CIP must be performed only by an official of the Regulated Entity who is specifically trained for this purpose.",
+          c: "A second person coaching the customer off-camera compromises the integrity of the V-CIP session. Abort the session immediately, record the reason for rejection in the system, and ask the customer to reschedule a fresh session alone.",
           wrong:
-            "V-CIP must be performed only by an official of the Regulated Entity who is specifically trained for this purpose.",
+            "A second person coaching the customer off-camera compromises the integrity of the session. Abort the V-CIP session immediately, record the reason for rejection, and ask the customer to reschedule alone.",
         },
         8: {
           c: "Reject the session and flag it for mismatch — do not proceed with onboarding on the basis of assumption or partial match.",
