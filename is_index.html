@@ -2145,20 +2145,28 @@
           <div class="quiz-wrap" id="quizForm">
             <div class="quiz-q" id="q1">
               <p>
-                1. Within what timeframe must a qualifying cyber incident be
-                reported to CERT-In?
+                1. You have just completed an exciting project at Respo and
+                want to share your achievement on LinkedIn. You plan to post a
+                screenshot of the project dashboard showing loan portfolio
+                data and team names. What should you do?
               </p>
               <div class="quiz-opt" id="q1_a" onclick="selectOpt(1, 'a')">
-                <span>A.</span> 24 hours of identification
+                <span>A.</span> Post the screenshot — it shows your
+                professional achievement and the data is internal, not
+                borrower-facing
               </div>
               <div class="quiz-opt" id="q1_b" onclick="selectOpt(1, 'b')">
-                <span>B.</span> 6 hours of identification
+                <span>B.</span> Blur out borrower numbers but post the rest of
+                the screenshot since team names are not sensitive
               </div>
               <div class="quiz-opt" id="q1_c" onclick="selectOpt(1, 'c')">
-                <span>C.</span> 48 hours of identification
+                <span>C.</span> Do not post the screenshot — share your
+                achievement in general terms without any system data,
+                internal metrics, or colleague names without their consent
               </div>
               <div class="quiz-opt" id="q1_d" onclick="selectOpt(1, 'd')">
-                <span>D.</span> 72 hours of identification
+                <span>D.</span> Check with your manager and if they approve,
+                post the screenshot as is
               </div>
               <div class="quiz-feedback" id="fb1"></div>
             </div>
@@ -2299,20 +2307,27 @@
 
             <div class="quiz-q" id="q8">
               <p>
-                8. Under the DPDP Act 2023, what is the maximum penalty that
-                can be imposed on Respo for a significant data breach?
+                8. You are working from the office and need to step away from
+                your desk for 30 minutes to attend a meeting. Your laptop has
+                borrower account details open on the screen. What should you
+                do?
               </p>
               <div class="quiz-opt" id="q8_a" onclick="selectOpt(8, 'a')">
-                <span>A.</span> Rs 10 crore
+                <span>A.</span> Leave the laptop as is — you are only gone for
+                30 minutes and your colleagues are trustworthy
               </div>
               <div class="quiz-opt" id="q8_b" onclick="selectOpt(8, 'b')">
-                <span>B.</span> Rs 50 crore
+                <span>B.</span> Turn the laptop screen away from the aisle so
+                passersby cannot see it
               </div>
               <div class="quiz-opt" id="q8_c" onclick="selectOpt(8, 'c')">
-                <span>C.</span> Rs 250 crore
+                <span>C.</span> Lock your screen before leaving — press
+                Windows+L or Cmd+Ctrl+Q — so no one can access your session or
+                view borrower data
               </div>
               <div class="quiz-opt" id="q8_d" onclick="selectOpt(8, 'd')">
-                <span>D.</span> Rs 1 crore
+                <span>D.</span> Close the browser tab with borrower data open
+                but leave the rest of the laptop unlocked
               </div>
               <div class="quiz-feedback" id="fb8"></div>
             </div>
@@ -2474,7 +2489,7 @@
       let answers = {};
 
       const CORRECT = {
-        1: "b",
+        1: "c",
         2: "b",
         3: "c",
         4: "b",
@@ -2488,9 +2503,9 @@
 
       const FEEDBACK = {
         1: {
-          b: "Correct. CERT-In Directions April 2022 require reporting of qualifying cyber incidents within 6 hours of identification. This tight window means every employee must report suspected incidents immediately without waiting to confirm.",
+          c: "Correct. Even internal, non-borrower-facing information such as loan portfolio dashboards, system data, and colleague names must not be shared publicly without consent. Social media posts about work achievements must never include screenshots of internal systems, metrics, or data.",
           wrong:
-            "Incorrect. CERT-In Directions April 2022 require reporting of qualifying cyber incidents within 6 hours of identification.",
+            "Incorrect. Never post screenshots of internal systems, dashboards, or metrics on social media — even if the data appears non-sensitive. Share achievements in general terms only, without any system data or colleague names.",
         },
         2: {
           b: "Correct. You are personally accountable for all actions under your credentials. Sharing login details — even with trusted colleagues — is prohibited under Respo's IS Policy and RBI IT MD 2023. Every user must have their own account.",
@@ -2523,9 +2538,9 @@
             "Incorrect. Disconnect from the network immediately (do NOT shut down) and call IT security. Never attempt to fix ransomware yourself.",
         },
         8: {
-          c: "Correct. The DPDP Act 2023 provides for penalties of up to Rs 250 crore for significant violations. Beyond financial penalties, a data breach can result in reputational damage, loss of borrower trust, and regulatory action by RBI.",
+          c: "Correct. Always lock your screen before stepping away from your workstation — even for a short time — so no one can access your session or view borrower data. This applies regardless of how briefly you are away or how much you trust your colleagues.",
           wrong:
-            "Incorrect. The DPDP Act 2023 provides for penalties of up to Rs 250 crore for significant violations.",
+            "Incorrect. Lock your screen before leaving your workstation — press Windows+L or Cmd+Ctrl+Q — so no one can access your session or view borrower data, no matter how short the absence.",
         },
         9: {
           c: "Correct. Respo's IS Policy, aligned with RBI IT MD 2023, requires passwords of minimum 12 characters for standard accounts with a combination of uppercase, lowercase, numbers, and special characters. Privileged/admin accounts have stricter requirements.",
