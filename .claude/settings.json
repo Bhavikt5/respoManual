@@ -3,7 +3,9 @@
     "allow": [
       "Bash(node -e ' *)",
       "Bash(grep -n \"// init\" collections_index.html vkyc_index.html cs_index.html)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
