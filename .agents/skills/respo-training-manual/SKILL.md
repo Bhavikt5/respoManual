@@ -1,12 +1,12 @@
 ---
 name: respo-training-manual
 description: >-
-  Guidelines, design tokens, layout conventions, dual-file HTML synchronization rules, and strict verbatim text preservation standards for maintaining and extending the Respo Collections Training Manual application.
+  Guidelines, design tokens, layout conventions, dual-file HTML synchronization rules, progress calculation standards, assessment feedback constraints, and strict verbatim text preservation rules for maintaining and extending the Respo Collections & VKYC Training Manual applications.
 ---
 
-# Respo Collections Training Manual Development Skill
+# Respo Training Manual Development Skill
 
-This skill provides mandatory guidelines, design system specifications, and workflow procedures for editing, maintaining, and adding modules to the Respo Collections Training Manual codebase.
+This skill provides mandatory guidelines, design system specifications, progress calculation rules, assessment feedback logic, and workflow procedures for editing, maintaining, and adding modules to the Respo Collections and Video KYC Training Manual codebases.
 
 ---
 
@@ -18,11 +18,47 @@ This skill provides mandatory guidelines, design system specifications, and work
 - Every callout box, bullet point, scenario script, and assessment question must match the authoritative manual source 1:1.
 
 ### 2. Dual HTML File Synchronization
-The project contains two primary HTML entry points:
-1. [`index.html`](file:///c:/Users/Bhavik%20Tank/Downloads/respo%20manual/index.html)
-2. [`Respo_Collections_Training_Manual.html`](file:///c:/Users/Bhavik%20Tank/Downloads/respo%20manual/Respo_Collections_Training_Manual.html)
+The repository contains two primary entry points:
+1. [`index.html`](file:///c:/Users/Bhavik%20Tank/Downloads/respo%20manual/index.html) — Respo Collections Training Manual
+2. [`vkyc_index.html`](file:///c:/Users/Bhavik%20Tank/Downloads/respo%20manual/vkyc_index.html) — Respo Video KYC Training Manual
 
-**MANDATORY RULE:** Any modification (content update, CSS tweak, DOM structure change, assessment update, or script change) made to one file MUST be simultaneously applied to the other file so both remain 100% identical in structure and content.
+**MANDATORY RULE:** Any modification (content update, CSS tweak, DOM structure change, assessment logic, progress bar rule, or script change) made to one manual MUST be simultaneously applied to the other manual so both remain 100% synchronized in structure and behavior.
+
+---
+
+## Navigation, Progress Calculation & Sidebar Locking
+
+### 1. Progress Bar Rules
+- Initial load on Module 0 (Welcome / Overview) must display **`0% complete`**.
+- Each completed learning module (Modules 1 through 8) increments progress by 10% (up to 80%).
+- Passing the final assessment (`score >= 7/10`) adds Module 9 to completion and sets progress to **`100% complete`**.
+
+### 2. Strict Sequential Sidebar Locking
+- State begins with `unlocked = new Set([0])` and `completed = new Set([0])`.
+- Modules 1 through 9 are locked initially (`.nav-item.locked` with `pointer-events: none; cursor: not-allowed; opacity: 0.45;`).
+- Users **CANNOT** click unreached sidebar modules to skip ahead.
+- Modules unlock sequentially ONLY when the user clicks the "Start Training" / "Next Module" CTA buttons (`showModule(n, true)`).
+
+### 3. Retake / Reassessment Flow
+- The **`🔄 Retake Assessment`** button (`#retakeBtn`) must ALWAYS be visible upon submitting assessment results.
+- Clicking **`Retake Assessment`** (`retakeQuiz()`):
+  1. Resets state: `completed = new Set([0])` and `unlocked = new Set([0])`.
+  2. Strips `.done` class from all sidebar DOM nodes (`nav0` to `nav9`).
+  3. Resets progress bar back to **`0% complete`**.
+  4. Clears all selected quiz radio options, resets score containers, and hides explanation boxes.
+  5. Navigates the user directly back to Module 0 (Welcome / Overview screen).
+
+---
+
+## Assessment Rules & Wrong Answer Masking
+
+- **Passing Score**: Strictly **7/10 or above** to pass.
+- **Wrong Answer Masking ("dont show correct answer")**:
+  - When an answer is incorrect (`chosen !== correct`), ONLY highlight the chosen option in red (`.wrong`).
+  - DO NOT highlight the green correct answer option.
+  - DO NOT display the feedback explanation container (`.quiz-feedback` must remain `display: none`).
+  - DO NOT display red error callout boxes (`.box-stop`).
+- **Regulatory Feedback**: Include regulatory explanations (RBI RBC Third Amendment 2026, DPDP Act 2023, etc.) under each question definition for internal tracking.
 
 ---
 
@@ -55,6 +91,11 @@ The project contains two primary HTML entry points:
 }
 ```
 
+### Sidebar Styling & State Contrast
+- **Active Module (`.nav-item.active`)**: Dark navy background (`var(--darkgreen)` / `#171c26`) with crisp white title text (`color: #ffffff !important;`) and translucent white circle badge (`rgba(255, 255, 255, 0.2)`).
+- **Uncompleted / Locked Modules (`.nav-item`)**: Faded light gray text (`#cbd5e1`) and light gray circle badge (`#f1f5f9` with `#cbd5e1` text).
+- **Completed Modules (`.nav-item.done`)**: Dark text (`#334155`) with green circle badge (`#dcfce7` background with `#166534` bold green text).
+
 ### Callout Boxes
 - **`.box-good`**: Green border & background (`#f0fdf4`, border `#bbf7d0`). Used for policy guidelines, pass notices, and annual refresh rules.
 - **`.box-rule`**: Blue/Slate callout box (`#f8fafc`, border `#cbd5e1`). Used for operational structures, grievance levels, and assessment instructions.
@@ -64,18 +105,8 @@ The project contains two primary HTML entry points:
 ### Key Components & Layouts
 - **Module Grid (Welcome Screen)**:
   `display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;`
-  Contains 9 cards (Modules 01–08 + Final Assessment) with card number, title, key topics description, and completion time (`⏱ X mins`).
-- **Numbered Steps**:
-  `<ol class="steps">` used for step-by-step procedures.
-- **Prohibited Tables**:
-  Single-column clean table formatting for prohibited practices.
-
----
-
-## Final Assessment & Acknowledgement
-
-- **Score Requirement**: 7/10 or above to pass.
-- **Feedback & Regulatory Basis**: Include inline regulatory explanation (RBI RBC Third Amendment 2026, DPDP Act 2023, etc.) under each question.
+  Contains cards for learning modules with card number, title, key topics description, and completion time (`⏱ X mins`). Cards are static containers without pointer cursors or click handlers.
+- **Header & Branding**: Topbar logo text reads `Respo Financial`.
 - **Training Completion Acknowledgement**: Positioned at the bottom of Module 09 after the quiz/certificate block:
   - Confirms compliance with Respo's Fair Practice Code and Code of Conduct.
   - Annual Refresh policy callout box (`.box-good`).

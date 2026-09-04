@@ -143,13 +143,13 @@
         padding: 10px 20px;
         cursor: pointer;
         font-size: 13.5px;
-        color: #475569;
+        color: #94a3b8;
         border-left: 3px solid transparent;
         transition: all 0.15s;
       }
       .nav-item:hover {
-        background: #f1f5f9;
-        color: var(--ink);
+        background: #f8fafc;
+        color: #334155;
       }
       .nav-item.active {
         background: var(--darkgreen);
@@ -157,12 +157,15 @@
         border-left-color: var(--darkgreen);
         font-weight: 600;
       }
+      .nav-item.done {
+        color: #334155;
+      }
       .nav-item.done .nav-num {
         background: #dcfce7;
         color: #166534;
       }
       .nav-item.locked {
-        opacity: 0.45;
+        opacity: 0.5;
         cursor: not-allowed;
       }
       .nav-num {
@@ -170,7 +173,7 @@
         height: 22px;
         border-radius: 50%;
         background: #f1f5f9;
-        color: #64748b;
+        color: #94a3b8;
         font-size: 11px;
         font-weight: 700;
         display: flex;
@@ -1430,19 +1433,19 @@
                 off-screen repeatedly and responding to questions with slight
                 delays. What should you do?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(1, 'a')">
+              <div class="quiz-opt" id="q1_a" onclick="selectOpt(1, 'a')">
                 <span>A.</span> Continue the session — slight delays are normal
                 due to network issues
               </div>
-              <div class="quiz-opt" onclick="selectOpt(1, 'b')">
+              <div class="quiz-opt" id="q1_b" onclick="selectOpt(1, 'b')">
                 <span>B.</span> Ask simpler questions to help the customer
                 respond faster
               </div>
-              <div class="quiz-opt" onclick="selectOpt(1, 'c')">
+              <div class="quiz-opt" id="q1_c" onclick="selectOpt(1, 'c')">
                 <span>C.</span> Reject the session, log "Prompting detected",
                 and escalate to your supervisor
               </div>
-              <div class="quiz-opt" onclick="selectOpt(1, 'd')">
+              <div class="quiz-opt" id="q1_d" onclick="selectOpt(1, 'd')">
                 <span>D.</span> Warn the customer and give them one more chance
               </div>
               <div class="quiz-feedback" id="fb1"></div>
@@ -1453,19 +1456,19 @@
                 2. A customer presents a printed copy of their e-PAN during the
                 V-CIP session. What is the correct response?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(2, 'a')">
+              <div class="quiz-opt" id="q2_a" onclick="selectOpt(2, 'a')">
                 <span>A.</span> Accept it — a printed copy is equivalent to the
                 original
               </div>
-              <div class="quiz-opt" onclick="selectOpt(2, 'b')">
+              <div class="quiz-opt" id="q2_b" onclick="selectOpt(2, 'b')">
                 <span>B.</span> Accept it with a note on the account
               </div>
-              <div class="quiz-opt" onclick="selectOpt(2, 'c')">
+              <div class="quiz-opt" id="q2_c" onclick="selectOpt(2, 'c')">
                 <span>C.</span> Reject the printed copy and ask the customer to
                 display the digital e-PAN on their device or the physical PAN
                 card
               </div>
-              <div class="quiz-opt" onclick="selectOpt(2, 'd')">
+              <div class="quiz-opt" id="q2_d" onclick="selectOpt(2, 'd')">
                 <span>D.</span> Request a scanned copy via email instead
               </div>
               <div class="quiz-feedback" id="fb2"></div>
@@ -1475,20 +1478,20 @@
               <p>
                 3. The call drops during a V-CIP session. What should you do?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(3, 'a')">
+              <div class="quiz-opt" id="q3_a" onclick="selectOpt(3, 'a')">
                 <span>A.</span> Continue from where you left off using the
                 existing video file when the customer reconnects
               </div>
-              <div class="quiz-opt" onclick="selectOpt(3, 'b')">
+              <div class="quiz-opt" id="q3_b" onclick="selectOpt(3, 'b')">
                 <span>B.</span> Re-obtain consent and continue the verification
                 from the point of disconnection
               </div>
-              <div class="quiz-opt" onclick="selectOpt(3, 'c')">
+              <div class="quiz-opt" id="q3_c" onclick="selectOpt(3, 'c')">
                 <span>C.</span> Abort the session and initiate a completely
                 fresh V-CIP session from the beginning, including re-obtaining
                 consent
               </div>
-              <div class="quiz-opt" onclick="selectOpt(3, 'd')">
+              <div class="quiz-opt" id="q3_d" onclick="selectOpt(3, 'd')">
                 <span>D.</span> Complete the onboarding based on the documents
                 already captured before the disconnection
               </div>
@@ -1500,17 +1503,17 @@
                 4. Who activates a customer's account after a successful V-CIP
                 session?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(4, 'a')">
+              <div class="quiz-opt" id="q4_a" onclick="selectOpt(4, 'a')">
                 <span>A.</span> You — as soon as the session is complete
               </div>
-              <div class="quiz-opt" onclick="selectOpt(4, 'b')">
+              <div class="quiz-opt" id="q4_b" onclick="selectOpt(4, 'b')">
                 <span>B.</span> The customer — through the Zype app
               </div>
-              <div class="quiz-opt" onclick="selectOpt(4, 'c')">
+              <div class="quiz-opt" id="q4_c" onclick="selectOpt(4, 'c')">
                 <span>C.</span> The account is activated only after concurrent
                 audit confirms the V-CIP was conducted correctly
               </div>
-              <div class="quiz-opt" onclick="selectOpt(4, 'd')">
+              <div class="quiz-opt" id="q4_d" onclick="selectOpt(4, 'd')">
                 <span>D.</span> Your supervisor — after reviewing your activity
                 log
               </div>
@@ -1523,19 +1526,19 @@
                 video and send it to you instead of doing a live session. Is
                 this acceptable for V-CIP?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(5, 'a')">
+              <div class="quiz-opt" id="q5_a" onclick="selectOpt(5, 'a')">
                 <span>A.</span> Yes, as long as the video clearly shows the
                 documents
               </div>
-              <div class="quiz-opt" onclick="selectOpt(5, 'b')">
+              <div class="quiz-opt" id="q5_b" onclick="selectOpt(5, 'b')">
                 <span>B.</span> Yes, but only if it's submitted within the same
                 day
               </div>
-              <div class="quiz-opt" onclick="selectOpt(5, 'c')">
+              <div class="quiz-opt" id="q5_c" onclick="selectOpt(5, 'c')">
                 <span>C.</span> No — V-CIP must be a live, real-time, sequential
                 interaction; a pre-recorded or forwarded video is not valid
               </div>
-              <div class="quiz-opt" onclick="selectOpt(5, 'd')">
+              <div class="quiz-opt" id="q5_d" onclick="selectOpt(5, 'd')">
                 <span>D.</span> Yes, if the customer also shares a selfie for
                 face match
               </div>
@@ -1548,17 +1551,17 @@
                 and photograph, must be captured during a V-CIP session to help
                 verify the customer's authenticity?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(6, 'a')">
+              <div class="quiz-opt" id="q6_a" onclick="selectOpt(6, 'a')">
                 <span>A.</span> The customer's Wi-Fi network name
               </div>
-              <div class="quiz-opt" onclick="selectOpt(6, 'b')">
+              <div class="quiz-opt" id="q6_b" onclick="selectOpt(6, 'b')">
                 <span>B.</span> The geolocation (latitude/longitude) of the
                 customer at the time of the session
               </div>
-              <div class="quiz-opt" onclick="selectOpt(6, 'c')">
+              <div class="quiz-opt" id="q6_c" onclick="selectOpt(6, 'c')">
                 <span>C.</span> The customer's browser history
               </div>
-              <div class="quiz-opt" onclick="selectOpt(6, 'd')">
+              <div class="quiz-opt" id="q6_d" onclick="selectOpt(6, 'd')">
                 <span>D.</span> The customer's device IMEI number
               </div>
               <div class="quiz-feedback" id="fb6"></div>
@@ -1569,19 +1572,19 @@
                 7. Can a bank outsource its V-CIP process to a third-party call
                 center or BPO agency to save costs?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(7, 'a')">
+              <div class="quiz-opt" id="q7_a" onclick="selectOpt(7, 'a')">
                 <span>A.</span> Yes, as long as the agency is contractually
                 bound to follow the same script
               </div>
-              <div class="quiz-opt" onclick="selectOpt(7, 'b')">
+              <div class="quiz-opt" id="q7_b" onclick="selectOpt(7, 'b')">
                 <span>B.</span> Yes, but only for high-volume periods
               </div>
-              <div class="quiz-opt" onclick="selectOpt(7, 'c')">
+              <div class="quiz-opt" id="q7_c" onclick="selectOpt(7, 'c')">
                 <span>C.</span> No — V-CIP must be performed only by an official
                 of the Regulated Entity who is specifically trained for this
                 purpose
               </div>
-              <div class="quiz-opt" onclick="selectOpt(7, 'd')">
+              <div class="quiz-opt" id="q7_d" onclick="selectOpt(7, 'd')">
                 <span>D.</span> Yes, if the agency is ISO-certified
               </div>
               <div class="quiz-feedback" id="fb7"></div>
@@ -1593,19 +1596,19 @@
                 customer does not clearly match the photograph on their PAN
                 card. What should you do?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(8, 'a')">
+              <div class="quiz-opt" id="q8_a" onclick="selectOpt(8, 'a')">
                 <span>A.</span> Approve it if the name and date of birth match
               </div>
-              <div class="quiz-opt" onclick="selectOpt(8, 'b')">
+              <div class="quiz-opt" id="q8_b" onclick="selectOpt(8, 'b')">
                 <span>B.</span> Ask the customer to try a different lighting
                 angle and re-capture only the photo
               </div>
-              <div class="quiz-opt" onclick="selectOpt(8, 'c')">
+              <div class="quiz-opt" id="q8_c" onclick="selectOpt(8, 'c')">
                 <span>C.</span> Reject the session and flag it for mismatch — do
                 not proceed with onboarding on the basis of assumption or
                 partial match
               </div>
-              <div class="quiz-opt" onclick="selectOpt(8, 'd')">
+              <div class="quiz-opt" id="q8_d" onclick="selectOpt(8, 'd')">
                 <span>D.</span> Approve it and let the concurrent audit team
                 catch the issue later
               </div>
@@ -1617,20 +1620,20 @@
                 9. A customer requests a V-CIP session at 11:30 PM, saying it's
                 the only time they're free. What is the correct response?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(9, 'a')">
+              <div class="quiz-opt" id="q9_a" onclick="selectOpt(9, 'a')">
                 <span>A.</span> Accommodate it since customer convenience comes
                 first
               </div>
-              <div class="quiz-opt" onclick="selectOpt(9, 'b')">
+              <div class="quiz-opt" id="q9_b" onclick="selectOpt(9, 'b')">
                 <span>B.</span> Conduct it, but flag the account for extra
                 scrutiny later
               </div>
-              <div class="quiz-opt" onclick="selectOpt(9, 'c')">
+              <div class="quiz-opt" id="q9_c" onclick="selectOpt(9, 'c')">
                 <span>C.</span> Inform the customer that V-CIP can only be
                 conducted during the RE's official working hours and offer an
                 available slot within that window
               </div>
-              <div class="quiz-opt" onclick="selectOpt(9, 'd')">
+              <div class="quiz-opt" id="q9_d" onclick="selectOpt(9, 'd')">
                 <span>D.</span> Conduct it only if a supervisor is copied on the
                 call
               </div>
@@ -1642,20 +1645,20 @@
                 10. A customer enables a virtual background and appears to be
                 screen-sharing during the V-CIP session. What should you do?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(10, 'a')">
+              <div class="quiz-opt" id="q10_a" onclick="selectOpt(10, 'a')">
                 <span>A.</span> Ignore it — virtual backgrounds are a normal
                 privacy feature
               </div>
-              <div class="quiz-opt" onclick="selectOpt(10, 'b')">
+              <div class="quiz-opt" id="q10_b" onclick="selectOpt(10, 'b')">
                 <span>B.</span> Ask the customer to disable filters only if the
                 video looks blurry
               </div>
-              <div class="quiz-opt" onclick="selectOpt(10, 'c')">
+              <div class="quiz-opt" id="q10_c" onclick="selectOpt(10, 'c')">
                 <span>C.</span> Ask the customer to disable any virtual
                 background/screen-share and show their real, live surroundings;
                 if they refuse, reject the session and escalate
               </div>
-              <div class="quiz-opt" onclick="selectOpt(10, 'd')">
+              <div class="quiz-opt" id="q10_d" onclick="selectOpt(10, 'd')">
                 <span>D.</span> Proceed but note "background obscured" in the
                 log
               </div>
@@ -1880,12 +1883,22 @@
           q.style.border = "";
           q.style.padding = "";
           q.querySelectorAll(".quiz-opt").forEach((o) => {
+            o.classList.remove("selected");
             o.style.fontWeight = "";
             o.style.background = "";
+            o.style.borderColor = "";
           });
         }
-        event.currentTarget.style.fontWeight = "600";
-        event.currentTarget.style.background = "var(--sky)";
+        let selectedOpt = document.getElementById("q" + qNum + "_" + opt);
+        if (!selectedOpt && window.event && window.event.currentTarget) {
+          selectedOpt = window.event.currentTarget;
+        }
+        if (selectedOpt) {
+          selectedOpt.classList.add("selected");
+          selectedOpt.style.borderColor = "var(--navy)";
+          selectedOpt.style.background = "#f1f5f9";
+          selectedOpt.style.fontWeight = "600";
+        }
         const quizWarn = document.getElementById("quizWarn");
         if (quizWarn && Object.keys(answers).length === 10) {
           quizWarn.style.display = "none";
@@ -1905,7 +1918,7 @@
           if (quizWarn) {
             quizWarn.style.display = "block";
             quizWarn.textContent =
-              "⚠️ Please answer all 10 questions before submitting. Unanswered question(s): #" +
+              "Please answer all 10 questions before submitting. Unanswered question(s): #" +
               unanswered.join(", #");
           }
           for (let i = 1; i <= 10; i++) {
@@ -1920,6 +1933,12 @@
                 q.style.padding = "";
               }
             }
+          }
+          const firstUnanswered = document.getElementById("q" + unanswered[0]);
+          if (firstUnanswered) {
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else if (quizWarn) {
+            quizWarn.scrollIntoView({ behavior: "smooth", block: "center" });
           }
           return;
         }
@@ -1957,7 +1976,7 @@
             score++;
             fb.className = "quiz-feedback show box box-good";
             fb.style.display = "block";
-            fb.textContent = "✓ " + (FEEDBACK[i].c || FEEDBACK[i][correct]);
+            fb.textContent = "✓ " + FEEDBACK[i][correct];
           } else {
             fb.className = "quiz-feedback";
             fb.style.display = "none";
@@ -2003,40 +2022,48 @@
 
       function retakeQuiz() {
         answers = {};
+        completed = new Set([0]);
+        unlocked = new Set([0]);
+        for (let i = 1; i <= 9; i++) {
+          const el = document.getElementById("nav" + i);
+          if (el) {
+            el.classList.remove("done", "active");
+            if (i > 0) el.classList.add("locked");
+          }
+        }
+        document.getElementById("quizScore").classList.remove("show");
+        document.getElementById("quizScore").style.display = "none";
+        document.getElementById("certBox").style.display = "none";
+        document.getElementById("submitBtn").style.display = "inline-block";
+        document.getElementById("retakeBtn").style.display = "none";
         const quizWarn = document.getElementById("quizWarn");
         if (quizWarn) quizWarn.style.display = "none";
-        const scoreDiv = document.getElementById("quizScore");
-        if (scoreDiv) {
-          scoreDiv.style.background = "";
-          scoreDiv.style.borderColor = "";
-        }
-        const scoreNum = document.getElementById("scoreNum");
-        if (scoreNum) scoreNum.style.color = "";
+
         for (let i = 1; i <= 10; i++) {
           const q = document.getElementById("q" + i);
           if (q) {
             q.style.border = "";
             q.style.padding = "";
-            q.querySelectorAll(".quiz-opt").forEach((o, idx) => {
+            const opts = q.querySelectorAll(".quiz-opt");
+            opts.forEach((o, idx) => {
+              o.className = "quiz-opt";
               const letter = String.fromCharCode(97 + idx);
-              o.classList.remove("correct", "wrong");
-              o.style.fontWeight = "";
-              o.style.background = "";
-              o.onclick = () => selectOpt(i, letter);
+              o.onclick = function () {
+                selectOpt(i, letter);
+              };
             });
-          }
-          const fb = document.getElementById("fb" + i);
-          if (fb) {
-            fb.className = "quiz-feedback";
-            fb.textContent = "";
+            const fb = document.getElementById("fb" + i);
+            if (fb) {
+              fb.className = "quiz-feedback";
+              fb.style.display = "none";
+              fb.textContent = "";
+            }
           }
         }
-        completed.delete(9);
-        document.getElementById("quizScore").classList.remove("show");
-        document.getElementById("certBox").style.display = "none";
-        document.getElementById("submitBtn").style.display = "inline-block";
-        document.getElementById("retakeBtn").style.display = "none";
+
+        updateProgress();
         showModule(0);
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
       // init

@@ -143,23 +143,27 @@
         padding: 10px 20px;
         cursor: pointer;
         font-size: 13.5px;
-        color: #475569;
+        color: #cbd5e1;
         border-left: 3px solid transparent;
         transition: all 0.15s;
       }
       .nav-item:hover {
-        background: #f1f5f9;
-        color: var(--ink);
+        background: #f8fafc;
+        color: #64748b;
       }
-      .nav-item.active {
-        background: var(--darkgreen);
-        color: var(--white);
-        border-left-color: var(--darkgreen);
+      .nav-item.active,
+      .nav-item.active.done {
+        background: var(--darkgreen) !important;
+        color: #ffffff !important;
+        border-left-color: var(--darkgreen) !important;
         font-weight: 600;
       }
+      .nav-item.done {
+        color: #334155;
+      }
       .nav-item.done .nav-num {
-        background: var(--grn-bg);
-        color: var(--green);
+        background: #dcfce7;
+        color: #166534;
       }
       .nav-item.locked {
         opacity: 0.45;
@@ -171,16 +175,17 @@
         height: 22px;
         border-radius: 50%;
         background: #f1f5f9;
-        color: #64748b;
+        color: #cbd5e1;
         font-size: 11px;
         font-weight: 700;
         display: flex;
         align-items: center;
         justify-content: center;
       }
-      .nav-item.active .nav-num {
-        background: rgba(255, 255, 255, 0.2);
-        color: var(--white);
+      .nav-item.active .nav-num,
+      .nav-item.active.done .nav-num {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: #ffffff !important;
       }
 
       /* ── Main content ── */
@@ -415,26 +420,36 @@
       /* ── Table ── */
       table {
         width: 100%;
-        border-collapse: collapse;
-        margin: 16px 0;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 20px 0;
         font-size: 13.5px;
+        background: var(--white);
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        box-shadow: var(--shadow);
       }
       th {
         background: var(--darkgreen);
         color: var(--white);
-        padding: 10px 14px;
+        padding: 12px 18px;
         text-align: left;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
+        border-bottom: 1px solid var(--darkgreen);
       }
       td {
-        padding: 9px 14px;
+        padding: 12px 18px;
         border-bottom: 1px solid var(--rule);
         vertical-align: top;
         color: var(--black);
       }
       tr:nth-child(even) td {
-        background: #f8fbfe;
+        background: #f8fafc;
+      }
+      tr:last-child td {
+        border-bottom: none;
       }
       .step-num {
         min-width: 26px;
@@ -695,7 +710,7 @@
   <body>
     <div class="topbar">
       <div class="topbar-logo">Respo <span>Financial</span></div>
-      <div class="topbar-title">Recovery Team Training Manual</div>
+      <div class="topbar-title">Collection Team Training Manual</div>
       <div class="progress-bar">
         <span id="progressLabel">0% complete</span>
         <div class="progress-track">
@@ -1001,25 +1016,25 @@
           <h2>Your Core Objectives — Step by Step</h2>
           <ol class="steps">
             <li>
-              <strong>Step 1: Contact the borrower promptly</strong> — reach out
+              <strong>Contact the borrower promptly</strong> — reach out
               as soon as an EMI is missed using approved channels and timing.
             </li>
             <li>
-              <strong>Step 2: Understand the borrower's situation</strong> —
+              <strong>Understand the borrower's situation</strong> —
               find out why the EMI was missed and when can the borrower make the
               payment.
             </li>
             <li>
-              <strong>Step 3: Offer a resolution path</strong> — payment within
+              <strong>Offer a resolution path</strong> — payment within
               the cycle, part payment, or escalation for a formal arrangement.
             </li>
             <li>
-              <strong>Step 4: Document every interaction</strong> — log all
+              <strong>Document every interaction</strong> — log all
               calls, SMS, and outcomes in the collections system immediately
               after each interaction.
             </li>
             <li>
-              <strong>Step 5: Escalate when needed</strong> — if the borrower is
+              <strong>Escalate when needed</strong> — if the borrower is
               unresponsive or is threatening, escalate to your supervisor.
             </li>
           </ol>
@@ -1670,16 +1685,16 @@
               <p>
                 1. Between what hours are you permitted to contact borrowers?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(1, 'a')">
+              <div class="quiz-opt" id="q1_a" onclick="selectOpt(1, 'a')">
                 <span>A.</span> 6:00 AM to 9:00 PM
               </div>
-              <div class="quiz-opt" onclick="selectOpt(1, 'b')">
+              <div class="quiz-opt" id="q1_b" onclick="selectOpt(1, 'b')">
                 <span>B.</span> 8:00 AM to 7:00 PM
               </div>
-              <div class="quiz-opt" onclick="selectOpt(1, 'c')">
+              <div class="quiz-opt" id="q1_c" onclick="selectOpt(1, 'c')">
                 <span>C.</span> 9:00 AM to 6:00 PM
               </div>
-              <div class="quiz-opt" onclick="selectOpt(1, 'd')">
+              <div class="quiz-opt" id="q1_d" onclick="selectOpt(1, 'd')">
                 <span>D.</span> Any time — as long as the borrower is responsive
               </div>
               <div class="quiz-feedback" id="fb1"></div>
@@ -1690,18 +1705,18 @@
                 2. A borrower's family member answers the phone. What should you
                 do?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(2, 'a')">
+              <div class="quiz-opt" id="q2_a" onclick="selectOpt(2, 'a')">
                 <span>A.</span> Tell the family member about the overdue amount
                 so they can help
               </div>
-              <div class="quiz-opt" onclick="selectOpt(2, 'b')">
+              <div class="quiz-opt" id="q2_b" onclick="selectOpt(2, 'b')">
                 <span>B.</span> Ask them to pass on a message that Respo called
                 and request the borrower call back
               </div>
-              <div class="quiz-opt" onclick="selectOpt(2, 'c')">
+              <div class="quiz-opt" id="q2_c" onclick="selectOpt(2, 'c')">
                 <span>C.</span> Ask for the borrower's employer contact details
               </div>
-              <div class="quiz-opt" onclick="selectOpt(2, 'd')">
+              <div class="quiz-opt" id="q2_d" onclick="selectOpt(2, 'd')">
                 <span>D.</span> End the call and call again later
               </div>
               <div class="quiz-feedback" id="fb2"></div>
@@ -1709,18 +1724,18 @@
 
             <div class="quiz-q" id="q3">
               <p>3. A borrower offers to pay in cash. You should:</p>
-              <div class="quiz-opt" onclick="selectOpt(3, 'a')">
+              <div class="quiz-opt" id="q3_a" onclick="selectOpt(3, 'a')">
                 <span>A.</span> Accept the cash and deposit it in Respo's
                 account
               </div>
-              <div class="quiz-opt" onclick="selectOpt(3, 'b')">
+              <div class="quiz-opt" id="q3_b" onclick="selectOpt(3, 'b')">
                 <span>B.</span> Accept the cash and issue a handwritten receipt
               </div>
-              <div class="quiz-opt" onclick="selectOpt(3, 'c')">
+              <div class="quiz-opt" id="q3_c" onclick="selectOpt(3, 'c')">
                 <span>C.</span> Decline politely and guide the borrower to pay
                 through the Zype app or bank transfer
               </div>
-              <div class="quiz-opt" onclick="selectOpt(3, 'd')">
+              <div class="quiz-opt" id="q3_d" onclick="selectOpt(3, 'd')">
                 <span>D.</span> Tell the borrower to meet you at the office
               </div>
               <div class="quiz-feedback" id="fb3"></div>
@@ -1731,17 +1746,17 @@
                 4. A borrower says they lost their job and cannot pay this
                 month. What is the correct response?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(4, 'a')">
+              <div class="quiz-opt" id="q4_a" onclick="selectOpt(4, 'a')">
                 <span>A.</span> Tell them that is their problem and they need to
                 find a way to pay
               </div>
-              <div class="quiz-opt" onclick="selectOpt(4, 'b')">
+              <div class="quiz-opt" id="q4_b" onclick="selectOpt(4, 'b')">
                 <span>B.</span> Promise them a 3-month moratorium on the spot
               </div>
-              <div class="quiz-opt" onclick="selectOpt(4, 'c')">
+              <div class="quiz-opt" id="q4_c" onclick="selectOpt(4, 'c')">
                 <span>C.</span> Listen with empathy, flag the account and escalate to your supervisor
               </div>
-              <div class="quiz-opt" onclick="selectOpt(4, 'd')">
+              <div class="quiz-opt" id="q4_d" onclick="selectOpt(4, 'd')">
                 <span>D.</span> Ignore the hardship claim and continue with
                 standard follow-up
               </div>
@@ -1753,17 +1768,17 @@
                 5. Which of the following is strictly prohibited under Respo's
                 Code of Conduct?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(5, 'a')">
+              <div class="quiz-opt" id="q5_a" onclick="selectOpt(5, 'a')">
                 <span>A.</span> Calling a borrower during lunch hours
               </div>
-              <div class="quiz-opt" onclick="selectOpt(5, 'b')">
+              <div class="quiz-opt" id="q5_b" onclick="selectOpt(5, 'b')">
                 <span>B.</span> Posting a borrower's name and loan details on a
                 WhatsApp group
               </div>
-              <div class="quiz-opt" onclick="selectOpt(5, 'c')">
+              <div class="quiz-opt" id="q5_c" onclick="selectOpt(5, 'c')">
                 <span>C.</span> Logging a call immediately after it ends
               </div>
-              <div class="quiz-opt" onclick="selectOpt(5, 'd')">
+              <div class="quiz-opt" id="q5_d" onclick="selectOpt(5, 'd')">
                 <span>D.</span> Offering a borrower the GRO contact number
               </div>
               <div class="quiz-feedback" id="fb5"></div>
@@ -1774,18 +1789,18 @@
                 6. A borrower disputes that they took this loan. What should you
                 do?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(6, 'a')">
+              <div class="quiz-opt" id="q6_a" onclick="selectOpt(6, 'a')">
                 <span>A.</span> Insist the loan is valid and continue
                 collections
               </div>
-              <div class="quiz-opt" onclick="selectOpt(6, 'b')">
+              <div class="quiz-opt" id="q6_b" onclick="selectOpt(6, 'b')">
                 <span>B.</span> Note the dispute, stop collections on this
                 account, and escalate to your supervisor immediately
               </div>
-              <div class="quiz-opt" onclick="selectOpt(6, 'c')">
+              <div class="quiz-opt" id="q6_c" onclick="selectOpt(6, 'c')">
                 <span>C.</span> Tell the borrower to visit the office
               </div>
-              <div class="quiz-opt" onclick="selectOpt(6, 'd')">
+              <div class="quiz-opt" id="q6_d" onclick="selectOpt(6, 'd')">
                 <span>D.</span> Threaten legal action to force payment
               </div>
               <div class="quiz-feedback" id="fb6"></div>
@@ -1796,16 +1811,16 @@
                 7. All borrower calls at Respo are recorded. For how long must
                 these recordings be kept?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(7, 'a')">
+              <div class="quiz-opt" id="q7_a" onclick="selectOpt(7, 'a')">
                 <span>A.</span> 30 days
               </div>
-              <div class="quiz-opt" onclick="selectOpt(7, 'b')">
+              <div class="quiz-opt" id="q7_b" onclick="selectOpt(7, 'b')">
                 <span>B.</span> 90 days
               </div>
-              <div class="quiz-opt" onclick="selectOpt(7, 'c')">
+              <div class="quiz-opt" id="q7_c" onclick="selectOpt(7, 'c')">
                 <span>C.</span> 6 months
               </div>
-              <div class="quiz-opt" onclick="selectOpt(7, 'd')">
+              <div class="quiz-opt" id="q7_d" onclick="selectOpt(7, 'd')">
                 <span>D.</span> 1 year
               </div>
               <div class="quiz-feedback" id="fb7"></div>
@@ -1816,18 +1831,18 @@
                 8. A borrower becomes abusive during a call. The right response
                 is to:
               </p>
-              <div class="quiz-opt" onclick="selectOpt(8, 'a')">
+              <div class="quiz-opt" id="q8_a" onclick="selectOpt(8, 'a')">
                 <span>A.</span> Respond firmly and match their energy
               </div>
-              <div class="quiz-opt" onclick="selectOpt(8, 'b')">
+              <div class="quiz-opt" id="q8_b" onclick="selectOpt(8, 'b')">
                 <span>B.</span> Stay calm, offer to call back later or provide
                 GRO contact, then log and report to supervisor
               </div>
-              <div class="quiz-opt" onclick="selectOpt(8, 'c')">
+              <div class="quiz-opt" id="q8_c" onclick="selectOpt(8, 'c')">
                 <span>C.</span> Hang up immediately and mark the account as
                 uncooperative
               </div>
-              <div class="quiz-opt" onclick="selectOpt(8, 'd')">
+              <div class="quiz-opt" id="q8_d" onclick="selectOpt(8, 'd')">
                 <span>D.</span> Warn the borrower that you will take legal
                 action
               </div>
@@ -1839,18 +1854,18 @@
                 9. What information are you allowed to share with a borrower's
                 employer?
               </p>
-              <div class="quiz-opt" onclick="selectOpt(9, 'a')">
+              <div class="quiz-opt" id="q9_a" onclick="selectOpt(9, 'a')">
                 <span>A.</span> The borrower's overdue amount and number of days
                 past due
               </div>
-              <div class="quiz-opt" onclick="selectOpt(9, 'b')">
+              <div class="quiz-opt" id="q9_b" onclick="selectOpt(9, 'b')">
                 <span>B.</span> Nothing - you must never contact or share
                 information with a borrower's employer
               </div>
-              <div class="quiz-opt" onclick="selectOpt(9, 'c')">
+              <div class="quiz-opt" id="q9_c" onclick="selectOpt(9, 'c')">
                 <span>C.</span> Only the borrower's name and contact number
               </div>
-              <div class="quiz-opt" onclick="selectOpt(9, 'd')">
+              <div class="quiz-opt" id="q9_d" onclick="selectOpt(9, 'd')">
                 <span>D.</span> The borrower's loan account number only
               </div>
               <div class="quiz-feedback" id="fb9"></div>
@@ -1861,19 +1876,19 @@
                 10. A borrower says they are going to file a complaint with the
                 RBI Ombudsman. You should:
               </p>
-              <div class="quiz-opt" onclick="selectOpt(10, 'a')">
+              <div class="quiz-opt" id="q10_a" onclick="selectOpt(10, 'a')">
                 <span>A.</span> Tell the borrower that their complaint will not
                 be entertained
               </div>
-              <div class="quiz-opt" onclick="selectOpt(10, 'b')">
+              <div class="quiz-opt" id="q10_b" onclick="selectOpt(10, 'b')">
                 <span>B.</span> Acknowledge their right to do so, provide the
                 RBI CMS portal link, and immediately inform your supervisor
               </div>
-              <div class="quiz-opt" onclick="selectOpt(10, 'c')">
+              <div class="quiz-opt" id="q10_c" onclick="selectOpt(10, 'c')">
                 <span>C.</span> Ignore the statement and continue with standard
                 collections
               </div>
-              <div class="quiz-opt" onclick="selectOpt(10, 'd')">
+              <div class="quiz-opt" id="q10_d" onclick="selectOpt(10, 'd')">
                 <span>D.</span> Offer a waiver to prevent the complaint
               </div>
               <div class="quiz-feedback" id="fb10"></div>
@@ -1884,7 +1899,7 @@
               id="quizWarn"
               style="display: none; margin-bottom: 16px; font-weight: 600"
             ></div>
-            <button class="quiz-submit" onclick="submitQuiz()">
+            <button id="submitBtn" class="quiz-submit" onclick="submitQuiz()">
               Submit Assessment
             </button>
 
@@ -1922,14 +1937,18 @@
                   Please inform your supervisor or HR to update your training
                   record. You will be required to repeat this training annually.
                 </p>
-              <button
-                class="quiz-submit"
-                onclick="retakeQuiz()"
-                id="retakeBtn"
-                style="display: none"
-              >
-                Retake Assessment
-              </button>
+              </div>
+
+              <div style="text-align: center; margin-top: 20px">
+                <button
+                  class="quiz-submit"
+                  onclick="retakeQuiz()"
+                  id="retakeBtn"
+                  style="display: none"
+                >
+                  🔄 Retake Assessment
+                </button>
+              </div>
             </div>
           </div>
 
@@ -2044,7 +2063,9 @@
           .forEach((m) => m.classList.remove("active"));
         document.getElementById("module" + n).classList.add("active");
         document.getElementById("nav" + n).classList.add("active");
-        completed.add(n);
+        if (n !== 0 && n !== 9) {
+          completed.add(n);
+        }
         currentModule = n;
         updateProgress();
         window.scrollTo(0, 0);
@@ -2059,9 +2080,17 @@
             else nav.classList.remove("locked");
             if (completed.has(i) && i !== currentModule)
               nav.classList.add("done");
+            else nav.classList.remove("done");
           }
         }
-        const pct = Math.round((completed.size / 10) * 100);
+        let count = 0;
+        for (let i = 1; i <= 8; i++) {
+          if (completed.has(i)) count++;
+        }
+        let pct = count * 10;
+        if (completed.has(9)) {
+          pct = 100;
+        }
         document.getElementById("progressFill").style.width = pct + "%";
         document.getElementById("progressLabel").textContent =
           pct + "% complete";
@@ -2075,12 +2104,22 @@
           q.style.border = "";
           q.style.padding = "";
           q.querySelectorAll(".quiz-opt").forEach((o) => {
+            o.classList.remove("selected");
             o.style.fontWeight = "";
             o.style.background = "";
+            o.style.borderColor = "";
           });
         }
-        event.currentTarget.style.fontWeight = "600";
-        event.currentTarget.style.background = "var(--sky)";
+        let selectedOpt = document.getElementById("q" + qNum + "_" + opt);
+        if (!selectedOpt && window.event && window.event.currentTarget) {
+          selectedOpt = window.event.currentTarget;
+        }
+        if (selectedOpt) {
+          selectedOpt.classList.add("selected");
+          selectedOpt.style.borderColor = "var(--navy)";
+          selectedOpt.style.background = "#f1f5f9";
+          selectedOpt.style.fontWeight = "600";
+        }
         const quizWarn = document.getElementById("quizWarn");
         if (quizWarn && Object.keys(answers).length === 10) {
           quizWarn.style.display = "none";
@@ -2100,7 +2139,7 @@
           if (quizWarn) {
             quizWarn.style.display = "block";
             quizWarn.textContent =
-              "⚠️ Please answer all 10 questions before submitting. Unanswered question(s): #" +
+              "Please answer all 10 questions before submitting. Unanswered question(s): #" +
               unanswered.join(", #");
           }
           for (let i = 1; i <= 10; i++) {
@@ -2115,6 +2154,12 @@
                 q.style.padding = "";
               }
             }
+          }
+          const firstUnanswered = document.getElementById("q" + unanswered[0]);
+          if (firstUnanswered) {
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else if (quizWarn) {
+            quizWarn.scrollIntoView({ behavior: "smooth", block: "center" });
           }
           return;
         }
@@ -2151,11 +2196,12 @@
           if (chosen === correct) {
             score++;
             fb.className = "quiz-feedback show box box-good";
+            fb.style.display = "block";
             fb.textContent = "✓ " + FEEDBACK[i][correct];
           } else {
-            fb.className = "quiz-feedback show box box-stop";
-            fb.textContent =
-              "✗ " + (FEEDBACK[i][chosen] || FEEDBACK[i]["wrong"]);
+            fb.className = "quiz-feedback";
+            fb.style.display = "none";
+            fb.textContent = "";
           }
         }
 
@@ -2164,8 +2210,12 @@
         const scoreMsg = document.getElementById("scoreMsg");
         scoreDiv.classList.add("show");
         scoreNum.textContent = score + " / 10";
+        document.getElementById("submitBtn").style.display = "none";
+        document.getElementById("retakeBtn").style.display = "inline-block";
 
         if (score >= 7) {
+          completed.add(9);
+          updateProgress();
           scoreDiv.style.background = "#f0fdf4";
           scoreDiv.style.borderColor = "#bbf7d0";
           scoreNum.style.color = "#16a34a";
@@ -2174,7 +2224,6 @@
             score +
             " out of 10. Your training is now complete.";
           document.getElementById("certBox").style.display = "block";
-          document.querySelector(".quiz-submit").style.display = "none";
           setTimeout(() => {
             scoreDiv.scrollIntoView({ behavior: "smooth", block: "center" });
           }, 50);
@@ -2186,7 +2235,6 @@
             "<strong>Score: " +
             score +
             "/10 - Please retake the assessment.</strong><br>You need at least 7 out of 10 to pass. Review the modules and try again.";
-          document.getElementById("retakeBtn").style.display = "inline-block";
           setTimeout(() => {
             scoreDiv.scrollIntoView({ behavior: "smooth", block: "center" });
           }, 50);
@@ -2195,6 +2243,8 @@
 
       function retakeQuiz() {
         answers = {};
+        completed = new Set([0]);
+        unlocked = new Set([0]);
         const quizWarn = document.getElementById("quizWarn");
         if (quizWarn) quizWarn.style.display = "none";
         const scoreDiv = document.getElementById("quizScore");
@@ -2220,15 +2270,20 @@
           const fb = document.getElementById("fb" + i);
           if (fb) {
             fb.className = "quiz-feedback";
+            fb.style.display = "none";
             fb.textContent = "";
           }
         }
+        for (let i = 0; i <= 9; i++) {
+          const nav = document.getElementById("nav" + i);
+          if (nav) nav.classList.remove("done");
+        }
+        completed.delete(9);
         document.getElementById("quizScore").classList.remove("show");
         document.getElementById("certBox").style.display = "none";
-        document.querySelector(".quiz-submit").style.display = "inline-block";
+        document.getElementById("submitBtn").style.display = "inline-block";
         document.getElementById("retakeBtn").style.display = "none";
-        const q1 = document.getElementById("q1");
-        if (q1) q1.scrollIntoView({ behavior: "smooth", block: "start" });
+        showModule(0);
       }
 
       // init

@@ -1,0 +1,3065 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Respo Financial — Customer Service Team Training Manual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --darkgreen: #171c26;
+        --lightblue: #f1f5f9;
+        --black: #111827;
+        --white: #ffffff;
+        --navy: #171c26;
+        --blue: #171c26;
+        --mid: #475569;
+        --sky: #f1f5f9;
+        --gold: #c2410c;
+        --amber: #fff7ed;
+        --red: #dc2626;
+        --red-bg: #fef2f2;
+        --green: #16a34a;
+        --grn-bg: #dcfce7;
+        --ink: #111827;
+        --muted: #64748b;
+        --rule: #e2e8f0;
+        --bg: #f8fafc;
+        --radius: 10px;
+        --shadow:
+          0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body,
+      button,
+      input,
+      select,
+      textarea {
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Top bar ── */
+      .topbar {
+        background: var(--white);
+        color: var(--black);
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid var(--rule);
+      }
+      .topbar-logo {
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.3px;
+        color: var(--black);
+      }
+      .topbar-logo span {
+        color: var(--darkgreen);
+      }
+      .topbar-title {
+        font-size: 13px;
+        color: var(--muted);
+        border-left: 1px solid var(--rule);
+        padding-left: 16px;
+      }
+      .progress-bar {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .progress-track {
+        width: 120px;
+        height: 6px;
+        background: #e2e8f0;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--darkgreen);
+        width: 0%;
+        transition: width 0.4s ease;
+      }
+
+      /* ── Layout Grid ── */
+      .app-layout {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        min-height: calc(100vh - 56px);
+      }
+
+      /* ── Sidebar Navigation ── */
+      .sidebar {
+        background: var(--white);
+        border-right: 1px solid var(--rule);
+        padding: 20px 0;
+        position: sticky;
+        top: 56px;
+        height: calc(100vh - 56px);
+        overflow-y: auto;
+      }
+      .sidebar-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        color: var(--muted);
+        padding: 0 20px 10px;
+        text-transform: uppercase;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        color: #cbd5e1;
+        border-left: 3px solid transparent;
+        transition: all 0.15s;
+      }
+      .nav-item:hover {
+        background: #f8fafc;
+        color: #64748b;
+      }
+      .nav-item.active,
+      .nav-item.active.done {
+        background: var(--navy) !important;
+        color: #ffffff !important;
+        border-left-color: var(--navy) !important;
+        font-weight: 600;
+      }
+      .nav-item.done {
+        color: #334155;
+      }
+      .nav-item.done .nav-num {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .nav-item.locked {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .nav-num {
+        min-width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        color: #cbd5e1;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-item.active .nav-num,
+      .nav-item.active.done .nav-num {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: #ffffff !important;
+      }
+
+      /* ── Main Content Area ── */
+      .main-content {
+        padding: 40px 48px;
+      }
+
+      .module {
+        display: none;
+      }
+      .module.active {
+        display: block;
+        animation: fadeIn 0.2s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── Typography & Components ── */
+      /* ── Module Header ── */
+      .module-header {
+        margin-bottom: 32px;
+      }
+      .module-tag {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--darkgreen);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 8px;
+      }
+      .module-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--darkgreen);
+        line-height: 1.3;
+        margin-bottom: 10px;
+      }
+      .module-desc {
+        color: var(--muted);
+        font-size: 14.5px;
+        border-left: 3px solid var(--darkgreen);
+        padding-left: 14px;
+      }
+
+      h2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--navy);
+        margin: 28px 0 14px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--rule);
+      }
+      h3 {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ink);
+        margin: 20px 0 10px;
+      }
+
+      p {
+        font-size: 14px;
+        color: #334155;
+        margin-bottom: 14px;
+      }
+
+      ul,
+      ol {
+        margin: 0 0 16px 20px;
+        font-size: 14px;
+        color: #334155;
+      }
+      li {
+        margin-bottom: 6px;
+      }
+
+      /* ── Callout Boxes ── */
+      .box {
+        padding: 16px 20px;
+        border-radius: var(--radius);
+        margin: 20px 0;
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+      .box-good {
+        background: #f0fdf4;
+        border-left: 4px solid #22c55e;
+        color: #15803d;
+      }
+      .box-rule {
+        background: #f8fafc;
+        border-left: 4px solid #64748b;
+        color: #334155;
+      }
+      .box-warn {
+        background: var(--amber);
+        border-left: 4px solid #f97316;
+        color: #c2410c;
+      }
+      .box-stop {
+        background: var(--red-bg);
+        border-left: 4px solid var(--red);
+        color: #b91c1c;
+      }
+
+      /* ── Tables ── */
+      table,
+      .custom-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 20px 0;
+        font-size: 13.5px;
+        background: var(--white);
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        box-shadow: var(--shadow);
+      }
+      .custom-table th,
+      th {
+        background: var(--navy);
+        color: var(--white);
+        padding: 12px 18px;
+        text-align: left;
+        font-size: 13px;
+        font-weight: 600;
+        border-bottom: 1px solid var(--navy);
+      }
+      .custom-table td,
+      td {
+        padding: 12px 18px;
+        text-align: left;
+        border-bottom: 1px solid var(--rule);
+        color: var(--black);
+        vertical-align: top;
+      }
+      tr:nth-child(even) td {
+        background: #f8fafc;
+      }
+      .custom-table tr:last-child td,
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* ── Scenario Script Boxes ── */
+      .scenario-box {
+        background: #f8fafc;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 16px 20px;
+        margin: 16px 0;
+      }
+      .scenario-title {
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--navy);
+        margin-bottom: 8px;
+      }
+      .script-wrong {
+        color: #b91c1c;
+        background: #fef2f2;
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        font-size: 13.5px;
+      }
+      .script-right {
+        color: #15803d;
+        background: #f0fdf4;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 13.5px;
+      }
+
+      /* ── Module Grid (Welcome Screen) ── */
+      .welcome-hero {
+        background: var(--white);
+        border-radius: var(--radius);
+        padding: 36px 40px;
+        color: var(--black);
+        margin-bottom: 28px;
+        border: 1px solid var(--rule);
+        box-shadow: var(--shadow);
+      }
+      .welcome-hero h1 {
+        color: var(--black);
+        font-size: 28px;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      .welcome-hero p {
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.65;
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .module-card {
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: var(--shadow);
+      }
+      .module-card .num {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+      .module-card .name {
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--navy);
+        margin-bottom: 6px;
+      }
+      .module-card .topics {
+        font-size: 12px;
+        color: var(--mid);
+        margin-bottom: 12px;
+      }
+      .module-card .mins {
+        font-size: 11px;
+        font-weight: 600;
+        color: #64748b;
+      }
+
+      /* ── Nav buttons ── */
+      .nav-btns {
+        display: flex;
+        gap: 12px;
+        margin-top: 48px;
+        padding-top: 24px;
+        border-top: 1px solid var(--rule);
+      }
+      .btn {
+        padding: 10px 22px;
+        border-radius: var(--radius);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: background 0.15s;
+      }
+      .btn-primary {
+        background: var(--darkgreen);
+        color: var(--white);
+      }
+      .btn-primary:hover {
+        background: #253532;
+      }
+      .btn-secondary {
+        background: var(--white);
+        color: var(--darkgreen);
+        border: 1px solid var(--darkgreen);
+      }
+      .btn-secondary:hover {
+        background: var(--lightblue);
+      }
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+
+      /* ── Assessment Quiz Styles ── */
+      .quiz-wrap {
+        margin: 24px 0;
+      }
+      .quiz-q {
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: var(--shadow);
+        transition: all 0.2s ease;
+      }
+      .quiz-q p {
+        font-weight: 600;
+        margin-bottom: 14px;
+        color: var(--darkgreen);
+      }
+      .quiz-opt {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-bottom: 8px;
+        border: 1px solid var(--rule);
+        font-size: 14px;
+        color: var(--black);
+        transition: background 0.15s, border-color 0.15s;
+        user-select: none;
+      }
+      .quiz-opt span {
+        font-weight: 600;
+        min-width: 20px;
+      }
+      .quiz-opt:hover {
+        background: var(--lightblue);
+      }
+      .quiz-opt.selected {
+        border-color: var(--navy) !important;
+        background: #f1f5f9 !important;
+        font-weight: 600;
+      }
+      .quiz-opt.correct {
+        background: var(--grn-bg) !important;
+        border-color: var(--darkgreen) !important;
+        font-weight: 600;
+        color: var(--darkgreen) !important;
+      }
+      .quiz-opt.wrong {
+        background: var(--red-bg) !important;
+        border-color: #fc8181 !important;
+        color: var(--red) !important;
+      }
+      .quiz-feedback {
+        margin-top: 10px;
+        padding: 10px 14px;
+        border-radius: 6px;
+        font-size: 13.5px;
+        display: none;
+      }
+      .quiz-feedback.show {
+        display: block;
+      }
+      .quiz-score {
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 32px 24px;
+        text-align: center;
+        display: none;
+        margin-top: 24px;
+        box-shadow: var(--shadow);
+      }
+      .quiz-score.show {
+        display: block;
+      }
+      .quiz-score .score-num {
+        font-size: 48px;
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+      .quiz-score #scoreMsg {
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .quiz-score #scoreMsg strong {
+        color: var(--ink);
+        font-weight: 700;
+      }
+      .quiz-submit {
+        background: var(--darkgreen);
+        color: var(--white);
+        border: none;
+        border-radius: var(--radius);
+        padding: 10px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 8px;
+        transition: background 0.15s;
+      }
+      .quiz-submit:hover {
+        background: #253532;
+      }
+
+      .cert-box {
+        display: none;
+        background: #f0fdf4;
+        border: 2px solid #86efac;
+        padding: 28px;
+        border-radius: 12px;
+        margin-top: 24px;
+        text-align: center;
+      }
+
+      .signoff-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 24px 0;
+        font-size: 13px;
+      }
+      .signoff-table td {
+        padding: 10px 14px;
+        border: 1px solid var(--rule);
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-logo">Respo <span>Financial</span></div>
+      <div class="topbar-title">Customer Service Team Training Manual</div>
+      <div class="progress-bar">
+        <span id="progressLabel">0% complete</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAYOUT -->
+    <div class="app-layout">
+      <!-- SIDEBAR -->
+      <nav class="sidebar">
+        <div class="sidebar-label">Modules</div>
+        <div class="nav-item active" onclick="showModule(0)" id="nav0">
+          <span class="nav-num">●</span> Welcome
+        </div>
+        <div class="nav-item locked" onclick="showModule(1)" id="nav1">
+          <span class="nav-num">1</span> Who We Are & Role
+        </div>
+        <div class="nav-item locked" onclick="showModule(2)" id="nav2">
+          <span class="nav-num">2</span> Products & Borrowers
+        </div>
+        <div class="nav-item locked" onclick="showModule(3)" id="nav3">
+          <span class="nav-num">3</span> Enquiries & Requests
+        </div>
+        <div class="nav-item locked" onclick="showModule(4)" id="nav4">
+          <span class="nav-num">4</span> Grievance Redressal
+        </div>
+        <div class="nav-item locked" onclick="showModule(5)" id="nav5">
+          <span class="nav-num">5</span> Cooling-Off & Exit
+        </div>
+        <div class="nav-item locked" onclick="showModule(6)" id="nav6">
+          <span class="nav-num">6</span> Prohibited Practices
+        </div>
+        <div class="nav-item locked" onclick="showModule(7)" id="nav7">
+          <span class="nav-num">7</span> Data Privacy & Security
+        </div>
+        <div class="nav-item locked" onclick="showModule(8)" id="nav8">
+          <span class="nav-num">8</span> Difficult Situations
+        </div>
+        <div class="nav-item locked" onclick="showModule(9)" id="nav9">
+          <span class="nav-num">9</span> Bureau Disputes
+        </div>
+        <div class="nav-item locked" onclick="showModule(10)" id="nav10">
+          <span class="nav-num">10</span> Recovery Conduct
+        </div>
+        <div class="nav-item locked" onclick="showModule(11)" id="nav11">
+          <span class="nav-num">11</span> Accessibility
+        </div>
+        <div class="nav-item locked" onclick="showModule(12)" id="nav12">
+          <span class="nav-num">✓</span> Final Assessment
+        </div>
+      </nav>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        <!-- MODULE 0: WELCOME HERO -->
+        <div class="module active" id="module0">
+          <div class="welcome-hero">
+            <h1>How to Use This Manual</h1>
+            <p>
+              This role-based training manual covers the customer-facing
+              requirements relevant to Respo's Customer Service team. It should
+              be read together with Respo's approved policies, product
+              documentation and regulatory updates. Read each module carefully
+              and complete the assessment at the end.
+            </p>
+          </div>
+
+          <div class="module-grid">
+            <div class="module-card">
+              <div>
+                <div class="num">01</div>
+                <div class="name">
+                  Who We Are and What Customer Service Means
+                </div>
+                <div class="topics">Respo model, our promise, your role</div>
+              </div>
+              <div class="mins">⏱ 5 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">02</div>
+                <div class="name">Understanding Our Products and Borrowers</div>
+                <div class="topics">Loan products, KFS, borrower journey</div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">03</div>
+                <div class="name">Handling Enquiries and Service Requests</div>
+                <div class="topics">
+                  Channels, response standards, how to help
+                </div>
+              </div>
+              <div class="mins">⏱ 10 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">04</div>
+                <div class="name">Grievance Handling and Escalation</div>
+                <div class="topics">
+                  3-tier GRO structure, timelines, RBI Ombudsman
+                </div>
+              </div>
+              <div class="mins">⏱ 10 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">05</div>
+                <div class="name">
+                  Cooling-Off Period and Loan Cancellations
+                </div>
+                <div class="topics">
+                  What it is, how to process, what not to do
+                </div>
+              </div>
+              <div class="mins">⏱ 7 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">06</div>
+                <div class="name">What You Must Never Do</div>
+                <div class="topics">
+                  Prohibited practices, dark patterns, data misuse
+                </div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">07</div>
+                <div class="name">Data Privacy and Confidentiality</div>
+                <div class="topics">
+                  DPDP Act 2023, borrower rights, your obligations
+                </div>
+              </div>
+              <div class="mins">⏱ 7 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">08</div>
+                <div class="name">Handling Difficult Situations</div>
+                <div class="topics">
+                  Distressed borrowers, disputes, media/legal threats
+                </div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">09</div>
+                <div class="name">
+                  Credit Information Reporting and Bureau Disputes
+                </div>
+                <div class="topics">
+                  Bureau reporting, fortnightly updates, 30-day resolution
+                </div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">10</div>
+                <div class="name">Recovery Conduct and Customer Protection</div>
+                <div class="topics">
+                  Calling hours (8am-7pm), agent verification, zero harassment
+                </div>
+              </div>
+              <div class="mins">⏱ 8 mins</div>
+            </div>
+            <div class="module-card">
+              <div>
+                <div class="num">11</div>
+                <div class="name">Accessibility and Non-Discrimination</div>
+                <div class="topics">
+                  Non-discrimination, reasonable assistance for disabilities
+                </div>
+              </div>
+              <div class="mins">⏱ 5 mins</div>
+            </div>
+            <div
+              class="module-card"
+              style="background: #f0fdf4; border-color: #bbf7d0"
+            >
+              <div>
+                <div class="num" style="color: #166534">ASSESSMENT</div>
+                <div class="name" style="color: #166534">
+                  Final Knowledge Check
+                </div>
+                <div class="topics" style="color: #15803d">
+                  10 questions — score 8/10 to pass
+                </div>
+              </div>
+              <div class="mins" style="color: #166534">⏱ 15 mins</div>
+            </div>
+          </div>
+
+          <div class="box box-warn">
+            <strong>Important:</strong> This training is aligned with the
+            Reserve Bank of India (Digital Lending) Directions, 2025, the
+            Reserve Bank of India (Non-Banking Financial Companies – Responsible
+            Business Conduct) Directions, 2025, Respo's Fair Practices Code, and
+            applicable data-protection requirements. All customer service team
+            members must complete this training before starting work.
+          </div>
+
+          <div class="box box-rule">
+            <strong>REGULATORY SCOPE NOTE</strong><br />
+            This is a role-based Customer Service training manual, not a
+            substitute for the complete RBI regulatory framework. It
+            incorporates the RBI requirements that materially affect
+            customer-facing service, grievance handling, digital lending, KYC,
+            credit-information disputes, recovery conduct, outsourcing
+            interfaces and accessibility. Prudential, capital, accounting and
+            other non-customer-facing directions remain governed by the
+            respective Compliance/Legal policies.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-primary" onclick="showModule(1, true)">
+              Start Training
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 1 -->
+        <div class="module" id="module1">
+          <div class="module-header">
+            <div class="module-tag">Module 01</div>
+            <div class="module-title">
+              Who We Are and What Customer Service Means
+            </div>
+            <div class="module-desc">
+              Understanding Respo's model and your role as the borrower's
+              primary point of contact
+            </div>
+          </div>
+
+          <h2>About Respo Financial Capital</h2>
+          <p>
+            Respo Financial Capital Private Limited is an RBI-registered
+            Non-Banking Financial Company (NBFC). We provide unsecured personal
+            loans to individuals through the Zype app, operated by Easy Platform
+            Services Private Limited.
+          </p>
+          <p>
+            Our loans range from 6 to 36 months in tenure and are disbursed
+            entirely digitally — no physical branches, no cash. Every borrower
+            interaction happens through the Zype app, our helpline, or email.
+          </p>
+
+          <div class="box box-good">
+            <strong>Our Promise to Every Borrower:</strong> Respo is committed
+            to providing credit in a fair, transparent, and responsible manner.
+            This commitment is supported by the Reserve Bank of India
+            (Non-Banking Financial Companies – Responsible Business Conduct)
+            Directions, 2025 and Respo's Fair Practices Code.
+          </div>
+
+          <h2>Your Role in Customer Service</h2>
+          <p>
+            As a member of the customer service team, you are the borrower's
+            primary point of contact at Respo. You represent Respo in every
+            interaction. Your role is to:
+          </p>
+          <ul>
+            <li>
+              Help borrowers understand their loan products, terms, and account
+              status
+            </li>
+            <li>
+              Resolve service requests and complaints fairly, promptly, and with
+              empathy
+            </li>
+            <li>
+              Escalate issues that are beyond your authority to the right person
+              — quickly
+            </li>
+            <li>
+              Ensure every borrower is treated with dignity and respect
+              regardless of their situation
+            </li>
+          </ul>
+
+          <h2>Regulatory Framework You Must Know</h2>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Regulation</th>
+                <th>What It Means for Customer Service</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Reserve Bank of India (Digital Lending) Directions, 2025
+                </td>
+                <td>
+                  Mandatory grievance redressal, KFS disclosure, cooling-off
+                  period, complaint escalation to RBI Ombudsman
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Reserve Bank of India (Non-Banking Financial Companies –
+                  Responsible Business Conduct) Directions, 2025
+                </td>
+                <td>
+                  Fair treatment, responsible lending conduct, transparent
+                  disclosures and borrower protection
+                </td>
+              </tr>
+              <tr>
+                <td>Respo Fair Practices Code</td>
+                <td>
+                  Our commitment to borrowers — published on our website and in
+                  the Zype app
+                </td>
+              </tr>
+              <tr>
+                <td>Applicable data-protection framework</td>
+                <td>
+                  Privacy, authorised use of borrower data, consent and secure
+                  handling of personal information
+                </td>
+              </tr>
+              <tr>
+                <td>Reserve Bank – Integrated Ombudsman Scheme, 2021</td>
+                <td>
+                  RBI grievance escalation where the RE rejects the complaint
+                  wholly/partly, the borrower is dissatisfied with the reply, or
+                  no reply is received within 30 days
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="box box-rule">
+            <strong>Remember:</strong> A borrower who is served well is more
+            likely to repay on time, refer others, and return for future loans.
+            Great customer service is also good business.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(0)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(2, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 2 -->
+        <div class="module" id="module2">
+          <div class="module-header">
+            <div class="module-tag">Module 02</div>
+            <div class="module-title">
+              Understanding Our Products and Borrowers
+            </div>
+            <div class="module-desc">
+              What our borrowers have taken, what they are entitled to know, and
+              how to find their account details
+            </div>
+          </div>
+
+          <h2>Our Loan Product</h2>
+          <p>
+            Respo offers one product: unsecured personal loans through the Zype
+            app. Key features every customer service agent must know:
+          </p>
+
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Loan type</td>
+                <td>Unsecured personal loan — no collateral required</td>
+              </tr>
+              <tr>
+                <td>Tenure</td>
+                <td>6 months to 36 months</td>
+              </tr>
+              <tr>
+                <td>Disbursement</td>
+                <td>
+                  100% digital — directly to borrower's bank account via
+                  NEFT/IMPS
+                </td>
+              </tr>
+              <tr>
+                <td>Repayment</td>
+                <td>
+                  Equated Monthly Instalments (EMIs) via eNACH / UPI AutoPay
+                </td>
+              </tr>
+              <tr>
+                <td>Interest rate</td>
+                <td>
+                  As disclosed in the Key Fact Statement (KFS) — varies by
+                  borrower risk profile
+                </td>
+              </tr>
+              <tr>
+                <td>Penal charges</td>
+                <td>
+                  Late Payment Penalty — capped at ₹2,500 per loan. NOT
+                  capitalised. NOT interest.
+                </td>
+              </tr>
+              <tr>
+                <td>Cash acceptance</td>
+                <td>
+                  Respo does not accept cash. All transactions via Zype app or
+                  bank transfer only.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>The Key Fact Statement (KFS) — Your Most Important Document</h2>
+          <div class="box box-warn">
+            <strong>Mandatory:</strong> Under Reserve Bank of India (Digital
+            Lending) Directions, 2025, every borrower must receive a Key Fact
+            Statement (KFS) before signing the loan agreement. The KFS is a
+            one-page summary of all key loan terms in plain language. As a
+            customer service agent, you must understand the KFS and be able to
+            explain it to borrowers.
+          </div>
+
+          <p>
+            The KFS must contain the information prescribed under the applicable
+            RBI KFS framework, including:
+          </p>
+          <ul>
+            <li>Loan amount, tenure, and disbursement details</li>
+            <li>
+              Annual Percentage Rate (APR) — the all-inclusive cost of the loan
+            </li>
+            <li>EMI amount and schedule</li>
+            <li>All fees and charges (processing fee, penal charges)</li>
+            <li>Cooling-off period details</li>
+            <li>Grievance Redressal Officer (GRO) contact details</li>
+            <li>Recovery mechanism and grievance redressal details</li>
+          </ul>
+
+          <div class="box box-stop">
+            <strong>Warning:</strong> If a borrower says they did not receive
+            the KFS or the KFS was not explained before execution of the loan
+            contract, treat it as a high-priority service request. Verify
+            delivery, resend the document where appropriate, log the complaint
+            and escalate. The KFS must be provided before execution of the loan
+            contract and its contents explained to the borrower.
+          </div>
+
+          <h2>Key Terms Every Agent Must Know</h2>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Term</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>APR</td>
+                <td>
+                  Annual Percentage Rate — the total cost of the loan including
+                  all fees and charges, expressed as an annual percentage
+                </td>
+              </tr>
+              <tr>
+                <td>EMI</td>
+                <td>
+                  Equated Monthly Instalment — the fixed monthly repayment
+                  amount
+                </td>
+              </tr>
+              <tr>
+                <td>eNACH</td>
+                <td>
+                  Electronic National Automated Clearing House — the auto-debit
+                  mandate for EMI collection
+                </td>
+              </tr>
+              <tr>
+                <td>DPD</td>
+                <td>
+                  Days Past Due — number of days since an EMI was due but not
+                  paid
+                </td>
+              </tr>
+              <tr>
+                <td>Cooling-off Period</td>
+                <td>
+                  The period after loan disbursement during which the borrower
+                  can cancel the loan by repaying principal and proportionate
+                  APR — no penalty
+                </td>
+              </tr>
+              <tr>
+                <td>GRO</td>
+                <td>
+                  Grievance Redressal Officer — the designated officer for
+                  formal complaints
+                </td>
+              </tr>
+              <tr>
+                <td>KFS</td>
+                <td>
+                  Key Fact Statement — the standardised loan summary document
+                </td>
+              </tr>
+              <tr>
+                <td>CIMS</td>
+                <td>
+                  Centralised Information Management System — RBI's portal for
+                  DLA registration and reporting
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(1)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(3, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 3 -->
+        <div class="module" id="module3">
+          <div class="module-header">
+            <div class="module-tag">Module 03</div>
+            <div class="module-title">
+              Handling Enquiries and Service Requests
+            </div>
+            <div class="module-desc">
+              How to respond to borrowers across channels, what standards apply,
+              and how to resolve common requests
+            </div>
+          </div>
+
+          <h2>Contact Channels and Response Standards</h2>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Channel</th>
+                <th>What Borrowers Use It For</th>
+                <th>Your Response Standard</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Zype App</td>
+                <td>
+                  Account details, EMI schedule, repayment, KFS download,
+                  complaints
+                </td>
+                <td>Real-time / automated; agent escalation within 24 hours</td>
+              </tr>
+              <tr>
+                <td>Helpline / Phone</td>
+                <td>Loan queries, payment issues, complaints, KFS queries</td>
+                <td>
+                  Answer within defined ring time; resolve or escalate within
+                  the call
+                </td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>Formal complaints, document requests, legal notices</td>
+                <td>
+                  Acknowledge within 24 hours; resolve within 5 working days
+                </td>
+              </tr>
+              <tr>
+                <td>In-app Chat</td>
+                <td>Quick queries, payment assistance, app navigation help</td>
+                <td>
+                  First response within defined SLA; escalate complex issues
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>The 4-Step Service Framework</h2>
+          <ol
+            class="steps"
+            style="margin-left: 20px; font-size: 14px; color: #334155"
+          >
+            <li>
+              <strong>Greet and identify.</strong> Introduce yourself by
+              name as a Respo Customer Service representative. Confirm the
+              borrower's identity using the registered mobile number or loan
+              account number.
+            </li>
+            <li>
+              <strong>Listen and understand.</strong> Let the borrower
+              fully explain their query or issue. Do not interrupt. Ask
+              clarifying questions only after they have finished.
+            </li>
+            <li>
+              <strong>Resolve or escalate.</strong> Provide the answer
+              or solution if within your authority. If not, escalate immediately
+              — do not keep the borrower waiting or promise what you cannot
+              deliver.
+            </li>
+            <li>
+              <strong>Confirm and close.</strong> Summarise the
+              resolution, confirm next steps, and ask if the borrower has any
+              further questions. Thank them for reaching out.
+            </li>
+          </ol>
+
+          <h2>Common Service Requests and How to Handle Them</h2>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Borrower Request</th>
+                <th>What to Do</th>
+                <th>What Not to Do</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>"What is my outstanding amount?"</td>
+                <td>
+                  Pull up the account and share the current outstanding
+                  principal, accrued interest, and any overdue charges
+                </td>
+                <td>Never give an approximate or estimated figure</td>
+              </tr>
+              <tr>
+                <td>"I did not receive my KFS"</td>
+                <td>
+                  Inform borrower that KFS is part of loan agreement mailed on
+                  his registered email id. If required, we can resend again
+                </td>
+                <td>
+                  Do not refuse sending KFS to the borrower as already sent once
+                </td>
+              </tr>
+              <tr>
+                <td>"My eNACH failed, EMI not deducted"</td>
+                <td>
+                  Guide borrower to pay manually via Zype app or payment link.
+                  Confirm receipt of payment once completed.
+                </td>
+                <td>Do not tell the borrower to ignore a failed EMI</td>
+              </tr>
+              <tr>
+                <td>"I want to repay my loan early"</td>
+                <td>
+                  Explain the prepayment/foreclosure process via the Zype app or
+                  approved channel. Check the borrower's KFS/loan agreement and
+                  confirm the exact amount and any applicable charges before
+                  advising the borrower.
+                </td>
+                <td>Do not discourage prepayment</td>
+              </tr>
+              <tr>
+                <td>"Can I get a top-up or increased limit?"</td>
+                <td>
+                  Explain that any credit-limit increase is subject to credit
+                  assessment and requires the borrower's explicit consent to be
+                  taken on record for each increase. No automatic enhancement.
+                </td>
+                <td>
+                  Do not represent any limit increase as automatic. Follow the
+                  approved offer/consent process and ensure explicit borrower
+                  consent is taken on record for each increase.
+                </td>
+              </tr>
+              <tr>
+                <td>"I did not authorise this loan"</td>
+                <td>
+                  Treat as a dispute. Log immediately and escalate to
+                  supervisor. Do not continue collections on this account.
+                </td>
+                <td>Do not dismiss the claim or ask for payment</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Real Call Scenarios</h2>
+          <div class="scenario-box">
+            <div class="scenario-title">
+              💬 Scenario A — Borrower does not understand their EMI amount
+            </div>
+            <div class="script-wrong">
+              <strong>✗ Wrong:</strong> "The EMI is ₹X. It is all in your
+              agreement. Check the app." (dismissive, no explanation)
+            </div>
+            <div class="script-right">
+              <strong>✓ Right:</strong> "Thank you for calling. Your EMI of ₹X
+              is made up of the principal repayment and the interest for that
+              month. The interest rate on your loan is as stated in your Key
+              Fact Statement. Would you like me to walk you through the KFS? I
+              can also resend it to your registered email."
+            </div>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-title">
+              💬 Scenario B — Borrower says their eNACH failed and they are
+              worried about penalty
+            </div>
+            <div class="script-wrong">
+              <strong>✗ Wrong:</strong> "You should have made sure the account
+              had funds. Penalty will be charged." (dismissive and does not
+              verify the applicable contractual charge)
+            </div>
+            <div class="script-right">
+              <strong>✓ Right:</strong> "I understand this can be stressful. Let
+              me check your account. Your EMI of ₹X was due on [date] and the
+              eNACH was unsuccessful. You can make the payment manually through
+              the approved payment option, and I can guide you. I will also
+              confirm the exact penal charge, if any, applicable to your loan as
+              disclosed in your KFS/loan agreement."
+            </div>
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(2)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(4, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 4 -->
+        <div class="module" id="module4">
+          <div class="module-header">
+            <div class="module-tag">Module 04</div>
+            <div class="module-title">Grievance Handling and Escalation</div>
+            <div class="module-desc">
+              Respo's internal grievance escalation structure, RBI requirements,
+              response timelines, and how to log and escalate complaints
+            </div>
+          </div>
+
+          <h2>Every Borrower Has the Right to Complain</h2>
+          <p>
+            Under Respo's Fair Practices Code and the Reserve Bank of India
+            (Digital Lending) Directions, 2025, every borrower has access to a
+            formal grievance redressal mechanism. You must never discourage,
+            dismiss, or delay a borrower who wishes to lodge a complaint.
+          </p>
+
+          <h2>Respo's Internal Grievance Redressal Structure</h2>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th style="white-space: nowrap">Level</th>
+                <th>Who</th>
+                <th>Trigger</th>
+                <th>Timeline</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="white-space: nowrap; font-weight: 600">Level 1</td>
+                <td>Customer Service Team (you)</td>
+                <td>First point of contact for all complaints</td>
+                <td>Resolve within 5 working days</td>
+              </tr>
+              <tr>
+                <td style="white-space: nowrap; font-weight: 600">Level 2</td>
+                <td>Grievance Redressal Officer (GRO)</td>
+                <td>
+                  Escalation if borrower is unsatisfied with Level 1 OR if
+                  unresolved after 5 days
+                </td>
+                <td>Respond within 15 working days of escalation</td>
+              </tr>
+              <tr>
+                <td style="white-space: nowrap; font-weight: 600">Level 3</td>
+                <td>RBI Ombudsman (cms.rbi.org.in)</td>
+                <td>
+                  If Respo rejects the complaint wholly or partly, the borrower
+                  is dissatisfied with Respo's reply, or no reply is received
+                  within 30 days, subject to the applicable RBI Ombudsman
+                  framework
+                </td>
+                <td>
+                  RBI Ombudsman route applies subject to RB-IOS maintainability
+                  requirements; Respo must respond within the timeline specified
+                  by RBI.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="box box-stop">
+            <strong>RBI Ombudsman Escalation:</strong> If a complaint is
+            rejected wholly or partly by Respo, the borrower is not satisfied
+            with Respo's reply, or no reply is received within 30 days of
+            receipt of the complaint by Respo, the borrower may lodge a
+            complaint through RBI's Complaint Management System, subject to the
+            applicable provisions of the Reserve Bank – Integrated Ombudsman
+            Scheme. Log every complaint immediately with the date and time
+            stamp.
+          </div>
+
+          <h2>How to Log a Complaint — Every Time</h2>
+          <ol style="margin-left: 20px; font-size: 14px; color: #334155">
+            <li>
+              Record the complaint in the CRM system
+              immediately — not at the end of your shift.
+            </li>
+            <li>
+              Capture: borrower name, loan account number,
+              date and time, nature of complaint, channel
+              (phone/email/app/chat), and any resolution offered.
+            </li>
+            <li>
+              Assign the complaint a unique reference number
+              and share it with the borrower.
+            </li>
+            <li>
+              Set a follow-up reminder for 3 working days to
+              check if the complaint is progressing toward resolution.
+            </li>
+            <li>
+              If unresolved by day 4, escalate to the GRO —
+              do not wait until day 5.
+            </li>
+          </ol>
+
+          <h2>GRO Contact — What to Share with Borrowers</h2>
+          <div class="box box-warn">
+            <strong>Mandatory:</strong> For digital lending, the contact details
+            of the designated nodal grievance redressal officer must be
+            prominently available on the websites of the RE/LSP, on the DLA and
+            in the KFS. If a borrower asks for grievance contact details,
+            provide the approved details immediately and do not delay or
+            deflect.
+          </div>
+
+          <h2>When a Borrower Mentions the RBI Ombudsman</h2>
+          <p>If a borrower says they will approach the RBI Ombudsman:</p>
+          <ul>
+            <li>
+              Acknowledge appropriately: "You may approach the RBI Ombudsman in
+              accordance with the applicable RBI grievance redressal framework,
+              and we will cooperate with any communication received from RBI."
+            </li>
+            <li>Provide the RBI CMS portal link: cms.rbi.org.in</li>
+            <li>
+              Inform your supervisor and the GRO immediately — RBI complaints
+              have a mandatory response timeline.
+            </li>
+            <li>
+              Never try to dissuade the borrower from filing an RBI complaint.
+            </li>
+          </ul>
+
+          <div class="scenario-box">
+            <div class="scenario-title">
+              💬 Scenario C — Borrower is unhappy with complaint resolution and
+              threatens to go to RBI
+            </div>
+            <div class="script-wrong">
+              <strong>✗ Wrong:</strong> "That is your choice, but our decision
+              stands." (dismissive, unhelpful)
+            </div>
+            <div class="script-right">
+              <strong>✓ Right:</strong> "I understand you are not satisfied with
+              the resolution and I am sorry for that. I will escalate your case
+              to our Grievance Redressal Officer. You may also approach the RBI
+              Ombudsman through RBI's Complaint Management System in accordance
+              with the applicable grievance redressal framework."
+            </div>
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(3)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(5, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 5 -->
+        <div class="module" id="module5">
+          <div class="module-header">
+            <div class="module-tag">Module 05</div>
+            <div class="module-title">
+              Cooling-Off Period and Loan Cancellations
+            </div>
+            <div class="module-desc">
+              What the cooling-off period is, how borrowers can exercise it, and
+              your responsibilities
+            </div>
+          </div>
+
+          <h2>What is the Cooling-Off Period?</h2>
+          <p>
+            The cooling-off period is a borrower's right to cancel a loan after
+            disbursement — without any penalty — by repaying the principal
+            amount and the proportionate APR for the days the loan was
+            outstanding.
+          </p>
+
+          <div class="box box-good">
+            <strong>RBI Requirement:</strong> Under the Reserve Bank of India
+            (Digital Lending) Directions, 2025, the cooling-off/look-up period
+            is determined by the Board of the RE. It must be at least three days
+            for loans having a tenor of seven days or more and at least one day
+            for loans having a tenor of less than seven days. Respo's approved
+            product process must be followed where it provides a longer period.
+          </div>
+
+          <h2>How the Cooling-Off Period Works</h2>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Who can use it?</td>
+                <td>
+                  Borrowers of digital loans, subject to the applicable
+                  KFS/product terms
+                </td>
+              </tr>
+              <tr>
+                <td>How long is the period?</td>
+                <td>
+                  As stated in the applicable KFS/Board-approved product policy,
+                  subject to the RBI minimum
+                </td>
+              </tr>
+              <tr>
+                <td>What must be repaid?</td>
+                <td>
+                  Principal + proportionate APR for the period the loan was
+                  held. A reasonable one-time processing fee may be retained
+                  only if disclosed upfront in the KFS and permitted under the
+                  applicable framework.
+                </td>
+              </tr>
+              <tr>
+                <td>How does the borrower exercise it?</td>
+                <td>Through the Zype app or by contacting Customer Service</td>
+              </tr>
+              <tr>
+                <td>What happens after repayment?</td>
+                <td>
+                  The loan is cancelled, the agreement is terminated, and a
+                  confirmation is sent to the borrower
+                </td>
+              </tr>
+              <tr>
+                <td>Can Respo charge a penalty?</td>
+                <td>
+                  No penalty for exercising the cooling-off exit option. Any
+                  one-time processing fee retained must have been disclosed
+                  upfront in the KFS and be permitted under the applicable RBI
+                  framework.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="box box-stop">
+            <strong>Critical:</strong> Never discourage a borrower from
+            exercising their cooling-off right. Never tell a borrower they
+            "cannot" exit the loan during the applicable cooling-off period.
+            Follow the Reserve Bank of India (Digital Lending) Directions, 2025,
+            the borrower's KFS/loan agreement and Respo's Board-approved policy.
+          </div>
+
+          <h2>Your Role When a Borrower Requests Cancellation</h2>
+          <ol style="margin-left: 20px; font-size: 14px; color: #334155">
+            <li>
+              <strong
+                >Confirm the applicable cooling-off/look-up period from the
+                borrower's KFS/product configuration and check the disbursement
+                date.</strong
+              >
+            </li>
+            <li>
+              Explain what they need to repay: principal +
+              proportionate APR for the days held. Calculate and confirm the
+              exact amount.
+            </li>
+            <li>
+              Guide the borrower to make the repayment via
+              the Zype app or bank transfer.
+            </li>
+            <li>
+              <strong
+                >Once the applicable exit amount is received, process the
+                cooling-off exit in accordance with the approved procedure and
+                issue written confirmation.</strong
+              >
+            </li>
+            <li>
+              Log the entire interaction in the CRM system
+              with timestamps.
+            </li>
+          </ol>
+
+          <h2>No Automatic Credit Enhancements</h2>
+          <div class="box box-warn">
+            <strong>Important Rule:</strong> Reserve Bank of India (Digital
+            Lending) Directions, 2025 explicitly prohibit automatic loan
+            enhancements or credit limit increases without the explicit written
+            request of the borrower. If a borrower contacts you to ask why their
+            credit limit increased without their knowledge — treat this as a
+            Priority 1 complaint and escalate immediately.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(4)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(6, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 6 -->
+        <div class="module" id="module6">
+          <div class="module-header">
+            <div class="module-tag">Module 06</div>
+            <div class="module-title">What You Must Never Do</div>
+            <div class="module-desc">
+              Prohibited practices under RBI guidelines — zero tolerance
+            </div>
+          </div>
+
+          <div class="box box-stop">
+            <strong>Zero Tolerance:</strong> Respo has a zero tolerance policy
+            for any practice that harms, misleads, or manipulates borrowers.
+            Violations will be investigated and may result in disciplinary
+            action including termination and reporting to the regulator.
+          </div>
+
+          <h2>Prohibited Practices — No Exceptions</h2>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Prohibited Practice</th>
+                <th>Regulatory Basis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Misrepresenting loan terms, APR, or fees to a borrower</td>
+                <td>
+                  Reserve Bank of India (Non-Banking Financial Companies –
+                  Responsible Business Conduct) Directions, 2025 + Respo Fair
+                  Practices Code
+                </td>
+              </tr>
+              <tr>
+                <td>Not delivering or delaying delivery of the KFS</td>
+                <td>
+                  Reserve Bank of India (Digital Lending) Directions, 2025
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Increasing a borrower's credit limit without their explicit
+                  request
+                </td>
+                <td>
+                  Reserve Bank of India (Digital Lending) Directions, 2025
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Discouraging or obstructing a borrower from exercising
+                  cooling-off right
+                </td>
+                <td>
+                  Reserve Bank of India (Digital Lending) Directions, 2025
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Using dark patterns — confusing UI, hidden charges, forced
+                  opt-ins
+                </td>
+                <td>
+                  CCPA Guidelines on Prevention and Regulation of Dark Patterns,
+                  2023 + applicable RBI directions
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Sharing borrower personal data without consent or for
+                  non-approved purposes
+                </td>
+                <td>Applicable data-protection law / Respo policy</td>
+              </tr>
+              <tr>
+                <td>
+                  Making false or misleading statements about consequences of
+                  non-payment
+                </td>
+                <td>Respo Fair Practices Code / applicable RBI directions</td>
+              </tr>
+              <tr>
+                <td>
+                  Accessing mobile contacts, call logs, files/media or telephony
+                  functions through the DLA; or accessing
+                  camera/microphone/location for onboarding/KYC without explicit
+                  consent
+                </td>
+                <td>
+                  Reserve Bank of India (Digital Lending) Directions, 2025
+                </td>
+              </tr>
+              <tr>
+                <td>Refusing to provide GRO contact details when requested</td>
+                <td>
+                  Reserve Bank of India (Digital Lending) Directions, 2025
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Contacting a borrower outside permitted channels or without
+                  consent
+                </td>
+                <td>
+                  Applicable privacy/data-protection requirements + RBI
+                  directions
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Dark Patterns — What Are They and Why Are They Prohibited?</h2>
+          <p>
+            Dark patterns are design or communication techniques that trick or
+            manipulate borrowers into doing something they did not intend. The
+            RBI and CCPA Guidelines 2023 explicitly prohibit them.
+          </p>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Dark Pattern</th>
+                <th>Example in Lending Context</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Hidden charges</td>
+                <td>
+                  Showing a lower processing fee on screen but charging a higher
+                  amount at disbursement
+                </td>
+              </tr>
+              <tr>
+                <td>Forced opt-in</td>
+                <td>
+                  Pre-ticking a box for a borrower to receive marketing calls -
+                  consent must be explicit
+                </td>
+              </tr>
+              <tr>
+                <td>Misleading APR</td>
+                <td>
+                  Showing monthly interest rate prominently but hiding the
+                  annual APR
+                </td>
+              </tr>
+              <tr>
+                <td>Urgency pressure</td>
+                <td>
+                  "Offer expires in 2 minutes” - creating artificial urgency to
+                  force a loan decision
+                </td>
+              </tr>
+              <tr>
+                <td>Difficult cancellation</td>
+                <td>
+                  Making it hard to find the cancellation or cooling-off option
+                  in the app
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Do's and Don'ts — Customer Communication</h2>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th style="color: #15803d; background: #f0fdf4">
+                  ✓ WHAT YOU SHOULD DO
+                </th>
+                <th style="color: #b91c1c; background: #fef2f2">
+                  ✗ WHAT YOU MUST NEVER DO
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  ✓ Explain all fees, charges and APR clearly and completely
+                </td>
+                <td>
+                  ✗ Quote only the monthly interest rate without mentioning APR
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  ✓ Provide KFS proactively and confirm borrower has received it
+                </td>
+                <td>✗ Assume the borrower has read or understood the KFS</td>
+              </tr>
+              <tr>
+                <td>
+                  ✓ Offer GRO contact at the borrower's first sign of
+                  dissatisfaction
+                </td>
+                <td>✗ Wait for the borrower to demand GRO contact</td>
+              </tr>
+              <tr>
+                <td>
+                  ✓ Use plain language — avoid jargon and acronyms without
+                  explanation
+                </td>
+                <td>✗ Use technical terms without explaining them</td>
+              </tr>
+              <tr>
+                <td>
+                  ✓ Confirm all commitments made to the borrower in writing
+                </td>
+                <td>✗ Make verbal promises you cannot fulfil</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(5)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(7, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 7 -->
+        <div class="module" id="module7">
+          <div class="module-header">
+            <div class="module-tag">Module 07</div>
+            <div class="module-title">Data Privacy and Confidentiality</div>
+            <div class="module-desc">
+              Your obligations under RBI digital-lending data requirements,
+              applicable data-protection law and Respo's data policy
+            </div>
+          </div>
+
+          <h2>Borrower Data Must Be Protected</h2>
+          <p>
+            Borrower information such as name, mobile number, address, employer,
+            income details, loan amount, repayment history and bank-account
+            details must be handled only for authorised purposes and in
+            accordance with Respo's privacy and information-security policies
+            and applicable law.
+          </p>
+
+          <div class="box box-stop">
+            <strong>Strict Rule:</strong> You may use borrower data only for
+            authorised business purposes connected with your role. Unauthorised
+            access, use, storage or disclosure may violate Respo's policies and
+            applicable law and may result in disciplinary and/or regulatory
+            consequences.
+          </div>
+
+          <h2>What You Must Never Do with Borrower Data</h2>
+          <ul>
+            <li>
+              Share a borrower's personal or account information with anyone
+              other than the borrower themselves (or their authorized
+              representative)
+            </li>
+            <li>
+              Save borrower data on your personal phone, personal email, or any
+              unapproved device or platform
+            </li>
+            <li>
+              Screenshot or photograph your CRM screen on a personal device
+            </li>
+            <li>
+              Discuss borrower account details with colleagues who do not need
+              to know
+            </li>
+            <li>
+              Share any borrower information on social media, WhatsApp groups,
+              or any external platform
+            </li>
+            <li>
+              Access borrower accounts that are not part of your work queue or
+              assigned cases
+            </li>
+          </ul>
+
+          <h2>Borrower Data Requests — How to Handle Them</h2>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Borrower Data Request</th>
+                <th>Your Responsibility</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Request to know/access personal data</td>
+                <td>
+                  Follow the approved privacy/data-request process or escalate
+                  to the GRO/Privacy team; do not provide an unverified data
+                  inventory.
+                </td>
+              </tr>
+              <tr>
+                <td>Request to correct/update personal or KYC data</td>
+                <td>
+                  Log and escalate the request. Do not manually overwrite
+                  verified KYC. Where re-KYC/re-verification is required, guide
+                  the borrower through the approved process so updated
+                  particulars are fetched/verified through the authorised KYC
+                  flow.
+                </td>
+              </tr>
+              <tr>
+                <td>Data privacy complaint</td>
+                <td>
+                  Log immediately and provide/escalate to the designated
+                  grievance/privacy contact as per the approved process.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Request to withdraw marketing consent / communication
+                  preference
+                </td>
+                <td>
+                  Process or escalate promptly through the approved
+                  communication-preference/consent process.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>RBI Rules on Data Collection</h2>
+          <p>
+            The Reserve Bank of India (Digital Lending) Directions, 2025 place
+            specific restrictions on data collection by digital lending apps. If
+            a borrower raises concerns about data collected by the Zype app, you
+            must know these rules:
+          </p>
+          <ul>
+            <li>Data collection must be purpose-specific and consent-based</li>
+            <li>
+              The DLA must not access mobile-phone resources such as
+              files/media, contact lists, call logs or telephony functions.
+              One-time access may be taken, with the borrower's explicit
+              consent, only for camera, microphone, location or another facility
+              necessary for onboarding/KYC.
+            </li>
+            <li>
+              Data covered by the Digital Lending Directions must be stored only
+              on servers located in India. If such data is processed outside
+              India, it must be deleted from servers outside India and brought
+              back to India within 24 hours of processing, subject to applicable
+              statutory/regulatory requirements.
+            </li>
+            <li>
+              Personal information must not be shared with third parties without
+              the borrower's explicit consent, except where sharing is required
+              under applicable statutory or regulatory requirements.
+            </li>
+          </ul>
+
+          <h2>If You Suspect a Data Breach</h2>
+          <ol style="margin-left: 20px; font-size: 14px; color: #334155">
+            <li>
+              Do not try to handle it yourself or cover it
+              up.
+            </li>
+            <li>
+              Report it to your supervisor and the
+              Compliance team immediately — use the data breach reporting
+              procedure.
+            </li>
+            <li>
+              <strong
+                >Immediately inform your supervisor, Information Security and
+                Compliance teams. They will determine and complete any
+                notification/reporting required under the laws and regulatory
+                directions applicable at the time — so timing and accurate
+                escalation matter.</strong
+              >
+            </li>
+            <li>
+              Log the incident with full details including
+              what you observed, when, and who you informed.
+            </li>
+          </ol>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(6)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(8, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 8 -->
+        <div class="module" id="module8">
+          <div class="module-header">
+            <div class="module-tag">Module 08</div>
+            <div class="module-title">Handling Difficult Situations</div>
+            <div class="module-desc">
+              How to manage distressed borrowers, disputes, and sensitive or
+              escalated scenarios
+            </div>
+          </div>
+
+          <h2>Borrower is Distressed or Emotional</h2>
+          <p>
+            Digital lending customers may contact us at stressful moments — when
+            they cannot make a payment, are facing personal hardship, or feel
+            misled. Your tone and approach in these moments define the
+            borrower's experience of Respo.
+          </p>
+          <ol style="margin-left: 20px; font-size: 14px; color: #334155">
+            <li>
+              Stay calm. Your tone sets the tone for the
+              entire interaction.
+            </li>
+            <li>
+              Acknowledge the feeling first before moving to
+              facts: "I understand this must be frustrating for you."
+            </li>
+            <li>
+              Do not rush. Let the borrower finish before
+              you respond.
+            </li>
+            <li>
+              Focus on what you CAN do, not what you cannot.
+            </li>
+            <li>
+              If the situation is beyond your authority,
+              escalate — and tell the borrower clearly what will happen next and
+              when.
+            </li>
+          </ol>
+
+          <div class="scenario-box">
+            <div class="scenario-title">
+              💬 Scenario D — Borrower is crying and says they cannot afford to
+              pay
+            </div>
+            <div class="script-wrong">
+              <strong>✗ Wrong:</strong> "I understand but you need to make the
+              payment. That is what you signed up for." (clinical, unhelpful)
+            </div>
+            <div class="script-right">
+              <strong>✓ Right:</strong> "I can hear that you're going through a
+              really difficult time and I want to help. Let me note your
+              situation on the account right now and escalate it to our team
+              that handles hardship cases. They will reach out to you within
+              [timeframe]. In the meantime, would even a small payment today
+              help reduce the charges accumulating on your account? I can help
+              you with that right now if you'd like."
+            </div>
+          </div>
+
+          <h2>Borrower Disputes the Loan — Says They Did Not Authorize It</h2>
+          <ol style="margin-left: 20px; font-size: 14px; color: #334155">
+            <li>
+              Do not dismiss the claim. Take it seriously
+              and treat it as a priority dispute.
+            </li>
+            <li>
+              Tell the borrower: "I understand. I am logging
+              this as a formal dispute right now and escalating it for urgent
+              review."
+            </li>
+            <li>
+              Escalate to your supervisor and the compliance
+              team immediately.
+            </li>
+            <li>
+              Do not continue any collections or payment
+              follow-up on a disputed account without explicit supervisor
+              instruction.
+            </li>
+            <li>
+              Issue a dispute acknowledgement to the
+              borrower with a reference number and the expected review timeline.
+            </li>
+          </ol>
+
+          <h2>Borrower Threatens Legal Action or Media</h2>
+          <p>
+            If a borrower says they will file a police complaint, approach a
+            consumer court, contact media, or post on social media:
+          </p>
+          <ul>
+            <li>
+              Stay calm. Do not panic, become defensive, or make
+              counter-threats.
+            </li>
+            <li>
+              Respond: "You are absolutely within your rights to take any action
+              you feel is appropriate. We want to resolve this for you. Let me
+              connect you with our Grievance Redressal Officer immediately."
+            </li>
+            <li>Escalate to your supervisor and the GRO without delay.</li>
+            <li>
+              Do not make any promises or statements about legal outcomes — that
+              is not your role.
+            </li>
+          </ul>
+
+          <h2>Borrower Makes a Complaint About a Respo Staff Member</h2>
+          <p>
+            If a borrower complains about the behaviour of a Respo employee
+            (including another customer service agent or a collections agent):
+          </p>
+          <ul>
+            <li>
+              Take the complaint seriously — do not be dismissive or defensive
+              on behalf of the colleague.
+            </li>
+            <li>Log the complaint immediately with full details.</li>
+            <li>
+              Escalate to your supervisor and the GRO — this is a formal
+              complaint that requires investigation.
+            </li>
+            <li>
+              Assure the borrower that the complaint will be investigated and
+              they will receive a response within the standard timeline.
+            </li>
+          </ul>
+
+          <div class="box box-rule">
+            <strong>Reminder:</strong> All interactions with borrowers are
+            subject to monitoring. Your calls may be recorded. Ensure you
+            maintain the same standard of conduct whether or not you think you
+            are being observed.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(7)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(9, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 9 -->
+        <div class="module" id="module9">
+          <div class="module-header">
+            <div class="module-tag">Module 09</div>
+            <div class="module-title">
+              Credit Information Reporting and Bureau Disputes
+            </div>
+            <div class="module-desc">What Customer Service Must Know</div>
+          </div>
+
+          <p>
+            All digital loans must be reported to Credit Information Companies
+            (CICs) in accordance with the applicable RBI credit-information
+            framework, irrespective of the nature or tenor of the digital
+            credit.
+          </p>
+          <p>
+            Reporting frequency: credit information is to be kept updated on a
+            fortnightly basis (as on the 15th and the last day of the month) or
+            at shorter intervals agreed with the CIC, with submission within the
+            prescribed RBI timeline.
+          </p>
+
+          <h2>When a borrower disputes bureau information:</h2>
+          <ol style="margin-left: 20px; font-size: 14px; color: #334155">
+            <li>
+              Log the dispute immediately and identify the exact
+              loan/tradeline, field and reporting period disputed.
+            </li>
+            <li>
+              Verify the lender's source records before confirming whether
+              the bureau information is correct or requires rectification.
+            </li>
+            <li>
+              If correction is required, escalate to the authorised
+              bureau-reporting team. Customer Service must not manually alter
+              bureau data.
+            </li>
+            <li>
+              Communicate the action taken to the borrower. If a correction
+              request is rejected, provide the reason for rejection.
+            </li>
+            <li>
+              Credit-information correction complaints have a regulatory
+              resolution framework of 30 calendar days overall. Where delay
+              attributable to the CI/CIC exceeds the prescribed period,
+              compensation of ₹100 per calendar day may become applicable under
+              the RBI framework.
+            </li>
+          </ol>
+
+          <div class="box box-warn">
+            <strong>Important:</strong> Do not promise an immediate bureau-score
+            increase. Respo can correct/report underlying account information
+            where required; the credit score itself is generated by the CIC.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(8)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(10, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 10 -->
+        <div class="module" id="module10">
+          <div class="module-header">
+            <div class="module-tag">Module 10</div>
+            <div class="module-title">
+              Recovery Conduct and Customer Protection
+            </div>
+            <div class="module-desc">
+              Handling recovery-related complaints promptly, factually and
+              without defensiveness
+            </div>
+          </div>
+
+          <p>
+            Recovery-related complaints are high-risk complaints and must be
+            handled promptly, factually and without defensiveness.
+          </p>
+
+          <h2>Core rules:</h2>
+          <ul>
+            <li>
+              No intimidation, threats, humiliation, abusive language or
+              misleading representations.
+            </li>
+            <li>
+              Do not persistently call a borrower. Recovery calls for overdue
+              loans must not be made before 8:00 a.m. or after 7:00 p.m.
+            </li>
+            <li>
+              Do not intrude upon the privacy of family members, referees or
+              friends, and do not disclose the borrower's debt to unauthorised
+              third parties.
+            </li>
+            <li>
+              When a recovery agent is assigned or changed for a defaulted
+              digital loan, the authorised agent's particulars must be
+              communicated to the borrower by email/SMS before the agent
+              contacts the borrower.
+            </li>
+            <li>
+              Recovery agents must carry/possess the required notice,
+              authorisation and identification as applicable, and the NBFC
+              remains responsible for outsourced recovery conduct.
+            </li>
+            <li>
+              Any complaint alleging threats, excessive calls, third-party
+              disclosure, workplace pressure, abusive communication or
+              unauthorised field conduct must be logged and escalated for
+              review.
+            </li>
+          </ul>
+
+          <div class="box box-rule">
+            Customer Service must never defend an agent before reviewing
+            records. Acknowledge the concern, verify call/communication logs,
+            escalate where required, and communicate the outcome appropriately.
+          </div>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(9)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(11, true)">
+              Next Module
+            </button>
+          </div>
+        </div>
+
+        <!-- MODULE 11 -->
+        <div class="module" id="module11">
+          <div class="module-header">
+            <div class="module-tag">Module 11</div>
+            <div class="module-title">Accessibility and Non-Discrimination</div>
+            <div class="module-desc">
+              Providing fair access and reasonable assistance to all customers
+            </div>
+          </div>
+
+          <p>
+            RBI requires NBFCs not to discriminate in extending products and
+            facilities, including loan facilities, to physically or visually
+            challenged applicants on grounds of disability. Reasonable
+            assistance must be provided for access to services.
+          </p>
+
+          <h2>Customer Service responsibilities:</h2>
+          <ul>
+            <li>
+              Treat customers with disabilities with dignity and without
+              assumptions about their ability to understand or use a product.
+            </li>
+            <li>
+              Provide reasonable assistance through available accessible
+              channels and escalate accessibility barriers promptly.
+            </li>
+            <li>
+              Do not refuse or discourage a loan/service request merely because
+              a customer is physically or visually challenged.
+            </li>
+            <li>
+              Accessibility-related grievances must be handled through the
+              established grievance redressal mechanism.
+            </li>
+          </ul>
+
+          <h2>REGULATORY REFERENCE MAP</h2>
+          <p><strong>Primary RBI sources relevant to this manual:</strong></p>
+          <ul>
+            <li>
+              Reserve Bank of India (Non-Banking Financial Companies –
+              Responsible Business Conduct) Directions, 2025, updated from time
+              to time.
+            </li>
+            <li>
+              Reserve Bank of India (Digital Lending) Directions, 2025, updated
+              from time to time.
+            </li>
+            <li>
+              Reserve Bank of India (Non-Banking Financial Companies – Know Your
+              Customer) Directions, 2025 / applicable KYC Master Directions and
+              amendments.
+            </li>
+            <li>
+              Master Direction – Reserve Bank of India (Credit Information
+              Reporting) Directions, 2025, and applicable NBFC
+              credit-information directions.
+            </li>
+            <li>
+              Reserve Bank of India (Non-Banking Financial Companies – Managing
+              Risks in Outsourcing) Directions, 2025.
+            </li>
+            <li>
+              Reserve Bank – Integrated Ombudsman Scheme, 2021, as
+              amended/updated from time to time.
+            </li>
+            <li>
+              Respo's Board-approved Fair Practices Code, grievance redressal
+              mechanism, recovery-agent policy, KYC policy,
+              privacy/data-security policies and product-specific KFS/loan
+              documentation.
+            </li>
+          </ul>
+
+          <div class="nav-btns">
+            <button class="btn btn-secondary" onclick="showModule(10)">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="showModule(12, true)">
+              Take Final Assessment
+            </button>
+          </div>
+        </div>
+
+                <!-- MODULE 12: ASSESSMENT -->
+        <div class="module" id="module12">
+          <div class="module-header">
+            <div class="module-tag">FINAL ASSESSMENT</div>
+            <div class="module-title">Final Assessment</div>
+            <div class="module-desc">
+              Knowledge Check — Score 7/10 or above to pass
+            </div>
+          </div>
+
+          <div class="box box-rule" style="margin-bottom: 20px">
+            <strong>Instructions:</strong> Answer all 10 questions. Correct
+            answers are marked in green. Explanation of the regulatory basis is
+            provided below each question.
+          </div>
+
+          <div
+            class="box box-stop"
+            id="quizWarn"
+            style="display: none; margin-bottom: 20px"
+          >
+            Please answer all 10 questions before submitting.
+          </div>
+
+          <div class="quiz-wrap" id="quizForm">
+            <!-- Q1 -->
+            <div class="quiz-q" id="q1">
+              <p>
+                1. What is the correct rule for the cooling-off/look-up period for a digital loan?
+              </p>
+              <div class="quiz-opt" id="q1_a" onclick="selectOpt(1, 'a')">
+                <span>A.</span> 7 days — they can request a lower interest rate
+              </div>
+              <div class="quiz-opt" id="q1_b" onclick="selectOpt(1, 'b')">
+                <span>B.</span> 3 days from disbursement — they can cancel the loan by repaying principal and proportionate APR with no penalty
+              </div>
+              <div class="quiz-opt" id="q1_c" onclick="selectOpt(1, 'c')">
+                <span>C.</span> 1 day — they can cancel but must pay a processing fee
+              </div>
+              <div class="quiz-opt" id="q1_d" onclick="selectOpt(1, 'd')">
+                <span>D.</span> 30 days — they can return the loan if dissatisfied
+              </div>
+              <div class="quiz-feedback" id="fb1"></div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="quiz-q" id="q2">
+              <p>
+                2. A borrower says they did not receive their Key Fact Statement. What should you do?
+              </p>
+              <div class="quiz-opt" id="q2_a" onclick="selectOpt(2, 'a')">
+                <span>A.</span> Inform borrower that KFS is part of loan agreement mailed on his registered email id. If required, we can resend again
+              </div>
+              <div class="quiz-opt" id="q2_b" onclick="selectOpt(2, 'b')">
+                <span>B.</span> Tell them the KFS is only for office use
+              </div>
+              <div class="quiz-opt" id="q2_c" onclick="selectOpt(2, 'c')">
+                <span>C.</span> Ask them to pay a fee to generate KFS
+              </div>
+              <div class="quiz-opt" id="q2_d" onclick="selectOpt(2, 'd')">
+                <span>D.</span> Explain the key terms verbally and close the call
+              </div>
+              <div class="quiz-feedback" id="fb2"></div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="quiz-q" id="q3">
+              <p>
+                3. When may a borrower approach the RBI Ombudsman regarding a complaint first made to Respo?
+              </p>
+              <div class="quiz-opt" id="q3_a" onclick="selectOpt(3, 'a')">
+                <span>A.</span> Only after 45 days in every case
+              </div>
+              <div class="quiz-opt" id="q3_b" onclick="selectOpt(3, 'b')">
+                <span>B.</span> If Respo rejects the complaint, the borrower is dissatisfied with the reply, or no reply is received within 30 days
+              </div>
+              <div class="quiz-opt" id="q3_c" onclick="selectOpt(3, 'c')">
+                <span>C.</span> Immediately without first complaining to Respo
+              </div>
+              <div class="quiz-opt" id="q3_d" onclick="selectOpt(3, 'd')">
+                <span>D.</span> Only if the complaint involves a criminal allegation
+              </div>
+              <div class="quiz-feedback" id="fb3"></div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="quiz-q" id="q4">
+              <p>
+                4. A borrower is being considered for an increase in their credit limit. What is essential before the increase is effected?
+              </p>
+              <div class="quiz-opt" id="q4_a" onclick="selectOpt(4, 'a')">
+                <span>A.</span> Process the increase if their repayment history is good
+              </div>
+              <div class="quiz-opt" id="q4_b" onclick="selectOpt(4, 'b')">
+                <span>B.</span> Obtain the borrower's explicit consent for each increase on record
+              </div>
+              <div class="quiz-opt" id="q4_c" onclick="selectOpt(4, 'c')">
+                <span>C.</span> Automatically apply the increase during festive offer periods
+              </div>
+              <div class="quiz-opt" id="q4_d" onclick="selectOpt(4, 'd')">
+                <span>D.</span> Obtain consent only if the increase exceeds Rs. 50,000
+              </div>
+              <div class="quiz-feedback" id="fb4"></div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="quiz-q" id="q5">
+              <p>
+                5. What is a "dark pattern" in the context of digital lending?
+              </p>
+              <div class="quiz-opt" id="q5_a" onclick="selectOpt(5, 'a')">
+                <span>A.</span> A design feature that makes the app load faster
+              </div>
+              <div class="quiz-opt" id="q5_b" onclick="selectOpt(5, 'b')">
+                <span>B.</span> Deceptive user interface designs that trick users into actions they did not intend
+              </div>
+              <div class="quiz-opt" id="q5_c" onclick="selectOpt(5, 'c')">
+                <span>C.</span> A security protocol for encryption
+              </div>
+              <div class="quiz-opt" id="q5_d" onclick="selectOpt(5, 'd')">
+                <span>D.</span> Using dark background themes on the lending application
+              </div>
+              <div class="quiz-feedback" id="fb5"></div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="quiz-q" id="q6">
+              <p>
+                6. A borrower says they are going to post about their complaint on social media. You should:
+              </p>
+              <div class="quiz-opt" id="q6_a" onclick="selectOpt(6, 'a')">
+                <span>A.</span> Warn them that posting on social media will harm their credit score
+              </div>
+              <div class="quiz-opt" id="q6_b" onclick="selectOpt(6, 'b')">
+                <span>B.</span> Acknowledge their concern, remain polite, and report/escalate to your supervisor and GRO immediately
+              </div>
+              <div class="quiz-opt" id="q6_c" onclick="selectOpt(6, 'c')">
+                <span>C.</span> Block their number so they cannot call back
+              </div>
+              <div class="quiz-opt" id="q6_d" onclick="selectOpt(6, 'd')">
+                <span>D.</span> Ignore the statement and end the call
+              </div>
+              <div class="quiz-feedback" id="fb6"></div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="quiz-q" id="q7">
+              <p>
+                7. Which of the following is prohibited under the Reserve Bank of India (Digital Lending) Directions, 2025?
+              </p>
+              <div class="quiz-opt" id="q7_a" onclick="selectOpt(7, 'a')">
+                <span>A.</span> Providing a KFS before loan disbursement
+              </div>
+              <div class="quiz-opt" id="q7_b" onclick="selectOpt(7, 'b')">
+                <span>B.</span> Offering a cooling-off period to borrowers
+              </div>
+              <div class="quiz-opt" id="q7_c" onclick="selectOpt(7, 'c')">
+                <span>C.</span> Automatic credit limit enhancement without explicit borrower consent
+              </div>
+              <div class="quiz-opt" id="q7_d" onclick="selectOpt(7, 'd')">
+                <span>D.</span> Mandating borrower consent for credit assessment
+              </div>
+              <div class="quiz-feedback" id="fb7"></div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="quiz-q" id="q8">
+              <p>
+                8. A borrower calls in distress saying they cannot afford their EMI. What is the best response?
+              </p>
+              <div class="quiz-opt" id="q8_a" onclick="selectOpt(8, 'a')">
+                <span>A.</span> Remind them of their legal obligation to repay and warn about credit bureau reporting
+              </div>
+              <div class="quiz-opt" id="q8_b" onclick="selectOpt(8, 'b')">
+                <span>B.</span> Listen empathetically, acknowledge their situation, note the details on account, and escalate to your supervisor/hardship team
+              </div>
+              <div class="quiz-opt" id="q8_c" onclick="selectOpt(8, 'c')">
+                <span>C.</span> Promise them a 50% discount on the spot
+              </div>
+              <div class="quiz-opt" id="q8_d" onclick="selectOpt(8, 'd')">
+                <span>D.</span> Advise them to borrow from another lender to pay Respo
+              </div>
+              <div class="quiz-feedback" id="fb8"></div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="quiz-q" id="q9">
+              <p>
+                9. Which of the following borrower-data requests must never be permitted?
+              </p>
+              <div class="quiz-opt" id="q9_a" onclick="selectOpt(9, 'a')">
+                <span>A.</span> A request concerning the borrower's own personal data through the approved process
+              </div>
+              <div class="quiz-opt" id="q9_b" onclick="selectOpt(9, 'b')">
+                <span>B.</span> A request to correct/update the borrower's own data through the approved verification process
+              </div>
+              <div class="quiz-opt" id="q9_c" onclick="selectOpt(9, 'c')">
+                <span>C.</span> Access to another borrower's account or personal data for comparison
+              </div>
+              <div class="quiz-opt" id="q9_d" onclick="selectOpt(9, 'd')">
+                <span>D.</span> A data-privacy complaint through Respo's approved grievance/privacy process
+              </div>
+              <div class="quiz-feedback" id="fb9"></div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="quiz-q" id="q10">
+              <p>
+                10. A borrower disputes that they authorised the loan. What is the correct immediate action?
+              </p>
+              <div class="quiz-opt" id="q10_a" onclick="selectOpt(10, 'a')">
+                <span>A.</span> Ask them to check the Zype app — the agreement must have been signed
+              </div>
+              <div class="quiz-opt" id="q10_b" onclick="selectOpt(10, 'b')">
+                <span>B.</span> Continue normal collections activity while the dispute is investigated
+              </div>
+              <div class="quiz-opt" id="q10_c" onclick="selectOpt(10, 'c')">
+                <span>C.</span> Log the dispute as a formal complaint, escalate to supervisor and compliance team, and pause all collections on this account pending review
+              </div>
+              <div class="quiz-opt" id="q10_d" onclick="selectOpt(10, 'd')">
+                <span>D.</span> Tell the borrower the dispute cannot be entertained after disbursement
+              </div>
+              <div class="quiz-feedback" id="fb10"></div>
+            </div>
+
+            <!-- Quiz Actions -->
+            <div style="margin-top: 24px; text-align: center">
+              <button
+                type="button"
+                class="quiz-submit"
+                id="submitBtn"
+                onclick="submitQuiz()"
+              >
+                Submit Assessment
+              </button>
+              <button
+                type="button"
+                class="quiz-submit"
+                id="retakeBtn"
+                style="display: none; background: #475569; margin-left: 10px;"
+                onclick="retakeQuiz()"
+              >
+                Retake Assessment
+              </button>
+            </div>
+          </div>
+
+          <!-- Score Box -->
+          <div class="quiz-score" id="quizScore">
+            <div class="score-num" id="scoreNum">0 / 10</div>
+            <div id="scoreMsg"></div>
+          </div>
+
+          <!-- Certificate & Signoff Box -->
+          <div class="cert-box" id="certBox">
+            <h2 style="color: #15803d; border: none; margin-top: 0">
+              Congratulations! You Have Passed.
+            </h2>
+            <p style="color: #166534">
+              You have demonstrated compliance with RBI directions and Respo's
+              Fair Practices Code.
+            </p>
+
+            <h3 style="margin-top: 24px; text-align: left">
+              Training Completion Acknowledgement
+            </h3>
+            <p style="font-size: 13px; text-align: left; color: #334155">
+              By completing this training, you confirm that you have read,
+              understood, and agree to comply with all the guidelines in this
+              manual, including:
+            </p>
+            <ul style="font-size: 13px; text-align: left; color: #334155">
+              <li>Reserve Bank of India (Digital Lending) Directions, 2025</li>
+              <li>
+                Reserve Bank of India (Non-Banking Financial Companies —
+                Responsible Business Conduct) Directions, 2025
+              </li>
+              <li>Respo's Fair Practices Code</li>
+              <li>
+                Applicable data-protection requirements and Respo's
+                privacy/data-security policies
+              </li>
+              <li>
+                Master Direction — Reserve Bank of India (Credit Information
+                Reporting) Directions, 2025
+              </li>
+              <li>
+                Reserve Bank of India (Non-Banking Financial Companies —
+                Managing Risks in Outsourcing) Directions, 2025
+              </li>
+              <li>Reserve Bank — Integrated Ombudsman Scheme, 2021</li>
+              <li>Respo's Code of Conduct for Customer Service Staff</li>
+            </ul>
+
+            <table class="signoff-table">
+              <tr>
+                <td>
+                  <strong>Employee Details</strong><br /><br />
+                  Name: ______________________<br />
+                  Employee ID: _______________<br />
+                  Date of Completion: _________<br />
+                  Assessment Score: ______ / 10<br />
+                  Signature: __________________
+                </td>
+                <td>
+                  <strong>Supervisor Sign-Off</strong><br /><br />
+                  Name: ______________________<br />
+                  Designation: _______________<br />
+                  Date: ______________________<br />
+                  Signature: __________________
+                </td>
+              </tr>
+            </table>
+
+            <div class="box box-good" style="text-align: left; font-size: 13px">
+              <strong>Annual Refresh:</strong> You are required to repeat this
+              training annually or whenever there is a material change to
+              applicable RBI directions, Respo's Fair Practices Code,
+              data-protection requirements or relevant internal policies. Your
+              supervisor will notify you when refresher training is due.
+            </div>
+
+            <p
+              style="
+                color: #b91c1c;
+                font-style: italic;
+                font-size: 13.5px;
+                margin-top: 24px;
+              "
+            >
+              Respo Financial Capital Private Limited — For Internal Use Only —
+              Not for Distribution
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+      const TOTAL = 10;
+      let currentModule = 0;
+      let completed = new Set([0]);
+      let unlocked = new Set([0]);
+      let answers = {};
+
+      const CORRECT = {
+        1: "b",
+        2: "a",
+        3: "b",
+        4: "b",
+        5: "b",
+        6: "b",
+        7: "c",
+        8: "b",
+        9: "c",
+        10: "c",
+      };
+
+      const FEEDBACK = {
+        1: {
+          b: "Correct. Reserve Bank of India (Digital Lending) Directions, 2025 mandates a cooling-off period during which borrowers can exit the loan without penalty. Respo's Board-approved period is 3 days. No penalty charges are permissible.",
+          wrong:
+            "Incorrect. Reserve Bank of India (Digital Lending) Directions, 2025 mandates a cooling-off period during which borrowers can exit the loan without penalty. Respo's Board-approved period is 3 days.",
+        },
+        2: {
+          a: "Correct. Non-delivery of KFS is an RBI compliance issue under the Reserve Bank of India (Digital Lending) Directions, 2025. It must be logged as a complaint and escalated. The borrower must receive the KFS before or at loan execution.",
+          wrong:
+            "Incorrect. KFS must be delivered and explained before loan execution. Inform the borrower and resend if required.",
+        },
+        3: {
+          b: "Correct. A borrower must first complain to the RE. If the complaint is rejected wholly or partly, the borrower is dissatisfied with the RE's reply, or no reply is received within 30 days, the borrower may approach RBI's Complaint Management System, subject to the Reserve Bank – Integrated Ombudsman Scheme, 2021.",
+          wrong:
+            "Incorrect. The RBI Ombudsman can be approached after 30 days or upon rejection/unsatisfactory response.",
+        },
+        4: {
+          b: "Correct. Reserve Bank of India (Digital Lending) Directions, 2025 explicitly prohibit automatic credit limit enhancements. Any increase requires the borrower's explicit request. The increase is then subject to credit assessment — it is not automatic.",
+          wrong:
+            "Incorrect. Automatic credit limit increases are strictly prohibited under RBI directions.",
+        },
+        5: {
+          b: "Correct. Dark patterns are prohibited under CCPA Guidelines 2023 and RBI (NBFC – Responsible Business Conduct) Directions, 2025. Examples include hidden charges, forced opt-ins, misleading APR display, and making cancellation options difficult to find.",
+          wrong:
+            "Incorrect. Dark patterns are deceptive design/communication techniques used to manipulate users.",
+        },
+        6: {
+          b: "Correct. You must never threaten or pressure a borrower. Acknowledge their right, focus on resolution, and ensure the GRO is involved immediately. Social media threats often signal a service failure that needs urgent attention.",
+          wrong:
+            "Incorrect. Stay calm, acknowledge their right, and escalate to supervisor and GRO.",
+        },
+        7: {
+          c: "Correct. Automatic credit-limit enhancement without an explicit borrower request is prohibited. Separately, a DLA must desist from accessing contact lists, call logs, files/media and telephony functions. One-time access to camera, microphone or location may be taken only where necessary for onboarding/KYC and with explicit borrower consent.",
+          wrong:
+            "Incorrect. Automatic credit limit enhancement is explicitly prohibited under RBI Digital Lending Directions.",
+        },
+        8: {
+          b: "Correct. Empathy and proper process are both required. You are not authorised to make restructuring decisions unilaterally. Acknowledge the situation, escalate to the appropriate team, and ensure the borrower knows what happens next.",
+          wrong:
+            "Incorrect. Acknowledge with empathy, note on account, and escalate to hardship team/supervisor.",
+        },
+        9: {
+          c: "Correct. Never disclose or provide access to another borrower's account or personal data. Requests concerning a borrower's own data must be handled only through Respo's approved privacy, grievance and verification processes and in accordance with applicable law.",
+          wrong:
+            "Incorrect. Access to another borrower's personal data is strictly prohibited.",
+        },
+        10: {
+          c: "Correct. Loan disputes must be taken seriously and escalated immediately. Collections activity must pause pending proper review. Dismissing or continuing collections on a disputed account is a compliance violation.",
+          wrong:
+            "Incorrect. Log formal dispute, escalate to supervisor & compliance, and pause collections pending review.",
+        },
+      };
+
+      function showModule(n, isCta = false) {
+        if (isCta) {
+          unlocked.add(n);
+        }
+        if (!unlocked.has(n)) return;
+        document
+          .querySelectorAll(".module")
+          .forEach((m) => m.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-item")
+          .forEach((m) => m.classList.remove("active"));
+        document.getElementById("module" + n).classList.add("active");
+        document.getElementById("nav" + n).classList.add("active");
+        if (n !== 0 && n !== 12) {
+          completed.add(n);
+        }
+        currentModule = n;
+        updateProgress();
+        window.scrollTo(0, 0);
+      }
+
+      function updateProgress() {
+        for (let i = 0; i <= 12; i++) {
+          const nav = document.getElementById("nav" + i);
+          if (nav) {
+            if (!unlocked.has(i)) {
+              nav.classList.add("locked");
+            } else {
+              nav.classList.remove("locked");
+            }
+
+            if (completed.has(i) && i !== currentModule) {
+              nav.classList.add("done");
+            } else {
+              nav.classList.remove("done");
+            }
+          }
+        }
+        let count = 0;
+        for (let i = 1; i <= 11; i++) {
+          if (completed.has(i)) count++;
+        }
+        let pct = Math.round((count / 11) * 80);
+        if (completed.has(12)) {
+          pct = 100;
+        }
+        document.getElementById("progressFill").style.width = pct + "%";
+        document.getElementById("progressLabel").textContent =
+          pct + "% complete";
+      }
+
+      function selectOpt(qNum, opt) {
+        answers[qNum] = opt;
+        const q = document.getElementById("q" + qNum);
+        if (q) {
+          q.style.border = "";
+          q.style.padding = "";
+          q.querySelectorAll(".quiz-opt").forEach((o) => {
+            o.classList.remove("selected");
+            o.style.fontWeight = "";
+            o.style.background = "";
+            o.style.borderColor = "";
+          });
+        }
+        let selectedOpt = document.getElementById("q" + qNum + "_" + opt);
+        if (!selectedOpt && window.event && window.event.currentTarget) {
+          selectedOpt = window.event.currentTarget;
+        }
+        if (selectedOpt) {
+          selectedOpt.classList.add("selected");
+          selectedOpt.style.borderColor = "var(--navy)";
+          selectedOpt.style.background = "#f1f5f9";
+          selectedOpt.style.fontWeight = "600";
+        }
+        const quizWarn = document.getElementById("quizWarn");
+        if (quizWarn && Object.keys(answers).length === 10) {
+          quizWarn.style.display = "none";
+        }
+      }
+
+      function submitQuiz() {
+        let unanswered = [];
+        for (let i = 1; i <= 10; i++) {
+          if (!answers[i]) {
+            unanswered.push(i);
+          }
+        }
+
+        const quizWarn = document.getElementById("quizWarn");
+        if (unanswered.length > 0) {
+          if (quizWarn) {
+            quizWarn.style.display = "block";
+            quizWarn.textContent =
+              "Please answer all 10 questions before submitting. Unanswered question(s): #" +
+              unanswered.join(", #");
+          }
+          for (let i = 1; i <= 10; i++) {
+            const q = document.getElementById("q" + i);
+            if (q) {
+              if (!answers[i]) {
+                q.style.border = "2px solid var(--red)";
+                q.style.borderRadius = "var(--radius)";
+                q.style.padding = "10px";
+              } else {
+                q.style.border = "";
+                q.style.padding = "";
+              }
+            }
+          }
+          const firstUnanswered = document.getElementById("q" + unanswered[0]);
+          if (firstUnanswered) {
+            firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else if (quizWarn) {
+            quizWarn.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          return;
+        }
+
+        if (quizWarn) quizWarn.style.display = "none";
+        for (let i = 1; i <= 10; i++) {
+          const q = document.getElementById("q" + i);
+          if (q) {
+            q.style.border = "";
+            q.style.padding = "";
+          }
+        }
+
+        let score = 0;
+        for (let i = 1; i <= 10; i++) {
+          const q = document.getElementById("q" + i);
+          const opts = q.querySelectorAll(".quiz-opt");
+          const fb = document.getElementById("fb" + i);
+          const chosen = answers[i];
+          const correct = CORRECT[i];
+
+          opts.forEach((o, idx) => {
+            const letter = String.fromCharCode(97 + idx);
+            o.onclick = null; // disable further clicks
+            if (letter === chosen) {
+              if (chosen === correct) {
+                o.classList.add("correct");
+              } else {
+                o.classList.add("wrong");
+              }
+            }
+          });
+
+          if (chosen === correct) {
+            score++;
+            fb.className = "quiz-feedback show box box-good";
+            fb.style.display = "block";
+            fb.textContent = "✓ " + FEEDBACK[i][correct];
+          } else {
+            fb.className = "quiz-feedback";
+            fb.style.display = "none";
+            fb.textContent = "";
+          }
+        }
+
+        const scoreDiv = document.getElementById("quizScore");
+        const scoreNum = document.getElementById("scoreNum");
+        const scoreMsg = document.getElementById("scoreMsg");
+        scoreDiv.classList.add("show");
+        scoreNum.textContent = score + " / 10";
+        document.getElementById("submitBtn").style.display = "none";
+        document.getElementById("retakeBtn").style.display = "inline-block";
+
+        if (score >= 7) {
+          completed.add(12);
+          updateProgress();
+          scoreDiv.style.background = "#f0fdf4";
+          scoreDiv.style.borderColor = "#bbf7d0";
+          scoreNum.style.color = "#16a34a";
+          scoreMsg.innerHTML =
+            "<strong>Congratulations — you have passed!</strong><br>You scored " +
+            score +
+            " out of 10. Your training is now complete.";
+          document.getElementById("certBox").style.display = "block";
+          setTimeout(() => {
+            scoreDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 50);
+        } else {
+          scoreDiv.style.background = "#fef2f2";
+          scoreDiv.style.borderColor = "#fecaca";
+          scoreNum.style.color = "#dc2626";
+          scoreMsg.innerHTML =
+            "<strong>Score: " +
+            score +
+            "/10 — Please retake the assessment.</strong><br>You need at least 7 out of 10 to pass. Review the modules and try again.";
+          setTimeout(() => {
+            scoreDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 50);
+        }
+      }
+
+      function retakeQuiz() {
+        answers = {};
+        completed = new Set([0]);
+        unlocked = new Set([0]);
+        for (let i = 1; i <= 12; i++) {
+          const el = document.getElementById("nav" + i);
+          if (el) {
+            el.classList.remove("done", "active");
+            if (i > 0) el.classList.add("locked");
+          }
+        }
+        document.getElementById("quizScore").classList.remove("show");
+        document.getElementById("quizScore").style.display = "none";
+        document.getElementById("certBox").style.display = "none";
+        document.getElementById("submitBtn").style.display = "inline-block";
+        document.getElementById("retakeBtn").style.display = "none";
+        const quizWarn = document.getElementById("quizWarn");
+        if (quizWarn) quizWarn.style.display = "none";
+
+        for (let i = 1; i <= 10; i++) {
+          const q = document.getElementById("q" + i);
+          if (q) {
+            q.style.border = "";
+            q.style.padding = "";
+            const opts = q.querySelectorAll(".quiz-opt");
+            opts.forEach((o, idx) => {
+              o.className = "quiz-opt";
+              const letter = String.fromCharCode(97 + idx);
+              o.onclick = function () {
+                selectOpt(i, letter);
+              };
+            });
+            const fb = document.getElementById("fb" + i);
+            if (fb) {
+              fb.className = "quiz-feedback";
+              fb.style.display = "none";
+              fb.textContent = "";
+            }
+          }
+        }
+
+        updateProgress();
+        showModule(0);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // init
+      updateProgress();
+    </script>
+  </body>
+</html>
